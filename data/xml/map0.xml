@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MAPFILE>
+   <settings>
+      <boundary>
+         <Range>
+            <pos><Vec2f x="0.0" y="0.0"/></pos>
+            <size><Vec2f x="1.0" y="1.0"/></size>
+         </Range>
+      </boundary>
+      <numSegments><Vec2i x="1" y="1"/></numSegments>
+      <segmentSize><Vec2f x="1.0" y="1.0"/></segmentSize>
+      <segmentsDir>data/xml/0</segmentsDir>
+   </settings>
+   <customSettings>
+      <windowSize><Vec2i x="300" y="300"/></windowSize>
+      <bgColour><Colour r="0.2" g="1.0" b="0.2" a="1.0"/></bgColour>
+      <tileSize><Vec2f x="0.1" y="0.1"/></tileSize>
+      <numericTileProtoId>101</numericTileProtoId>
+      <mineProtoId>301</mineProtoId>
+      <numMines>24</numMines>
+   </customSettings>
+   <using>
+      <file>data/xml/numericTile.xml</file>
+      <file>data/xml/mine.xml</file>
+      <file>data/xml/player.xml</file>
+      <file>data/xml/soil.xml</file>
+   </using>
+   <assets>
+      <asset id="0" proto="201" addToWorld="true"><Player><Item><Entity type="player" name="player" x="0.0" y="0.0" z="5" rot="0.0"/></Item><Sprite/></Player></asset>
+   </assets>
+</MAPFILE>

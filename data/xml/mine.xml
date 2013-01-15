@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASSETFILE>
+   <assets>
+      <asset id="300">
+         <Texture path="data/textures/mine.png"/>
+      </asset>
+      <asset id="301">
+         <Mine addToWorld="false">
+            <Item>
+               <Entity type="mine" name="mineProto" x="0.0" y="0.0" z="4" rot="0.0">
+                  <shape>
+                     <Polygon>
+                        <Vec2f x="0.0" y="0.0"/>
+                        <Vec2f x="0.1" y="0.0"/>
+                        <Vec2f x="0.1" y="0.1"/>
+                        <Vec2f x="0.0" y="0.1"/>
+                     </Polygon>
+                  </shape>
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="300"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="16" y="16"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="0.1" y="0.1"/>
+                  </onScreenSize>
+                  <animation>
+                     <Animation name="explode" duration="0.3">
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="16" y="16"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.75"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="16" y="16"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.5"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="16" y="16"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.25"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="16" y="16"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.0"/></col>
+                        </AnimFrame>
+                     </Animation>
+                  </animation>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </Mine>
+      </asset>
+   </assets>
+</ASSETFILE>
