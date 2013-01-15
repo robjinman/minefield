@@ -1,5 +1,5 @@
-#ifndef __SOIL_HPP__
-#define __SOIL_HPP__
+#ifndef __EXIT_HPP__
+#define __EXIT_HPP__
 
 
 #include <boost/shared_ptr.hpp>
@@ -9,17 +9,19 @@
 #include "Item.hpp"
 
 
-class Soil : public Item, public Dodge::Sprite {
+class Exit : public Item, public Dodge::Sprite {
    public:
-      Soil(const Dodge::XmlNode data);
-      Soil(const Soil& copy);
-      Soil(const Soil& copy, long name);
+      Exit(const Dodge::XmlNode data);
+      Exit(const Exit& copy);
+      Exit(const Exit& copy, long name);
+
+      void open();
 
       virtual void draw() const;
       virtual void update();
 
       virtual size_t getSize() const;
-      virtual Soil* clone() const;
+      virtual Exit* clone() const;
       virtual void addToWorld();
       virtual void removeFromWorld();
 
@@ -28,14 +30,15 @@ class Soil : public Item, public Dodge::Sprite {
 #ifdef DEBUG
       virtual void dbg_print(std::ostream& out, int tab = 0) const;
 #endif
-      virtual ~Soil();
+      virtual ~Exit();
 
    private:
-      void init();
-      void explosionHandler(Dodge::EEvent* event);
+      enum state_t { IS_CLOSED, IS_OPEN };
+
+      state_t m_state;
 };
 
-typedef boost::shared_ptr<Soil> pSoil_t;
+typedef boost::shared_ptr<Exit> pExit_t;
 
 
 #endif

@@ -169,8 +169,6 @@ void Player::onEvent(const EEvent* event) {
 // Player::explosionHandler
 //===========================================
 void Player::explosionHandler(EEvent* event) {
-   // TODO: if player is in range of explosion
-
    EExplosion* e = static_cast<EExplosion*>(event);
    Vec2f pos = getTranslation_abs() + (getOnScreenSize() / 2.f);
    Vec2f diff = pos - e->pos;
@@ -263,4 +261,12 @@ void Player::assignData(const Dodge::XmlNode data) {
    if (!node.isNull() && node.name() == "Sprite") {
       Sprite::assignData(node);
    }
+}
+
+//===========================================
+// Player::~Player
+//===========================================
+Player::~Player() {
+   EventManager eventManager;
+   eventManager.unregisterCallback(internString("explosion"), Functor<void, TYPELIST_1(EEvent*)>(this, &Player::explosionHandler));
 }

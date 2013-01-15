@@ -12,6 +12,7 @@
 #include "Mine.hpp"
 #include "Player.hpp"
 #include "Soil.hpp"
+#include "Exit.hpp"
 
 
 #define TARGET_MEM_USAGE 115000
@@ -139,10 +140,21 @@ void Application::mouseMove(int x, int y) {
 //===========================================
 void Application::keyboard() {
    if (m_player->getState() == Player::ALIVE) {
-      if (m_keyState[WinIO::KEY_LEFT])    m_player->moveLeft();
-      if (m_keyState[WinIO::KEY_RIGHT])   m_player->moveRight();
-      if (m_keyState[WinIO::KEY_UP])      m_player->moveUp();
-      if (m_keyState[WinIO::KEY_DOWN])    m_player->moveDown();
+      Vec2f mapPos = m_mapLoader.getMapBoundary().getPosition();
+      Vec2f mapSz = m_mapLoader.getMapBoundary().getSize();
+
+      Vec2f pos = m_player->getTranslation_abs();
+
+      float32_t w = m_tileSize.x;
+      float32_t h = m_tileSize.y;
+
+      float32_t dx = w / 2.f;
+      float32_t dy = h / 2.f;
+
+      if (m_keyState[WinIO::KEY_LEFT])    if (pos.x > mapPos.x + dx)                m_player->moveLeft();
+      if (m_keyState[WinIO::KEY_RIGHT])   if (pos.x + w < mapPos.x + mapSz.x - dx)  m_player->moveRight();
+      if (m_keyState[WinIO::KEY_DOWN])    if (pos.y > mapPos.y + dy)                m_player->moveDown();
+      if (m_keyState[WinIO::KEY_UP])      if (pos.y + h < mapPos.y + mapSz.y - dy)  m_player->moveUp();
    }
 }
 
@@ -193,12 +205,24 @@ void Application::setMapSettings(const XmlNode data) {
       m_tileSize = Vec2f(node.firstChild());
 
       node = node.nextSibling();
+      XML_NODE_CHECK(node, playerProtoId);
+      m_playerProtoId = node.getLong();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, exitProtoId);
+      m_exitProtoId = node.getLong();
+
+      node = node.nextSibling();
       XML_NODE_CHECK(node, numericTileProtoId);
       m_numericTileProtoId = node.getLong();
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, mineProtoId);
       m_mineProtoId = node.getLong();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, soilProtoId);
+      m_soilProtoId = node.getLong();
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, numMines);
@@ -360,6 +384,7 @@ pAsset_t Application::constructAsset(const XmlNode data) {
       if (node.name() == "NumericTile") item = pItem_t(new NumericTile(node));
       if (node.name() == "Player") item = pItem_t(new Player(node));
       if (node.name() == "Soil") item = pItem_t(new Soil(node));
+      if (node.name() == "Exit") item = pItem_t(new Exit(node));
       // ...
    }
 
@@ -383,6 +408,7 @@ void Application::update() {
       i->second->update();
 
    m_player->update();
+   m_exit->update();
 }
 
 //===========================================
@@ -397,6 +423,13 @@ void Application::onWindowResize(int w, int h) {
 // Application::playerDeath
 //===========================================
 void Application::playerDeath() {
+   // TODO
+}
+
+//===========================================
+// Application::gameSuccess
+//===========================================
+void Application::gameSuccess(const EEvent* event) {
    // TODO
 }
 
@@ -417,11 +450,20 @@ void Application::draw() const {
       i->second->draw();
 
    m_player->draw();
+   m_exit->draw();
 
 #ifdef DEBUG
    if (dbg_worldSpaceVisible)
       m_worldSpace.dbg_draw(Colour(1.f, 1.f, 1.f, 1.f), 2, 9);
 #endif
+}
+
+//===========================================
+// Application::isAdjacentTo
+//===========================================
+bool Application::isAdjacentTo(const Vec2i& a, const Vec2i& b) const {
+   return a.x <= b.x + 1 && a.x >= b.x - 1
+      && a.y <= b.y + 1 && a.y >= b.y - 1;
 }
 
 //===========================================
@@ -435,6 +477,28 @@ void Application::populateMap() {
    const Vec2f& pos = mb.getPosition();
    const Vec2f& sz = mb.getSize();
 
+   // Construct player from prototype
+   pPlayer_t plyr(dynamic_cast<Player*>(m_assetManager.cloneAsset(m_playerProtoId)));
+
+   if (!plyr)
+      throw Exception("Error populating map; Bad player proto id", __FILE__, __LINE__);
+
+   plyr->setTranslation(pos);
+   plyr->addToWorld();
+   m_worldSpace.trackEntity(plyr);
+   m_player = plyr;
+
+   // Construct exit from prototype
+   pExit_t exit(dynamic_cast<Exit*>(m_assetManager.cloneAsset(m_exitProtoId)));
+
+   if (!exit)
+      throw Exception("Error populating map; Bad exit proto id", __FILE__, __LINE__);
+
+   exit->setTranslation(pos + sz - m_tileSize);
+   exit->addToWorld();
+   m_worldSpace.trackEntity(exit);
+   m_exit = exit;
+
    int w = floor(sz.x / m_tileSize.x + 0.5);
    int h = floor(sz.y / m_tileSize.y + 0.5);
 
@@ -443,6 +507,14 @@ void Application::populateMap() {
       m_mineField.push_back(std::vector<pItem_t>());
       m_mineField[i].resize(h);
    }
+
+   Vec2f plyrPos = m_player->getTranslation_abs();
+   int plyrI = floor((plyrPos.x - mb.getPosition().x) / m_tileSize.x + 0.5);
+   int plyrJ = floor((plyrPos.y - mb.getPosition().y) / m_tileSize.y + 0.5);
+
+   Vec2f exitPos = m_exit->getTranslation_abs();
+   int exitI = floor((exitPos.x - mb.getPosition().x) / m_tileSize.x + 0.5);
+   int exitJ = floor((exitPos.y - mb.getPosition().y) / m_tileSize.y + 0.5);
 
    pMine_t mineProto = boost::dynamic_pointer_cast<Mine>(m_assetManager.getAssetPointer(m_mineProtoId));
    if (!mineProto)
@@ -455,6 +527,13 @@ void Application::populateMap() {
    for (int m = 0; m < m_numMines; ++m) {
       int i = rand() % w;
       int j = rand() % h;
+
+      if (isAdjacentTo(Vec2i(i, j), Vec2i(plyrI, plyrJ))
+         || isAdjacentTo(Vec2i(i, j), Vec2i(exitI, exitJ))) {
+
+         --m;
+         continue;
+      }
 
       if (m_mineField[i][j]) {
          if (m_mineField[i][j]->getTypeName() == mineStr) {
@@ -516,7 +595,23 @@ void Application::populateMap() {
       }
    }
 
-   
+   for (int i = 0; i < w; ++i) {
+      for (int j = 0; j < h; ++j) {
+         if (isAdjacentTo(Vec2i(i, j), Vec2i(plyrI, plyrJ))) continue;
+         if (isAdjacentTo(Vec2i(i, j), Vec2i(exitI, exitJ))) continue;
+
+         float32_t x = pos.x + m_tileSize.x * static_cast<float32_t>(i);
+         float32_t y = pos.y + m_tileSize.y * static_cast<float32_t>(j);
+
+         pSoil_t soil(dynamic_cast<Soil*>(m_assetManager.cloneAsset(m_soilProtoId)));
+
+         soil->setTranslation(x, y);
+
+         soil->addToWorld();
+         m_worldSpace.trackEntity(soil);
+         m_items[soil->getName()] = soil;
+      }
+   }
 }
 
 //===========================================
@@ -558,21 +653,17 @@ void Application::launch(int argc, char** argv) {
    m_eventManager.registerCallback(internString("animFinished"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::onAnimFinished));
 
+   m_eventManager.registerCallback(internString("success"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::gameSuccess));
+
    m_mapLoader.update(m_renderer.getCamera().getTranslation());
-
-   for (auto i = m_items.begin(); i != m_items.end(); ++i) {
-      if (i->first == internString("player")) {
-         m_player = boost::static_pointer_cast<Player>(i->second);
-         m_items.erase(i);
-         break;
-      }
-   }
-
-   if (!m_player) throw Exception("m_player is NULL", __FILE__, __LINE__);
 
 //   m_gameState = ST_START_MENU;
    m_gameState = ST_RUNNING;
    populateMap();
+
+   // TODO remove this
+   m_exit->open();
 
    while (1) {
       LOOP_START

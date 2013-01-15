@@ -33,6 +33,8 @@ class Player : public Item, public Dodge::Sprite {
 #endif
       virtual void assignData(const Dodge::XmlNode data);
 
+      virtual ~Player();
+
    private:
       enum dir_t { MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN };
 

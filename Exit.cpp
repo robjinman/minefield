@@ -1,8 +1,7 @@
 #include <dodge/StringId.hpp>
 #include <dodge/EAnimFinished.hpp>
 #include <dodge/EventManager.hpp>
-#include "Soil.hpp"
-#include "EExplosion.hpp"
+#include "Exit.hpp"
 
 
 using namespace std;
@@ -10,61 +9,48 @@ using namespace Dodge;
 
 
 //===========================================
-// Soil::Soil
+// Exit::Exit
 //===========================================
-Soil::Soil(const XmlNode data)
-   : Asset(internString("Soil")),
+Exit::Exit(const XmlNode data)
+   : Asset(internString("Exit")),
      Entity(data.firstChild().firstChild()),
      Item(data.firstChild()),
-     Sprite(data.nthChild(1)) {
+     Sprite(data.nthChild(1)),
+     m_state(IS_CLOSED) {
 
    try {
-      XML_NODE_CHECK(data, Soil);
+      XML_NODE_CHECK(data, Exit);
    }
    catch (XmlException& e) {
-      e.prepend("Error parsing XML for instance of class Soil; ");
+      e.prepend("Error parsing XML for instance of class Exit; ");
    }
-
-   init();
 }
 
 //===========================================
-// Soil::Soil
+// Exit::Exit
 //===========================================
-Soil::Soil(const Soil& copy)
-   : Asset(internString("Soil")),
+Exit::Exit(const Exit& copy)
+   : Asset(internString("Exit")),
      Entity(copy),
      Item(copy),
-     Sprite(copy) {
-
-   init();
-}
+     Sprite(copy),
+     m_state(IS_CLOSED) {}
 
 //===========================================
-// Soil::Soil
+// Exit::Exit
 //===========================================
-Soil::Soil(const Soil& copy, long name)
-   : Asset(internString("Soil")),
+Exit::Exit(const Exit& copy, long name)
+   : Asset(internString("Exit")),
      Entity(copy, name),
      Item(copy, name),
-     Sprite(copy, name) {
-
-   init();
-}
+     Sprite(copy, name),
+     m_state(IS_CLOSED) {}
 
 //===========================================
-// Soil::init
+// Exit::getSize
 //===========================================
-void Soil::init() {
-   EventManager eventManager;
-   eventManager.registerCallback(internString("explosion"), Functor<void, TYPELIST_1(EEvent*)>(this, &Soil::explosionHandler));
-}
-
-//===========================================
-// Soil::getSize
-//===========================================
-size_t Soil::getSize() const {
-   return sizeof(Soil)
+size_t Exit::getSize() const {
+   return sizeof(Exit)
       - sizeof(Item)
       - sizeof(Sprite)
       + Item::getSize()
@@ -72,36 +58,35 @@ size_t Soil::getSize() const {
 }
 
 //===========================================
-// Soil::clone
+// Exit::clone
 //===========================================
-Soil* Soil::clone() const {
-   return new Soil(*this);
+Exit* Exit::clone() const {
+   return new Exit(*this);
 }
 
 //===========================================
-// Soil::addToWorld
+// Exit::addToWorld
 //===========================================
-void Soil::addToWorld() {
+void Exit::addToWorld() {
    Sprite::addToWorld();
 }
 
 //===========================================
-// Soil::removeFromWorld
+// Exit::removeFromWorld
 //===========================================
-void Soil::removeFromWorld() {
+void Exit::removeFromWorld() {
    Sprite::removeFromWorld();
 }
 
 //===========================================
-// Soil::onEvent
+// Exit::onEvent
 //===========================================
-void Soil::onEvent(const EEvent* event) {
+void Exit::onEvent(const EEvent* event) {
    static long hitFromLeftStr = internString("hitFromLeft");
    static long hitFromTopStr = internString("hitFromTop");
    static long hitFromRightStr = internString("hitFromRight");
    static long hitFromBottomStr = internString("hitFromBottom");
-   static long dissolveStr = internString("dissolve");
-   static long animFinishedStr = internString("animFinished");
+   static long successStr = internString("success");
 
    Sprite::onEvent(event);
 
@@ -110,38 +95,20 @@ void Soil::onEvent(const EEvent* event) {
       || event->getType() == hitFromTopStr
       || event->getType() == hitFromBottomStr) {
 
-      playAnimation(dissolveStr);
+      EventManager eventManager;
+      EEvent* e = new EEvent(successStr);
+      eventManager.queueEvent(e);
    }
-   else if (event->getType() == animFinishedStr) {
-      const EAnimFinished* e = static_cast<const EAnimFinished*>(event);
-
-      if (e->animation->getName() == dissolveStr)
-         setPendingDeletion();
-   }
-}
-
-//===========================================
-// Soil::explosionHandler
-//===========================================
-void Soil::explosionHandler(EEvent* event) {
-   static long dissolveStr = internString("dissolve");
-
-   EExplosion* e = static_cast<EExplosion*>(event);
-   Vec2f pos = getTranslation_abs() + (getOnScreenSize() / 2.f);
-   Vec2f diff = pos - e->pos;
-
-   if (diff.x * diff.x + diff.y * diff.y < e->radius * e->radius)
-      playAnimation(dissolveStr);
 }
 
 #ifdef DEBUG
 //===========================================
-// Soil::dbg_print
+// Exit::dbg_print
 //===========================================
-void Soil::dbg_print(ostream& out, int tab) const {
+void Exit::dbg_print(ostream& out, int tab) const {
    for (int i = 0; i < tab; ++i) out << "\t";
 
-   out << "Soil\n";
+   out << "Exit\n";
 
    Item::dbg_print(out, tab + 1);
    Sprite::dbg_print(out, tab + 1);
@@ -149,25 +116,37 @@ void Soil::dbg_print(ostream& out, int tab) const {
 #endif
 
 //===========================================
-// Soil::update
+// Exit::update
 //===========================================
-void Soil::update() {
+void Exit::update() {
    Sprite::update();
 }
 
 //===========================================
-// Soil::draw
+// Exit::draw
 //===========================================
-void Soil::draw() const {
+void Exit::draw() const {
    Sprite::draw();
 }
 
 //===========================================
-// Soil::assignData
+// Exit::open
 //===========================================
-void Soil::assignData(const XmlNode data) {
+void Exit::open() {
+   static long openIdleStr = internString("openIdle");
+
+   if (m_state != IS_OPEN) {
+      playAnimation(openIdleStr, true);
+      m_state = IS_OPEN;
+   }
+}
+
+//===========================================
+// Exit::assignData
+//===========================================
+void Exit::assignData(const XmlNode data) {
    try {
-      XML_NODE_CHECK(data, Soil)
+      XML_NODE_CHECK(data, Exit)
 
       XmlNode node = data.firstChild();
       if (!node.isNull() && node.name() == "Item") {
@@ -180,15 +159,12 @@ void Soil::assignData(const XmlNode data) {
       }
    }
    catch (XmlException& e) {
-      e.prepend("Error parsing XML for instance of class Soil; ");
+      e.prepend("Error parsing XML for instance of class Exit; ");
       throw;
    }
 }
 
 //===========================================
-// Soil::~Soil
+// Exit::~Exit
 //===========================================
-Soil::~Soil() {
-   EventManager eventManager;
-   eventManager.unregisterCallback(internString("explosion"), Functor<void, TYPELIST_1(EEvent*)>(this, &Soil::explosionHandler)); 
-}
+Exit::~Exit() {}

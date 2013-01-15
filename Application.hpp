@@ -11,6 +11,7 @@
 #include <string>
 #include <dodge/dodge.hpp>
 #include "Player.hpp"
+#include "Exit.hpp"
 
 
 class Application {
@@ -54,6 +55,8 @@ class Application {
       void playerDeath();
       void freeAllAssets();
       void onAnimFinished(const Dodge::EEvent* event);
+      bool isAdjacentTo(const Dodge::Vec2i& a, const Dodge::Vec2i& b) const;
+      void gameSuccess(const Dodge::EEvent* event);
 
       void exitDefault();
 
@@ -84,9 +87,13 @@ class Application {
       std::vector<std::vector<pItem_t> > m_mineField;
 
       Dodge::Vec2f                  m_tileSize;
+      long                          m_playerProtoId;
+      long                          m_exitProtoId;
       long                          m_numericTileProtoId;
       long                          m_mineProtoId;
+      long                          m_soilProtoId;
       pPlayer_t                     m_player;
+      pExit_t                       m_exit;
       int                           m_numMines;
 };
 

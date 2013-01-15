@@ -7,7 +7,7 @@
       <asset id="201" addToWorld="false">
          <Player>
             <Item>
-               <Entity type="player" name="playerProto" x="0.0" y="0.0" z="3" rot="0.0">
+               <Entity type="player" name="playerProto" x="0.0" y="0.0" z="6" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0.0" y="0.0"/>

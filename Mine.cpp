@@ -86,7 +86,7 @@ void Mine::explode() {
       playAnimation(explodeStr);
 
       EventManager eventManager;
-      EExplosion* event = new EExplosion(getTranslation_abs() + (getOnScreenSize() / 2.f), 0.15);
+      EExplosion* event = new EExplosion(getTranslation_abs() + (getOnScreenSize() / 2.f), 0.25);
       eventManager.queueEvent(event);
 
       m_state = EXPLODING;
