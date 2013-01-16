@@ -15,6 +15,7 @@
       <windowSize><Vec2i x="300" y="300"/></windowSize>
       <bgColour><Colour r="0.8" g="0.8" b="0.8" a="1.0"/></bgColour>
       <tileSize><Vec2f x="0.1" y="0.1"/></tileSize>
+      <startMenuId>601</startMenuId>
       <playerProtoId>201</playerProtoId>
       <exitProtoId>501</exitProtoId>
       <numericTileProtoId>101</numericTileProtoId>
@@ -28,6 +29,7 @@
       <file>data/xml/player.xml</file>
       <file>data/xml/soil.xml</file>
       <file>data/xml/exit.xml</file>
+      <file>data/xml/startMenu.xml</file>
    </using>
    <assets>
    </assets>

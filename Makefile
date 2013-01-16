@@ -7,10 +7,12 @@ OBJS = Application.o \
 	Exit.o \
 	Item.o \
 	main.o \
+	MenuItem.o \
 	Mine.o \
 	NumericTile.o \
 	Player.o \
-	Soil.o
+	Soil.o \
+	StartMenu.o
 
 all: $(OBJS)
 	$(CC) $(OBJS) -o $(NAME) $(LIBS)

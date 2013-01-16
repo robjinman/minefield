@@ -4,7 +4,7 @@
       <asset id="500"><Texture path="data/textures/exit.png"/></asset>
       <asset id="501" addToWorld="false">
          <Exit>
-            <Item solid="true">
+            <Item>
                <Entity type="exit" name="exitProto" x="0.0" y="0.0" z="5" rot="0.0">
                   <shape>
                      <Polygon>

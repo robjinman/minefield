@@ -13,6 +13,8 @@
 #include "Player.hpp"
 #include "Soil.hpp"
 #include "Exit.hpp"
+#include "StartMenu.hpp"
+#include "MenuItem.hpp"
 
 
 #define TARGET_MEM_USAGE 115000
@@ -139,22 +141,28 @@ void Application::mouseMove(int x, int y) {
 // Application::keyboard
 //===========================================
 void Application::keyboard() {
-   if (m_player->getState() == Player::ALIVE) {
-      Vec2f mapPos = m_mapLoader.getMapBoundary().getPosition();
-      Vec2f mapSz = m_mapLoader.getMapBoundary().getSize();
+   switch (m_gameState) {
+      case ST_RUNNING:
+         if (m_player->getState() == Player::ALIVE) {
+            Vec2f mapPos = m_mapLoader.getMapBoundary().getPosition();
+            Vec2f mapSz = m_mapLoader.getMapBoundary().getSize();
 
-      Vec2f pos = m_player->getTranslation_abs();
+            Vec2f pos = m_player->getTranslation_abs();
 
-      float32_t w = m_tileSize.x;
-      float32_t h = m_tileSize.y;
+            float32_t w = m_tileSize.x;
+            float32_t h = m_tileSize.y;
 
-      float32_t dx = w / 2.f;
-      float32_t dy = h / 2.f;
+            float32_t dx = w / 2.f;
+            float32_t dy = h / 2.f;
 
-      if (m_keyState[WinIO::KEY_LEFT])    if (pos.x > mapPos.x + dx)                m_player->moveLeft();
-      if (m_keyState[WinIO::KEY_RIGHT])   if (pos.x + w < mapPos.x + mapSz.x - dx)  m_player->moveRight();
-      if (m_keyState[WinIO::KEY_DOWN])    if (pos.y > mapPos.y + dy)                m_player->moveDown();
-      if (m_keyState[WinIO::KEY_UP])      if (pos.y + h < mapPos.y + mapSz.y - dy)  m_player->moveUp();
+            if (m_keyState[WinIO::KEY_LEFT])    if (pos.x > mapPos.x + dx)                m_player->moveLeft();
+            if (m_keyState[WinIO::KEY_RIGHT])   if (pos.x + w < mapPos.x + mapSz.x - dx)  m_player->moveRight();
+            if (m_keyState[WinIO::KEY_DOWN])    if (pos.y > mapPos.y + dy)                m_player->moveDown();
+            if (m_keyState[WinIO::KEY_UP])      if (pos.y + h < mapPos.y + mapSz.y - dy)  m_player->moveUp();
+         }
+      break;
+      case ST_START_MENU:
+      break;
    }
 }
 
@@ -205,6 +213,10 @@ void Application::setMapSettings(const XmlNode data) {
       m_tileSize = Vec2f(node.firstChild());
 
       node = node.nextSibling();
+      XML_NODE_CHECK(node, startMenuId);
+      m_startMenuId = node.getLong();
+
+      node = node.nextSibling();
       XML_NODE_CHECK(node, playerProtoId);
       m_playerProtoId = node.getLong();
 
@@ -228,7 +240,7 @@ void Application::setMapSettings(const XmlNode data) {
       XML_NODE_CHECK(node, numMines);
       m_numMines = node.getInt();
 
-      m_win.init("Mine Field", winSz.x, winSz.y, false);
+      m_win.init("Minefield", winSz.x, winSz.y, false);
       m_renderer.start();
 
       pCamera_t camera(new Camera(static_cast<float32_t>(winSz.x) / static_cast<float32_t>(winSz.y), 1.f));
@@ -385,6 +397,8 @@ pAsset_t Application::constructAsset(const XmlNode data) {
       if (node.name() == "Player") item = pItem_t(new Player(node));
       if (node.name() == "Soil") item = pItem_t(new Soil(node));
       if (node.name() == "Exit") item = pItem_t(new Exit(node));
+      if (node.name() == "StartMenu") item = pItem_t(new StartMenu(node));
+      if (node.name() == "MenuItem") item = pItem_t(new MenuItem(node));
       // ...
    }
 
@@ -404,11 +418,18 @@ pAsset_t Application::constructAsset(const XmlNode data) {
 // Application::update
 //===========================================
 void Application::update() {
-   for (auto i = m_items.begin(); i != m_items.end(); ++i)
-      i->second->update();
+   switch (m_gameState) {
+      case ST_RUNNING:
+         for (auto i = m_items.begin(); i != m_items.end(); ++i)
+            i->second->update();
 
-   m_player->update();
-   m_exit->update();
+         m_player->update();
+         m_exit->update();
+      break;
+      case ST_START_MENU:
+         m_startMenu->update();
+      break;
+   }
 }
 
 //===========================================
@@ -446,11 +467,18 @@ void Application::draw() const {
       visibleEnts[i]->draw();
 */
 
-   for (auto i = m_items.begin(); i != m_items.end(); ++i)
-      i->second->draw();
+   switch (m_gameState) {
+      case ST_RUNNING:
+         for (auto i = m_items.begin(); i != m_items.end(); ++i)
+            i->second->draw();
 
-   m_player->draw();
-   m_exit->draw();
+         m_player->draw();
+         m_exit->draw();
+      break;
+      case ST_START_MENU:
+         m_startMenu->draw();
+      break;
+   }
 
 #ifdef DEBUG
    if (dbg_worldSpaceVisible)
@@ -615,6 +643,15 @@ void Application::populateMap() {
 }
 
 //===========================================
+// Application::startGame
+//===========================================
+void Application::startGame(EEvent* event) {
+   m_startMenu->setActive(false);
+   populateMap();
+   m_gameState = ST_RUNNING;
+}
+
+//===========================================
 // Application::launch
 //===========================================
 void Application::launch(int argc, char** argv) {
@@ -656,14 +693,18 @@ void Application::launch(int argc, char** argv) {
    m_eventManager.registerCallback(internString("success"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::gameSuccess));
 
+   m_eventManager.registerCallback(internString("startGame"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::startGame));
+
    m_mapLoader.update(m_renderer.getCamera().getTranslation());
 
-//   m_gameState = ST_START_MENU;
-   m_gameState = ST_RUNNING;
-   populateMap();
+   m_startMenu = boost::dynamic_pointer_cast<StartMenu>(m_assetManager.getAssetPointer(m_startMenuId));
+   m_startMenu->addToWorld();
+   if (!m_startMenu)
+      throw Exception("Error loading map; Bad start menu id", __FILE__, __LINE__);
 
-   // TODO remove this
-   m_exit->open();
+   m_startMenu->setActive(true);
+   m_gameState = ST_START_MENU;
 
    while (1) {
       LOOP_START

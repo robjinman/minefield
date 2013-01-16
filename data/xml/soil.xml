@@ -4,7 +4,7 @@
       <asset id="400"><Texture path="data/textures/soil.png"/></asset>
       <asset id="401" addToWorld="false">
          <Soil>
-            <Item solid="true">
+            <Item>
                <Entity type="soil" name="soilProto" x="0.0" y="0.0" z="5" rot="0.0">
                   <shape>
                      <Polygon>
