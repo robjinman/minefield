@@ -1,11 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ASSETFILE>
+   <using>
+      <file>data/xml/settingsMenu.xml</file>
+   </using>
    <assets>
       <asset id="603"><Texture path="data/textures/menuWidgets.png"/></asset>
+      <asset id="604" addToWorld="false">
+         <MenuItem>
+            <Item>
+               <Entity type="menuItem" name="mnuSettings" x="0.0" y="0.0" z="2" rot="0.0">
+                  <shape>
+                     <Polygon>
+                        <Vec2f x="0" y="0"/>
+                        <Vec2f x="0.4" y="0"/>
+                        <Vec2f x="0.4" y="0.1"/>
+                        <Vec2f x="0" y="0.1"/>
+                     </Polygon>
+                  </shape>
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <UiButton>
+               <Sprite>
+                  <Entity/>
+                  <EntityAnimations>
+                     <texture ptr="603"/>
+                     <textureSection>
+                        <Range>
+                           <pos><Vec2f x="0" y="16"/></pos>
+                           <size><Vec2f x="128" y="16"/></size>
+                        </Range>
+                     </textureSection>
+                     <onScreenSize>
+                        <Vec2f x="0.4" y="0.1"/>
+                     </onScreenSize>
+                     <animation>
+                        <Animation name="press" duration="0.15">
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="16"/></pos>
+                              <dim><Vec2i x="128" y="16"/></dim>
+                              <col><Colour r="1.0" g="0.5" b="0.5" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="16"/></pos>
+                              <dim><Vec2i x="128" y="16"/></dim>
+                              <col><Colour r="0.75" g="0.25" b="1.0" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="16"/></pos>
+                              <dim><Vec2i x="128" y="16"/></dim>
+                              <col><Colour r="0.75" g="0.0" b="0.75" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="16"/></pos>
+                              <dim><Vec2i x="128" y="16"/></dim>
+                              <col><Colour r="0.25" g="0.25" b="0.5" a="1.0"/></col>
+                           </AnimFrame>
+                        </Animation>
+                     </animation>
+                     <animation>
+                        <Animation name="release" duration="0.1">
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="16"/></pos>
+                              <dim><Vec2i x="128" y="16"/></dim>
+                              <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                           </AnimFrame>
+                        </Animation>
+                     </animation>
+                  </EntityAnimations>
+                  <EntityTransformations/>
+               </Sprite>
+            </UiButton>
+         </MenuItem>
+      </asset>
       <asset id="602" addToWorld="false">
          <MenuItem>
             <Item>
-               <Entity type="menuItem" name="mnuStartGame" x="0.0" y="0.0" z="2" rot="0.0">
+               <Entity type="menuItem" name="mnuStartGame" x="0.0" y="0.2" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
@@ -89,6 +166,7 @@
                   <lineWidth>0</lineWidth>
                   <children>
                      <child ptr="602"/>
+                     <child ptr="604"/>
                   </children>
                </Entity>
             </Item>
