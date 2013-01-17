@@ -36,12 +36,17 @@ class StartMenu : public Item, public Dodge::Sprite {
 
    private:
       void init();
-      void keyDown(int key);
+      void menuItemKeyDown(Dodge::pEntity_t, int key);
       void menuItemClick(Dodge::pEntity_t entity);
+      void menuItemHoverOn(Dodge::pEntity_t, Dodge::float32_t x, Dodge::float32_t y);
+      int prevItem(int idx) const;
+      int nextItem(int idx) const;
 
       Dodge::WinIO m_win;
       bool m_active;
       std::vector<pMenuItem_t> m_menuItems;
+
+      int m_hasFocus; // idx of menu item with focus (-1 indicates no item has focus)
 };
 
 typedef boost::shared_ptr<StartMenu> pStartMenu_t;

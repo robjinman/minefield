@@ -713,9 +713,9 @@ void Application::launch(int argc, char** argv) {
          case ST_START_MENU:
             computeFrameRate();
             m_win.doEvents();
+            m_eventManager.doEvents();
             keyboard();
             update();
-            m_eventManager.doEvents();
             draw();
             m_renderer.tick(m_bgColour);
             m_win.swapBuffers();
@@ -723,9 +723,9 @@ void Application::launch(int argc, char** argv) {
          case ST_RUNNING:
             computeFrameRate();
             m_win.doEvents();
+            m_eventManager.doEvents();
             keyboard();
             update();
-            m_eventManager.doEvents();
             draw();
             m_renderer.tick(m_bgColour);
             m_win.swapBuffers();

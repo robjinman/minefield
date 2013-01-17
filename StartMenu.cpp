@@ -59,6 +59,7 @@ StartMenu::StartMenu(const StartMenu& copy, long name)
 //===========================================
 void StartMenu::init() {
    static long menuItemStr = internString("menuItem");
+   static long mnuStartGameStr = internString("mnuStartGame");
 
    const set<pEntity_t>& children = getChildren();
    for (auto i = children.begin(); i != children.end(); ++i) {
@@ -67,12 +68,18 @@ void StartMenu::init() {
       if ((*i)->getTypeName() == menuItemStr) {
          pMenuItem_t mnuItem = boost::dynamic_pointer_cast<MenuItem>(*i);
 
+         // Give focus to 'start game' button
+         if (mnuItem->getName() == mnuStartGameStr) {
+            mnuItem->setFocus(true);
+            m_hasFocus = m_menuItems.size();
+         }
+
          m_menuItems.push_back(mnuItem);
          mnuItem->setOnReleaseHandler(Functor<void, TYPELIST_1(pEntity_t)>(this, &StartMenu::menuItemClick));
+         mnuItem->registerCallback(UIEVENT_KEY_DOWN, Functor<void, TYPELIST_2(pEntity_t, int)>(this, &StartMenu::menuItemKeyDown));
+         mnuItem->registerCallback(UIEVENT_HOVER_ON, Functor<void, TYPELIST_3(pEntity_t, float32_t, float32_t)>(this, &StartMenu::menuItemHoverOn));
       }
    }
-
-   m_win.registerCallback(WinIO::EVENT_KEYDOWN, Functor<void, TYPELIST_1(int)>(this, &StartMenu::keyDown));
 }
 
 //===========================================
@@ -80,7 +87,7 @@ void StartMenu::init() {
 //===========================================
 void StartMenu::menuItemClick(pEntity_t entity) {
    static long mnuStartGameStr = internString("mnuStartGame");
-cout << "StartMenu::menuItemClick()\n";
+
    if (!m_active) return;
 
    if (entity->getName() == mnuStartGameStr) {
@@ -91,14 +98,63 @@ cout << "StartMenu::menuItemClick()\n";
 }
 
 //===========================================
-// StartMenu::keyDown
+// StartMenu::menuItemHoverOn
 //===========================================
-void StartMenu::keyDown(int key) { // TODO
+void StartMenu::menuItemHoverOn(pEntity_t entity, float32_t x, float32_t y) {
+   pMenuItem_t item = boost::dynamic_pointer_cast<MenuItem>(entity);
+
+   if (item != m_menuItems[m_hasFocus]) {
+      item->setFocus(true);
+
+      for (uint_t i = 0; i < m_menuItems.size(); ++i) {
+         if (m_menuItems[i] == item) {
+            m_menuItems[m_hasFocus]->setFocus(false);
+            m_hasFocus = i;
+         }
+      }
+   }
+}
+
+//===========================================
+// StartMenu::prevItem
+//===========================================
+int StartMenu::prevItem(int idx) const {
+   if (idx < 0) return -1;
+   if (idx >= static_cast<int>(m_menuItems.size())) return -1;
+
+   return (idx == 0) ? m_menuItems.size() - 1 : idx - 1;
+}
+
+//===========================================
+// StartMenu::nextItem
+//===========================================
+int StartMenu::nextItem(int idx) const {
+   if (idx < 0) return -1;
+   if (idx >= static_cast<int>(m_menuItems.size())) return -1;
+
+   return idx == static_cast<int>(m_menuItems.size()) - 1 ? 0 : idx + 1;
+}
+
+//===========================================
+// StartMenu::menuItemKeyDown
+//===========================================
+void StartMenu::menuItemKeyDown(pEntity_t entity, int key) {
    if (!m_active) return;
 
-   EventManager eventManager;
-   EEvent* event = new EEvent(internString("startGame"));
-   eventManager.queueEvent(event);
+   assert(m_menuItems[m_hasFocus] == entity);
+   assert(boost::dynamic_pointer_cast<MenuItem>(entity)->hasFocus());
+
+   int idx = -1;
+   switch (key) {
+      case WinIO::KEY_UP:     idx = nextItem(m_hasFocus);   break;
+      case WinIO::KEY_DOWN:   idx = prevItem(m_hasFocus);   break;
+   }
+
+   if (idx != -1) {
+      m_menuItems[m_hasFocus]->setFocus(false);
+      m_menuItems[idx]->setFocus(true);
+      m_hasFocus = idx;
+   }
 }
 
 //===========================================
@@ -139,7 +195,6 @@ void StartMenu::removeFromWorld() {
 void StartMenu::onEvent(const EEvent* event) {
    if (!m_active) return;
 
-   // TODO
 }
 
 #ifdef DEBUG
@@ -206,6 +261,4 @@ void StartMenu::assignData(const XmlNode data) {
 //===========================================
 // StartMenu::~StartMenu
 //===========================================
-StartMenu::~StartMenu() {
-   m_win.unregisterCallback(WinIO::EVENT_KEYDOWN, Functor<void, TYPELIST_1(int)>(this, &StartMenu::keyDown));
-}
+StartMenu::~StartMenu() {}
