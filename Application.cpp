@@ -17,6 +17,8 @@
 #include "SettingsMenu.hpp"
 #include "MenuItem.hpp"
 #include "CSprite.hpp"
+#include "Collectable.hpp"
+#include "EUpdateScore.hpp"
 
 
 #define TARGET_MEM_USAGE 9999999
@@ -30,7 +32,8 @@ using namespace Dodge;
 // Application::Application
 //===========================================
 Application::Application()
-   : m_onExit(Functor<void, TYPELIST_0()>(this, &Application::exitDefault)),
+   : m_init(false),
+     m_onExit(Functor<void, TYPELIST_0()>(this, &Application::exitDefault)),
      m_renderer(Dodge::Renderer::getInstance()),
      m_frameRate(60.0) {
 
@@ -56,9 +59,12 @@ void Application::exitDefault() {
 // Application::quit
 //===========================================
 void Application::quit() {
-   m_renderer.stop();
-   m_eventManager.clear();
+   m_eventManager.clear(); // TODO Some monostate/singletons may not have been initialised!
    freeAllAssets();
+#ifdef DEBUG
+   cout << "All assets should have been destroyed by this point\n";
+#endif
+   m_renderer.stop();
    m_win.destroyWindow();
 
    m_onExit();
@@ -68,11 +74,14 @@ void Application::quit() {
 // Application::freeAllAssets
 //===========================================
 void Application::freeAllAssets() {
+   m_assetManager.freeAllAssets();
    m_mineField.clear();
    m_items.clear();
-   m_worldSpace.removeAll();
+   m_worldSpace.removeAndUntrackAll();
    m_mapLoader.freeAllAssets();
    m_player.reset();
+   m_exit.reset();
+   m_startMenu.reset();
 }
 
 //===========================================
@@ -164,11 +173,7 @@ void Application::keyboard() {
             }
             break;
             case Player::DEAD: {
-               if (m_keyState[WinIO::KEY_ENTER]) {
-                  freeAllAssets();
-                  m_gameState = ST_START_MENU;  // TODO
-                  m_startMenu->addToWorld();
-               }
+               if (m_keyState[WinIO::KEY_ENTER]) resetGame();
             }
             break;
          }
@@ -176,6 +181,17 @@ void Application::keyboard() {
       case ST_START_MENU:
       break;
    }
+}
+
+//===========================================
+// Application::resetGame
+//===========================================
+void Application::resetGame() {
+   m_eventManager.clear();
+   freeAllAssets();
+   loadAssets();
+
+   m_gameState = ST_START_MENU;
 }
 
 //===========================================
@@ -209,6 +225,8 @@ void Application::onAnimFinished(const EEvent* event) {
 // Application::setMapSettings
 //===========================================
 void Application::setMapSettings(const XmlNode data) {
+   if (m_init) return;
+
    try {
       XML_NODE_CHECK(data, customSettings);
 
@@ -249,8 +267,20 @@ void Application::setMapSettings(const XmlNode data) {
       m_soilProtoId = node.getLong();
 
       node = node.nextSibling();
+      XML_NODE_CHECK(node, collectableProtoId);
+      m_collectableProtoId = node.getLong();
+
+      node = node.nextSibling();
       XML_NODE_CHECK(node, numMines);
       m_numMines = node.getInt();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, numCollectables);
+      m_numCollectables = node.getInt();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, requiredScore);
+      m_requiredScore = node.getInt();
 
       m_win.init("Minefield", winSz.x, winSz.y, false);
       m_renderer.start();
@@ -261,8 +291,12 @@ void Application::setMapSettings(const XmlNode data) {
       const Range& mb = m_mapLoader.getMapBoundary();
       Range boundary(mb.getPosition() - Vec2f(0.1, 0.1), mb.getSize() + Vec2f(0.2, 0.2));
       m_worldSpace.init(unique_ptr<Quadtree<pEntity_t> >(new Quadtree<pEntity_t>(1, boundary)));
+
+      m_init = true;
    }
    catch (XmlException& e) {
+      m_init = false;
+
       e.prepend("Error loading map settings; ");
       throw;
    }
@@ -353,6 +387,9 @@ void Application::deleteAsset(pAsset_t asset) {
          if (nMines > 0) {
             pNumericTile_t tile(dynamic_cast<NumericTile*>(m_assetManager.cloneAsset(m_numericTileProtoId)));
 
+            if (!tile)
+               throw Exception("Error replacing mine with numeric tile; Bad asset id for numeric tile prototype", __FILE__, __LINE__);
+
             tile->setValue(nMines);
             tile->setTranslation(entity->getTranslation_abs());
 
@@ -413,6 +450,7 @@ pAsset_t Application::constructAsset(const XmlNode data) {
       if (node.name() == "SettingsMenu") item = pItem_t(new SettingsMenu(node));
       if (node.name() == "MenuItem") item = pItem_t(new MenuItem(node));
       if (node.name() == "CSprite") item = pItem_t(new CSprite(node));
+      if (node.name() == "Collectable") item = pItem_t(new Collectable(node));
       // ...
    }
 
@@ -554,14 +592,6 @@ void Application::populateMap() {
    int exitI = floor((exitPos.x - mb.getPosition().x) / m_tileSize.x + 0.5);
    int exitJ = floor((exitPos.y - mb.getPosition().y) / m_tileSize.y + 0.5);
 
-   pMine_t mineProto = boost::dynamic_pointer_cast<Mine>(m_assetManager.getAssetPointer(m_mineProtoId));
-   if (!mineProto)
-      throw Exception("Error populating map; Bad mineProto id", __FILE__, __LINE__);
-
-   pNumericTile_t numTileProto = boost::dynamic_pointer_cast<NumericTile>(m_assetManager.getAssetPointer(m_numericTileProtoId));
-   if (!numTileProto)
-      throw Exception("Error populating map; Bad numericTileProto id", __FILE__, __LINE__);
-
    for (int m = 0; m < m_numMines; ++m) {
       int i = rand() % w;
       int j = rand() % h;
@@ -633,6 +663,39 @@ void Application::populateMap() {
       }
    }
 
+   vector<vector<bool> > coins;
+   for (int i = 0; i < w; ++i) coins.push_back(vector<bool>(h, false));
+
+   for (int c = 0; c < m_numCollectables; ++c) {
+      int i = rand() % w;
+      int j = rand() % h;
+
+      if (i == exitI && j == exitJ) {
+         --c;
+         continue;
+      }
+
+      if (i == plyrI && j == plyrJ) {
+         --c;
+         continue;
+      }
+
+      if (coins[i][j]) {
+         --c;
+         continue;
+      }
+
+      pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_collectableProtoId)));
+
+      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_tileSize.x, pos.y + static_cast<float32_t>(j) * m_tileSize.y);
+
+      item->addToWorld();
+      m_worldSpace.trackEntity(item);
+      m_items[item->getName()] = item;
+
+      coins[i][j] = true;
+   }
+
    for (int i = 0; i < w; ++i) {
       for (int j = 0; j < h; ++j) {
          if (isAdjacentTo(Vec2i(i, j), Vec2i(plyrI, plyrJ))) continue;
@@ -658,7 +721,42 @@ void Application::populateMap() {
 void Application::startGame(EEvent* event) {
    m_startMenu->removeFromWorld();
    populateMap();
+   m_score = 0;
    m_gameState = ST_RUNNING;
+}
+
+//===========================================
+// Application::loadAssets
+//===========================================
+void Application::loadAssets() {
+   m_mapLoader.parseMapFile("data/xml/map0.xml");
+
+   m_mapLoader.update(m_renderer.getCamera().getTranslation());
+
+   m_startMenu = boost::dynamic_pointer_cast<StartMenu>(m_assetManager.getAssetPointer(m_startMenuId));
+   if (!m_startMenu)
+      throw Exception("Error loading map; Bad start menu id", __FILE__, __LINE__);
+
+   m_startMenu->addToWorld();
+}
+
+//===========================================
+// Application::quitGame
+//===========================================
+void Application::quitGame(EEvent* event) {
+   quit();
+}
+
+//===========================================
+// Application::updateScore
+//===========================================
+void Application::updateScore(EEvent* event) {
+   EUpdateScore* e = static_cast<EUpdateScore*>(event);
+
+   m_score += e->value;
+
+   if (m_score >= m_requiredScore)
+      m_exit->open();
 }
 
 //===========================================
@@ -682,7 +780,7 @@ void Application::launch(int argc, char** argv) {
       Functor<void, TYPELIST_1(Dodge::pAsset_t)>(this, &Application::deleteAsset),
       TARGET_MEM_USAGE);
 
-   m_mapLoader.parseMapFile("data/xml/map0.xml");
+   loadAssets();
 
    m_win.registerCallback(WinIO::EVENT_WINCLOSE, Functor<void, TYPELIST_0()>(this, &Application::quit));
    m_win.registerCallback(WinIO::EVENT_KEYDOWN, Functor<void, TYPELIST_1(int)>(this, &Application::keyDown));
@@ -706,13 +804,12 @@ void Application::launch(int argc, char** argv) {
    m_eventManager.registerCallback(internString("startGame"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::startGame));
 
-   m_mapLoader.update(m_renderer.getCamera().getTranslation());
+   m_eventManager.registerCallback(internString("quitGame"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::quitGame));
 
-   m_startMenu = boost::dynamic_pointer_cast<StartMenu>(m_assetManager.getAssetPointer(m_startMenuId));
-   if (!m_startMenu)
-      throw Exception("Error loading map; Bad start menu id", __FILE__, __LINE__);
+   m_eventManager.registerCallback(internString("updateScore"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::updateScore));
 
-   m_startMenu->addToWorld();
    m_gameState = ST_START_MENU;
 
    while (1) {

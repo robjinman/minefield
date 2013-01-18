@@ -345,7 +345,7 @@ void Menu::assignData(const XmlNode data) {
          node = node.nextSibling();
       }
 
-      if (!node.isNull() && node.name() == "submenu") {
+      if (!node.isNull() && node.name() == "submenus") {
 
          XmlNode node_ = node.firstChild();
          m_submenus.clear();

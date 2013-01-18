@@ -15,7 +15,13 @@ NumericTile::NumericTile(const Dodge::XmlNode data)
      Sprite(data.nthChild(1)),
      m_value(1) {
 
-   XML_NODE_CHECK(data, NumericTile);
+   try {
+      XML_NODE_CHECK(data, NumericTile);
+   }
+   catch (XmlException& e) {
+      e.prepend("Error parsing XML for instance of class NumericTile; ");
+      throw;
+   }
 }
 
 //===========================================

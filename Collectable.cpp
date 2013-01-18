@@ -1,7 +1,8 @@
 #include <dodge/StringId.hpp>
 #include <dodge/EAnimFinished.hpp>
 #include <dodge/EventManager.hpp>
-#include "Exit.hpp"
+#include "EUpdateScore.hpp"
+#include "Collectable.hpp"
 
 
 using namespace std;
@@ -9,49 +10,52 @@ using namespace Dodge;
 
 
 //===========================================
-// Exit::Exit
+// Collectable::Collectable
 //===========================================
-Exit::Exit(const XmlNode data)
-   : Asset(internString("Exit")),
+Collectable::Collectable(const XmlNode data)
+   : Asset(internString("Collectable")),
      Entity(data.firstChild().firstChild()),
      Item(data.firstChild()),
-     Sprite(data.nthChild(1)),
-     m_state(IS_CLOSED) {
+     Sprite(data.nthChild(1)) {
 
    try {
-      XML_NODE_CHECK(data, Exit);
+      XML_NODE_CHECK(data, Collectable);
+
+      XmlNode node = data.nthChild(2);
+      XML_NODE_CHECK(node, value);
+      m_value = node.getInt();
    }
    catch (XmlException& e) {
-      e.prepend("Error parsing XML for instance of class Exit; ");
+      e.prepend("Error parsing XML for instance of class Collectable; ");
       throw;
    }
 }
 
 //===========================================
-// Exit::Exit
+// Collectable::Collectable
 //===========================================
-Exit::Exit(const Exit& copy)
-   : Asset(internString("Exit")),
+Collectable::Collectable(const Collectable& copy)
+   : Asset(internString("Collectable")),
      Entity(copy),
      Item(copy),
      Sprite(copy),
-     m_state(IS_CLOSED) {}
+     m_value(copy.m_value) {}
 
 //===========================================
-// Exit::Exit
+// Collectable::Collectable
 //===========================================
-Exit::Exit(const Exit& copy, long name)
-   : Asset(internString("Exit")),
+Collectable::Collectable(const Collectable& copy, long name)
+   : Asset(internString("Collectable")),
      Entity(copy, name),
      Item(copy, name),
      Sprite(copy, name),
-     m_state(IS_CLOSED) {}
+     m_value(copy.m_value) {}
 
 //===========================================
-// Exit::getSize
+// Collectable::getSize
 //===========================================
-size_t Exit::getSize() const {
-   return sizeof(Exit)
+size_t Collectable::getSize() const {
+   return sizeof(Collectable)
       - sizeof(Item)
       - sizeof(Sprite)
       + Item::getSize()
@@ -59,35 +63,44 @@ size_t Exit::getSize() const {
 }
 
 //===========================================
-// Exit::clone
+// Collectable::clone
 //===========================================
-Exit* Exit::clone() const {
-   return new Exit(*this);
+Collectable* Collectable::clone() const {
+   return new Collectable(*this);
 }
 
 //===========================================
-// Exit::addToWorld
+// Collectable::addToWorld
 //===========================================
-void Exit::addToWorld() {
+void Collectable::addToWorld() {
+   static long idleStr = internString("idle");
+
    Sprite::addToWorld();
+   playAnimation(idleStr, true);
+
+   pauseAnimation();
+   int r = rand() % 50;
+   for (int i = 0; i < r; ++i) stepAnimation();
+   playAnimation(true);
 }
 
 //===========================================
-// Exit::removeFromWorld
+// Collectable::removeFromWorld
 //===========================================
-void Exit::removeFromWorld() {
+void Collectable::removeFromWorld() {
    Sprite::removeFromWorld();
 }
 
 //===========================================
-// Exit::onEvent
+// Collectable::onEvent
 //===========================================
-void Exit::onEvent(const EEvent* event) {
+void Collectable::onEvent(const EEvent* event) {
    static long hitFromLeftStr = internString("hitFromLeft");
    static long hitFromTopStr = internString("hitFromTop");
    static long hitFromRightStr = internString("hitFromRight");
    static long hitFromBottomStr = internString("hitFromBottom");
-   static long successStr = internString("success");
+   static long animFinishedStr = internString("animFinished");
+   static long collectStr = internString("collect");
 
    Sprite::onEvent(event);
 
@@ -96,20 +109,29 @@ void Exit::onEvent(const EEvent* event) {
       || event->getType() == hitFromTopStr
       || event->getType() == hitFromBottomStr) {
 
+      stopAnimation();
+      playAnimation(collectStr);
+
       EventManager eventManager;
-      EEvent* e = new EEvent(successStr);
+      EEvent* e = new EUpdateScore(m_value);
       eventManager.queueEvent(e);
+   }
+   else if (event->getType() == animFinishedStr) {
+      const EAnimFinished* e = static_cast<const EAnimFinished*>(event);
+
+      if (e->animation->getName() == collectStr)
+         setPendingDeletion();
    }
 }
 
 #ifdef DEBUG
 //===========================================
-// Exit::dbg_print
+// Collectable::dbg_print
 //===========================================
-void Exit::dbg_print(ostream& out, int tab) const {
+void Collectable::dbg_print(ostream& out, int tab) const {
    for (int i = 0; i < tab; ++i) out << "\t";
 
-   out << "Exit\n";
+   out << "Collectable\n";
 
    Item::dbg_print(out, tab + 1);
    Sprite::dbg_print(out, tab + 1);
@@ -117,37 +139,25 @@ void Exit::dbg_print(ostream& out, int tab) const {
 #endif
 
 //===========================================
-// Exit::update
+// Collectable::update
 //===========================================
-void Exit::update() {
+void Collectable::update() {
    Sprite::update();
 }
 
 //===========================================
-// Exit::draw
+// Collectable::draw
 //===========================================
-void Exit::draw() const {
+void Collectable::draw() const {
    Sprite::draw();
 }
 
 //===========================================
-// Exit::open
+// Collectable::assignData
 //===========================================
-void Exit::open() {
-   static long openIdleStr = internString("openIdle");
-
-   if (m_state != IS_OPEN) {
-      playAnimation(openIdleStr, true);
-      m_state = IS_OPEN;
-   }
-}
-
-//===========================================
-// Exit::assignData
-//===========================================
-void Exit::assignData(const XmlNode data) {
+void Collectable::assignData(const XmlNode data) {
    try {
-      XML_NODE_CHECK(data, Exit)
+      XML_NODE_CHECK(data, Collectable)
 
       XmlNode node = data.firstChild();
       if (!node.isNull() && node.name() == "Item") {
@@ -157,15 +167,20 @@ void Exit::assignData(const XmlNode data) {
 
       if (!node.isNull() && node.name() == "Sprite") {
          Sprite::assignData(node);
+         node = node.nextSibling();
+      }
+
+      if (!node.isNull() && node.name() == "value") {
+         m_value = node.getInt();
       }
    }
    catch (XmlException& e) {
-      e.prepend("Error parsing XML for instance of class Exit; ");
+      e.prepend("Error parsing XML for instance of class Collectable; ");
       throw;
    }
 }
 
 //===========================================
-// Exit::~Exit
+// Collectable::~Collectable
 //===========================================
-Exit::~Exit() {}
+Collectable::~Collectable() {}

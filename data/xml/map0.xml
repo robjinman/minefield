@@ -21,7 +21,10 @@
       <numericTileProtoId>101</numericTileProtoId>
       <mineProtoId>301</mineProtoId>
       <soilProtoId>401</soilProtoId>
+      <collectableProtoId>801</collectableProtoId>
       <numMines>20</numMines>
+      <numCollectables>10</numCollectables>
+      <requiredScore>5</requiredScore>
    </customSettings>
    <using>
       <file>data/xml/numericTile.xml</file>
@@ -29,6 +32,7 @@
       <file>data/xml/player.xml</file>
       <file>data/xml/soil.xml</file>
       <file>data/xml/exit.xml</file>
+      <file>data/xml/collectable.xml</file>
       <file>data/xml/startMenu.xml</file>
    </using>
    <assets>

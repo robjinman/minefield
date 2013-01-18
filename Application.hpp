@@ -59,10 +59,16 @@ class Application {
       bool isAdjacentTo(const Dodge::Vec2i& a, const Dodge::Vec2i& b) const;
       void gameSuccess(const Dodge::EEvent* event);
       void startGame(Dodge::EEvent* event);
+      void loadAssets();
+      void resetGame();
+      void quitGame(Dodge::EEvent* event);
+      void updateScore(Dodge::EEvent* event);
 
       void exitDefault();
 
       void computeFrameRate();
+
+      bool m_init;
 
       Functor<void, TYPELIST_0()>   m_onExit;
 
@@ -95,10 +101,14 @@ class Application {
       long                          m_numericTileProtoId;
       long                          m_mineProtoId;
       long                          m_soilProtoId;
+      long                          m_collectableProtoId;
       pPlayer_t                     m_player;
       pExit_t                       m_exit;
       pStartMenu_t                  m_startMenu;
       int                           m_numMines;
+      int                           m_score;
+      int                           m_numCollectables;
+      int                           m_requiredScore;
 };
 
 

@@ -9,6 +9,45 @@ using namespace Dodge;
 
 
 //===========================================
+// Mine::Mine
+//===========================================
+Mine::Mine(const Dodge::XmlNode data)
+   : Asset(Dodge::internString("Mine")),
+     Entity(data.firstChild().firstChild()),
+     Item(data.firstChild()),
+     Sprite(data.nthChild(1)),
+     m_state(IDLE) {
+
+   try {
+      XML_NODE_CHECK(data, Mine);
+   }
+   catch (XmlException& e) {
+      e.prepend("Error parsing XML for instance of class Mine; ");
+      throw;
+   }
+}
+
+//===========================================
+// Mine::Mine
+//===========================================
+Mine::Mine(const Mine& copy)
+   : Asset(Dodge::internString("Mine")),
+     Entity(copy),
+     Item(copy),
+     Sprite(copy),
+     m_state(IDLE) {}
+
+//===========================================
+// Mine::Mine
+//===========================================
+Mine::Mine(const Mine& copy, long name)
+   : Asset(Dodge::internString("Mine")),
+     Entity(copy, name),
+     Item(copy, name),
+     Sprite(copy, name),
+     m_state(IDLE) {}
+
+//===========================================
 // Mine::update
 //===========================================
 void Mine::update() {

@@ -10,29 +10,9 @@
 
 class Mine : public Item, public Dodge::Sprite {
    public:
-      explicit Mine(const Dodge::XmlNode data)
-         : Asset(Dodge::internString("Mine")),
-           Entity(data.firstChild().firstChild()),
-           Item(data.firstChild()),
-           Sprite(data.nthChild(1)),
-           m_state(IDLE) {
-
-         XML_NODE_CHECK(data, Mine);
-      }
-
-      Mine(const Mine& copy)
-         : Asset(Dodge::internString("Mine")),
-           Entity(copy),
-           Item(copy),
-           Sprite(copy),
-           m_state(IDLE) {}
-
-      Mine(const Mine& copy, long name)
-         : Asset(Dodge::internString("Mine")),
-           Entity(copy, name),
-           Item(copy, name),
-           Sprite(copy, name),
-           m_state(IDLE) {}
+      explicit Mine(const Dodge::XmlNode data);
+      Mine(const Mine& copy);
+      Mine(const Mine& copy, long name);
 
       virtual void update();
       virtual void onEvent(const Dodge::EEvent* event);

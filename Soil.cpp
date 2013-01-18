@@ -23,6 +23,7 @@ Soil::Soil(const XmlNode data)
    }
    catch (XmlException& e) {
       e.prepend("Error parsing XML for instance of class Soil; ");
+      throw;
    }
 
    init();
