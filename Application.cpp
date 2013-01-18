@@ -14,10 +14,12 @@
 #include "Soil.hpp"
 #include "Exit.hpp"
 #include "StartMenu.hpp"
+#include "SettingsMenu.hpp"
 #include "MenuItem.hpp"
+#include "CSprite.hpp"
 
 
-#define TARGET_MEM_USAGE 115000
+#define TARGET_MEM_USAGE 9999999
 
 
 using namespace std;
@@ -55,7 +57,7 @@ void Application::exitDefault() {
 //===========================================
 void Application::quit() {
    m_renderer.stop();
-
+   m_eventManager.clear();
    freeAllAssets();
    m_win.destroyWindow();
 
@@ -68,7 +70,6 @@ void Application::quit() {
 void Application::freeAllAssets() {
    m_mineField.clear();
    m_items.clear();
-   m_eventManager.clear();
    m_worldSpace.removeAll();
    m_mapLoader.freeAllAssets();
    m_player.reset();
@@ -143,22 +144,33 @@ void Application::mouseMove(int x, int y) {
 void Application::keyboard() {
    switch (m_gameState) {
       case ST_RUNNING:
-         if (m_player->getState() == Player::ALIVE) {
-            Vec2f mapPos = m_mapLoader.getMapBoundary().getPosition();
-            Vec2f mapSz = m_mapLoader.getMapBoundary().getSize();
+         switch (m_player->getState()) {
+            case Player::ALIVE: {
+               Vec2f mapPos = m_mapLoader.getMapBoundary().getPosition();
+               Vec2f mapSz = m_mapLoader.getMapBoundary().getSize();
 
-            Vec2f pos = m_player->getTranslation_abs();
+               Vec2f pos = m_player->getTranslation_abs();
 
-            float32_t w = m_tileSize.x;
-            float32_t h = m_tileSize.y;
+               float32_t w = m_tileSize.x;
+               float32_t h = m_tileSize.y;
 
-            float32_t dx = w / 2.f;
-            float32_t dy = h / 2.f;
+               float32_t dx = w / 2.f;
+               float32_t dy = h / 2.f;
 
-            if (m_keyState[WinIO::KEY_LEFT])    if (pos.x > mapPos.x + dx)                m_player->moveLeft();
-            if (m_keyState[WinIO::KEY_RIGHT])   if (pos.x + w < mapPos.x + mapSz.x - dx)  m_player->moveRight();
-            if (m_keyState[WinIO::KEY_DOWN])    if (pos.y > mapPos.y + dy)                m_player->moveDown();
-            if (m_keyState[WinIO::KEY_UP])      if (pos.y + h < mapPos.y + mapSz.y - dy)  m_player->moveUp();
+               if (m_keyState[WinIO::KEY_LEFT])    if (pos.x > mapPos.x + dx)                m_player->moveLeft();
+               if (m_keyState[WinIO::KEY_RIGHT])   if (pos.x + w < mapPos.x + mapSz.x - dx)  m_player->moveRight();
+               if (m_keyState[WinIO::KEY_DOWN])    if (pos.y > mapPos.y + dy)                m_player->moveDown();
+               if (m_keyState[WinIO::KEY_UP])      if (pos.y + h < mapPos.y + mapSz.y - dy)  m_player->moveUp();
+            }
+            break;
+            case Player::DEAD: {
+               if (m_keyState[WinIO::KEY_ENTER]) {
+                  freeAllAssets();
+                  m_gameState = ST_START_MENU;  // TODO
+                  m_startMenu->addToWorld();
+               }
+            }
+            break;
          }
       break;
       case ST_START_MENU:
@@ -398,7 +410,9 @@ pAsset_t Application::constructAsset(const XmlNode data) {
       if (node.name() == "Soil") item = pItem_t(new Soil(node));
       if (node.name() == "Exit") item = pItem_t(new Exit(node));
       if (node.name() == "StartMenu") item = pItem_t(new StartMenu(node));
+      if (node.name() == "SettingsMenu") item = pItem_t(new SettingsMenu(node));
       if (node.name() == "MenuItem") item = pItem_t(new MenuItem(node));
+      if (node.name() == "CSprite") item = pItem_t(new CSprite(node));
       // ...
    }
 
@@ -505,27 +519,23 @@ void Application::populateMap() {
    const Vec2f& pos = mb.getPosition();
    const Vec2f& sz = mb.getSize();
 
-   // Construct player from prototype
-   pPlayer_t plyr(dynamic_cast<Player*>(m_assetManager.cloneAsset(m_playerProtoId)));
+   m_player = boost::dynamic_pointer_cast<Player>(m_assetManager.getAssetPointer(m_playerProtoId));
 
-   if (!plyr)
+   if (!m_player)
       throw Exception("Error populating map; Bad player proto id", __FILE__, __LINE__);
 
-   plyr->setTranslation(pos);
-   plyr->addToWorld();
-   m_worldSpace.trackEntity(plyr);
-   m_player = plyr;
+   m_player->setTranslation(pos);
+   m_player->addToWorld();
+   m_worldSpace.trackEntity(m_player);
 
-   // Construct exit from prototype
-   pExit_t exit(dynamic_cast<Exit*>(m_assetManager.cloneAsset(m_exitProtoId)));
+   m_exit = boost::dynamic_pointer_cast<Exit>(m_assetManager.getAssetPointer(m_exitProtoId));
 
-   if (!exit)
+   if (!m_exit)
       throw Exception("Error populating map; Bad exit proto id", __FILE__, __LINE__);
 
-   exit->setTranslation(pos + sz - m_tileSize);
-   exit->addToWorld();
-   m_worldSpace.trackEntity(exit);
-   m_exit = exit;
+   m_exit->setTranslation(pos + sz - m_tileSize);
+   m_exit->addToWorld();
+   m_worldSpace.trackEntity(m_exit);
 
    int w = floor(sz.x / m_tileSize.x + 0.5);
    int h = floor(sz.y / m_tileSize.y + 0.5);
@@ -646,7 +656,7 @@ void Application::populateMap() {
 // Application::startGame
 //===========================================
 void Application::startGame(EEvent* event) {
-   m_startMenu->setActive(false);
+   m_startMenu->removeFromWorld();
    populateMap();
    m_gameState = ST_RUNNING;
 }
@@ -699,11 +709,10 @@ void Application::launch(int argc, char** argv) {
    m_mapLoader.update(m_renderer.getCamera().getTranslation());
 
    m_startMenu = boost::dynamic_pointer_cast<StartMenu>(m_assetManager.getAssetPointer(m_startMenuId));
-   m_startMenu->addToWorld();
    if (!m_startMenu)
       throw Exception("Error loading map; Bad start menu id", __FILE__, __LINE__);
 
-   m_startMenu->setActive(true);
+   m_startMenu->addToWorld();
    m_gameState = ST_START_MENU;
 
    while (1) {

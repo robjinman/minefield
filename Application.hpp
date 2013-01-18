@@ -21,6 +21,7 @@ class Application {
 
       void onExit(Functor<void, TYPELIST_0()> callBack);
       void launch(int argc, char** argv);
+      void quit();
 
    private:
       typedef enum {
@@ -36,7 +37,6 @@ class Application {
          ST_START_MENU
       } gameState_t;
 
-      void quit();
       void keyDown(int key);
       void keyUp(int key);
       void mouseLeftClick(int x, int y);

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASSETFILE>
+   <assets>
+      <asset id="603"><Texture path="data/textures/menuWidgets.png"/></asset>
+      <asset id="600"><Texture path="data/textures/startMenu.png"/></asset>
+   </assets>
+</ASSETFILE>

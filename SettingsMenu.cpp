@@ -2,7 +2,7 @@
 #include <dodge/EAnimFinished.hpp>
 #include <dodge/EventManager.hpp>
 #include <dodge/AssetManager.hpp>
-#include "StartMenu.hpp"
+#include "SettingsMenu.hpp"
 
 
 using namespace std;
@@ -10,97 +10,89 @@ using namespace Dodge;
 
 
 //===========================================
-// StartMenu::StartMenu
+// SettingsMenu::SettingsMenu
 //===========================================
-StartMenu::StartMenu(const XmlNode data)
-   : Asset(internString("StartMenu")),
+SettingsMenu::SettingsMenu(const XmlNode data)
+   : Asset(internString("SettingsMenu")),
      Entity(data.firstChild().firstChild().firstChild()),
      Menu(data.firstChild()) {
 
    try {
-      XML_NODE_CHECK(data, StartMenu);
+      XML_NODE_CHECK(data, SettingsMenu);
    }
    catch (XmlException& e) {
-      e.prepend("Error parsing XML for instance of class StartMenu; ");
+      e.prepend("Error parsing XML for instance of class SettingsMenu; ");
       throw;
    }
 }
 
 //===========================================
-// StartMenu::StartMenu
+// SettingsMenu::SettingsMenu
 //===========================================
-StartMenu::StartMenu(const StartMenu& copy)
-   : Asset(internString("StartMenu")),
+SettingsMenu::SettingsMenu(const SettingsMenu& copy)
+   : Asset(internString("SettingsMenu")),
      Entity(copy),
      Menu(copy) {}
 
 //===========================================
-// StartMenu::StartMenu
+// SettingsMenu::SettingsMenu
 //===========================================
-StartMenu::StartMenu(const StartMenu& copy, long name)
-   : Asset(internString("StartMenu")),
+SettingsMenu::SettingsMenu(const SettingsMenu& copy, long name)
+   : Asset(internString("SettingsMenu")),
      Entity(copy, name),
      Menu(copy, name) {}
 
 //===========================================
-// StartMenu::onMenuItemActivate
+// SettingsMenu::onMenuItemActivate
 //===========================================
-void StartMenu::onMenuItemActivate(pMenuItem_t item) {
-   static long settingsMenuStr = internString("settingsMenu");
-   static long mnuStartGameStr = internString("mnuStartGame");
-   static long mnuSettingsStr = internString("mnuSettings");
+void SettingsMenu::onMenuItemActivate(pMenuItem_t item) {
+   static long mnuBackToStartMenuStr = internString("mnuBackToStartMenu");
 
-   if (item->getName() == mnuStartGameStr) {
-      EventManager eventManager;
-      EEvent* event = new EEvent(internString("startGame"));
-      eventManager.queueEvent(event);
-   }
-   else if (item->getName() == mnuSettingsStr) {
-      activateSubmenu(settingsMenuStr);
-   }
+   if (item->getName() == mnuBackToStartMenuStr)
+      returnToParentMenu();
 }
 
 //===========================================
-// StartMenu::getSize
+// SettingsMenu::getSize
 //===========================================
-size_t StartMenu::getSize() const {
-   return sizeof(StartMenu)
+size_t SettingsMenu::getSize() const {
+   return sizeof(SettingsMenu)
       - sizeof(Menu)
       + Menu::getSize();
 }
 
 //===========================================
-// StartMenu::clone
+// SettingsMenu::clone
 //===========================================
-StartMenu* StartMenu::clone() const {
-   return new StartMenu(*this);
+SettingsMenu* SettingsMenu::clone() const {
+   return new SettingsMenu(*this);
 }
 
 //===========================================
-// StartMenu::addToWorld
+// SettingsMenu::addToWorld
 //===========================================
-void StartMenu::addToWorld() {
-   static long mnuStartGameStr = internString("mnuStartGame");
+void SettingsMenu::addToWorld() {
+   static long mnuMusicVolumeStr = internString("mnuMusicVolume");
 
    Menu::addToWorld();
-   Menu::setFocus(mnuStartGameStr);
+   Menu::setFocus(mnuMusicVolumeStr);
 }
 
 //===========================================
-// StartMenu::removeFromWorld
+// SettingsMenu::removeFromWorld
 //===========================================
-void StartMenu::removeFromWorld() {
+void SettingsMenu::removeFromWorld() {
    Menu::removeFromWorld();
 }
 
 #ifdef DEBUG
 //===========================================
-// StartMenu::dbg_print
+// SettingsMenu::dbg_print
 //===========================================
-void StartMenu::dbg_print(ostream& out, int tab) const {
+void SettingsMenu::dbg_print(ostream& out, int tab) const {
    for (int i = 0; i < tab; ++i) out << "\t";
 
-   out << "StartMenu\n";
+   out << "SettingsMenu\n";
 
    Item::dbg_print(out, tab + 1);
    Menu::dbg_print(out, tab + 1);
@@ -108,25 +100,25 @@ void StartMenu::dbg_print(ostream& out, int tab) const {
 #endif
 
 //===========================================
-// StartMenu::update
+// SettingsMenu::update
 //===========================================
-void StartMenu::update() {
+void SettingsMenu::update() {
    Menu::update();
 }
 
 //===========================================
-// StartMenu::draw
+// SettingsMenu::draw
 //===========================================
-void StartMenu::draw() const {
+void SettingsMenu::draw() const {
    Menu::draw();
 }
 
 //===========================================
-// StartMenu::assignData
+// SettingsMenu::assignData
 //===========================================
-void StartMenu::assignData(const XmlNode data) {
+void SettingsMenu::assignData(const XmlNode data) {
    try {
-      XML_NODE_CHECK(data, StartMenu)
+      XML_NODE_CHECK(data, SettingsMenu)
 
       XmlNode node = data.firstChild();
       if (!node.isNull() && node.name() == "Menu") {
@@ -134,12 +126,12 @@ void StartMenu::assignData(const XmlNode data) {
       }
    }
    catch (XmlException& e) {
-      e.prepend("Error parsing XML for instance of class StartMenu; ");
+      e.prepend("Error parsing XML for instance of class SettingsMenu; ");
       throw;
    }
 }
 
 //===========================================
-// StartMenu::~StartMenu
+// SettingsMenu::~SettingsMenu
 //===========================================
-StartMenu::~StartMenu() {}
+SettingsMenu::~SettingsMenu() {}

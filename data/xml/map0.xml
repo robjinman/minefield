@@ -32,5 +32,37 @@
       <file>data/xml/startMenu.xml</file>
    </using>
    <assets>
+      <asset id="0"><Texture path="data/textures/gradient.png"/></asset>
+      <asset id="1" addToWorld="true">
+         <CSprite>
+            <Item>
+               <Entity type="gradient" name="gradient" x="0.0" y="0.0" z="9" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="0"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="128" y="128"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </CSprite>
+      </asset>
    </assets>
 </MAPFILE>
