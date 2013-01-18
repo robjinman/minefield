@@ -80,10 +80,7 @@ StartMenu* StartMenu::clone() const {
 // StartMenu::addToWorld
 //===========================================
 void StartMenu::addToWorld() {
-   static long mnuStartGameStr = internString("mnuStartGame");
-
    Menu::addToWorld();
-   Menu::setFocus(mnuStartGameStr);
 }
 
 //===========================================

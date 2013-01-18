@@ -72,10 +72,7 @@ SettingsMenu* SettingsMenu::clone() const {
 // SettingsMenu::addToWorld
 //===========================================
 void SettingsMenu::addToWorld() {
-   static long mnuMusicVolumeStr = internString("mnuMusicVolume");
-
    Menu::addToWorld();
-   Menu::setFocus(mnuMusicVolumeStr);
 }
 
 //===========================================

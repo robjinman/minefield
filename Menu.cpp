@@ -106,13 +106,16 @@ void Menu::init() {
          mnuItem->registerCallback(UIEVENT_HOVER_ON, Functor<void, TYPELIST_3(pEntity_t, float32_t, float32_t)>(this, &Menu::menuItemHoverOn));
       }
    }
+
+   if (m_menuItems.size() > 0)
+      setFocus(m_menuItems.back()->getName());
 }
 
 //===========================================
 // Menu::activateSubmenu
 //===========================================
 void Menu::activateSubmenu(long name) {
-   for (uint_t i = 0; i < m_submenus.size(); i++) {
+   for (uint_t i = 0; i < m_submenus.size(); ++i) {
       if (m_submenus[i]->getName() == name) {
          if (m_activeSubmenu != -1) m_submenus[m_activeSubmenu]->removeFromWorld();
 
@@ -250,12 +253,12 @@ size_t Menu::getSize() const {
 // Menu::addToWorld
 //===========================================
 void Menu::addToWorld() {
+   m_active = true;
+
    Sprite::addToWorld();
 
    for (uint_t i = 0; i < m_menuItems.size(); ++i)
       m_menuItems[i]->addToWorld();
-
-   m_active = true;
 }
 
 //===========================================
