@@ -28,9 +28,12 @@
       <mineProtoId>301</mineProtoId>
       <soilProtoId>401</soilProtoId>
       <collectableProtoId>801</collectableProtoId>
+      <timeCounterId>56</timeCounterId>
+      <scoreCounterId>57</scoreCounterId>
       <numMines>20</numMines>
       <numCollectables>10</numCollectables>
       <requiredScore>5</requiredScore>
+      <timeLimit>300</timeLimit>
    </customSettings>
    <using>
       <file>data/xml/numericTile.xml</file>
@@ -44,10 +47,24 @@
    <assets>
       <asset id="0"><Texture path="data/textures/gradient.png"/></asset>
       <asset id="1"><Texture path="data/textures/sky.png"/></asset>
+      <asset id="2"><Texture path="data/textures/labels.png"/></asset>
+      <asset id="3"><Texture path="data/textures/font1.png"/></asset>
+      <asset id="4">
+         <Font>
+            <texture ptr="3"/>
+            <textureSection>
+               <Range>
+                  <pos><Vec2f x="0" y="0"/></pos>
+                  <size><Vec2f x="192" y="192"/></size>
+               </Range>
+            </textureSection>
+            <charSize><Vec2f x="16" y="24"/></charSize>
+         </Font>
+      </asset>
       <asset id="50" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="gradient" name="gradient" x="0.0" y="0.0" z="9" rot="0.0">
+               <Entity type="gradient" name="gradient" x="0.0" y="0.0" z="6" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
@@ -78,7 +95,7 @@
       <asset id="51" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="sky" name="sky" x="0.0" y="0.75" z="8" rot="0.0">
+               <Entity type="sky" name="sky" x="0.0" y="0.75" z="7" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
@@ -105,6 +122,178 @@
                <EntityTransformations/>
             </Sprite>
          </CSprite>
+      </asset>
+      <asset id="52" addToWorld="true">
+         <CSprite>
+            <Item>
+               <Entity type="label" name="lblCoinsRequired" x="0.35" y="0.9" z="8" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="2"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="48" y="0"/></pos>
+                        <size><Vec2f x="48" y="64"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="0.075" y="0.09"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </CSprite>
+      </asset>
+      <asset id="53" addToWorld="true">
+         <CSprite>
+            <Item>
+               <Entity type="label" name="lblCoinsRequiredArrow" x="0.425" y="0.9" z="8" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="2"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="96" y="0"/></pos>
+                        <size><Vec2f x="32" y="64"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="0.025" y="0.05"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </CSprite>
+      </asset>
+      <asset id="54" addToWorld="true">
+         <CSprite>
+            <Item>
+               <Entity type="label" name="lblTimeRemaining" x="0.01" y="0.9" z="8" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="2"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="48" y="64"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="0.075" y="0.09"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </CSprite>
+      </asset>
+      <asset id="55" addToWorld="true">
+         <CSprite>
+            <Item>
+               <Entity type="label" name="lblTimeRemainingArrow" x="0.085" y="0.9" z="8" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="2"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="96" y="0"/></pos>
+                        <size><Vec2f x="32" y="64"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="0.025" y="0.05"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </CSprite>
+      </asset>
+      <asset id="56" addToWorld="true">
+         <Counter>
+            <CTextEntity>
+               <Item>
+                  <Entity type="counter" name="txtTimeRemaining" x="0.11" y="0.9" z="9" rot="0.0">
+                     <scale>
+                        <Vec2f x="1.0" y="1.0"/>
+                     </scale>
+                     <fillColour><Colour r="0.3" g="0.7" b="0.3" a="0.7"/></fillColour>
+                     <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                     <lineWidth>0</lineWidth>
+                     <children/>
+                  </Entity>
+               </Item>
+               <TextEntity>
+                  <Entity/>
+                  <font ptr="4"/>
+                  <textSize><Vec2f x="0.035" y="0.035"/></textSize>
+                  <text></text>
+               </TextEntity>
+            </CTextEntity>
+            <value>48</value>
+         </Counter>
+      </asset>
+      <asset id="57" addToWorld="true">
+         <Counter>
+            <CTextEntity>
+               <Item>
+                  <Entity type="counter" name="txtCoinsRequired" x="0.45" y="0.9" z="9" rot="0.0">
+                     <scale>
+                        <Vec2f x="1.0" y="1.0"/>
+                     </scale>
+                     <fillColour><Colour r="0.3" g="0.7" b="0.3" a="0.7"/></fillColour>
+                     <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                     <lineWidth>0</lineWidth>
+                     <children/>
+                  </Entity>
+               </Item>
+               <TextEntity>
+                  <Entity/>
+                  <font ptr="4"/>
+                  <textSize><Vec2f x="0.035" y="0.035"/></textSize>
+                  <text></text>
+               </TextEntity>
+            </CTextEntity>
+            <value>48</value>
+         </Counter>
       </asset>
    </assets>
 </MAPFILE>

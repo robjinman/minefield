@@ -80,6 +80,7 @@ void Collectable::addToWorld() {
 
    pauseAnimation();
    int r = rand() % 50;
+
    for (int i = 0; i < r; ++i) stepAnimation();
    playAnimation(true);
 }

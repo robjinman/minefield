@@ -5,7 +5,7 @@
       <asset id="801" addToWorld="false">
          <Collectable>
             <Item>
-               <Entity type="collectable" name="collectableProto" x="0.0" y="0.0" z="6" rot="0.0">
+               <Entity type="collectable" name="collectableProto" x="0.0" y="0.0" z="7" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>

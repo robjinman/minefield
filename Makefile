@@ -5,7 +5,10 @@ INCL = -I../Dodge/Dodge/include
 LIBS = -L../Dodge/Dodge/lib -L/usr/lib -lDodge -lX11 -lGLESv2 -lEGL -lpnglite -lz -lBox2D
 OBJS = Application.o \
 	Collectable.o \
+	Counter.o \
+	CreditsMenu.o \
 	CSprite.o \
+	CTextEntity.o \
 	Exit.o \
 	Item.o \
 	main.o \

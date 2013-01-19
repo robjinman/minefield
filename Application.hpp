@@ -13,6 +13,7 @@
 #include "Player.hpp"
 #include "Exit.hpp"
 #include "StartMenu.hpp"
+#include "Counter.hpp"
 
 
 class Application {
@@ -63,6 +64,7 @@ class Application {
       void resetGame();
       void quitGame(Dodge::EEvent* event);
       void updateScore(Dodge::EEvent* event);
+      void updateTimer();
 
       void exitDefault();
 
@@ -103,12 +105,16 @@ class Application {
       long                          m_mineProtoId;
       long                          m_soilProtoId;
       long                          m_collectableProtoId;
+      long                          m_scoreCounterId;
+      long                          m_timeCounterId;
       pPlayer_t                     m_player;
       pExit_t                       m_exit;
       pStartMenu_t                  m_startMenu;
       int                           m_numMines;
-      int                           m_score;
+      pCounter_t                    m_scoreCounter;
+      pCounter_t                    m_timeCounter;
       int                           m_numCollectables;
+      int                           m_timeLimit;
       int                           m_requiredScore;
 };
 

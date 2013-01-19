@@ -17,7 +17,10 @@
 #include "SettingsMenu.hpp"
 #include "MenuItem.hpp"
 #include "CSprite.hpp"
+#include "CTextEntity.hpp"
+#include "Counter.hpp"
 #include "Collectable.hpp"
+#include "CreditsMenu.hpp"
 #include "EUpdateScore.hpp"
 
 
@@ -275,6 +278,14 @@ void Application::setMapSettings(const XmlNode data) {
       m_collectableProtoId = node.getLong();
 
       node = node.nextSibling();
+      XML_NODE_CHECK(node, timeCounterId);
+      m_timeCounterId = node.getLong();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, scoreCounterId);
+      m_scoreCounterId = node.getLong();
+
+      node = node.nextSibling();
       XML_NODE_CHECK(node, numMines);
       m_numMines = node.getInt();
 
@@ -285,6 +296,10 @@ void Application::setMapSettings(const XmlNode data) {
       node = node.nextSibling();
       XML_NODE_CHECK(node, requiredScore);
       m_requiredScore = node.getInt();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, timeLimit);
+      m_timeLimit = node.getInt();
 
       m_win.init("Minefield", winSz.x, winSz.y, false);
       m_renderer.start();
@@ -433,6 +448,7 @@ pAsset_t Application::constructAsset(const XmlNode data) {
    // Construct non-Item assets
 
    if (node.name() == "Texture") return pAsset_t(new Texture(node));
+   if (node.name() == "Font") return pAsset_t(new Dodge::Font(node));
    // ...
 
 
@@ -452,8 +468,11 @@ pAsset_t Application::constructAsset(const XmlNode data) {
       if (node.name() == "Exit") item = pItem_t(new Exit(node));
       if (node.name() == "StartMenu") item = pItem_t(new StartMenu(node));
       if (node.name() == "SettingsMenu") item = pItem_t(new SettingsMenu(node));
+      if (node.name() == "CreditsMenu") item = pItem_t(new CreditsMenu(node));
       if (node.name() == "MenuItem") item = pItem_t(new MenuItem(node));
       if (node.name() == "CSprite") item = pItem_t(new CSprite(node));
+      if (node.name() == "CTextEntity") item = pItem_t(new CTextEntity(node));
+      if (node.name() == "Counter") item = pItem_t(new Counter(node));
       if (node.name() == "Collectable") item = pItem_t(new Collectable(node));
       // ...
    }
@@ -725,7 +744,8 @@ void Application::populateMap() {
 void Application::startGame(EEvent* event) {
    m_startMenu->removeFromWorld();
    populateMap();
-   m_score = 0;
+   m_scoreCounter->setValue(m_requiredScore);
+   m_timeCounter->setValue(m_timeLimit);
    m_gameState = ST_RUNNING;
 }
 
@@ -742,6 +762,14 @@ void Application::loadAssets() {
       throw Exception("Error loading map; Bad start menu id", __FILE__, __LINE__);
 
    m_startMenu->addToWorld();
+
+   m_scoreCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_scoreCounterId));
+   if (!m_scoreCounter)
+      throw Exception("Error loading map; Bad score counter id", __FILE__, __LINE__);
+
+   m_timeCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_timeCounterId));
+   if (!m_timeCounter)
+      throw Exception("Error loading map; Bad time counter id", __FILE__, __LINE__);
 }
 
 //===========================================
@@ -757,10 +785,27 @@ void Application::quitGame(EEvent* event) {
 void Application::updateScore(EEvent* event) {
    EUpdateScore* e = static_cast<EUpdateScore*>(event);
 
-   m_score += e->value;
+   if (m_scoreCounter->getValue() > 0)
+      m_scoreCounter->subtract(e->value);
 
-   if (m_score >= m_requiredScore)
+   if (m_scoreCounter->getValue() == 0)
       m_exit->open();
+}
+
+//===========================================
+// Application::updateTimer
+//===========================================
+void Application::updateTimer() {
+   static Timer timer;
+
+   if (timer.getTime() > 1.0) {
+      timer.reset();
+
+      m_timeCounter->decrement();
+
+      if (m_timeCounter->getValue() == 0)
+         playerDeath();
+   }
 }
 
 //===========================================
@@ -836,6 +881,7 @@ void Application::launch(int argc, char** argv) {
             m_eventManager.doEvents();
             keyboard();
             update();
+            updateTimer();
             draw();
             m_renderer.tick(m_bgColour);
             m_win.swapBuffers();

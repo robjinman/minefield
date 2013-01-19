@@ -2,7 +2,7 @@
 #include <dodge/EAnimFinished.hpp>
 #include <dodge/EventManager.hpp>
 #include <dodge/AssetManager.hpp>
-#include "SettingsMenu.hpp"
+#include "CreditsMenu.hpp"
 
 
 using namespace std;
@@ -10,86 +10,86 @@ using namespace Dodge;
 
 
 //===========================================
-// SettingsMenu::SettingsMenu
+// CreditsMenu::CreditsMenu
 //===========================================
-SettingsMenu::SettingsMenu(const XmlNode data)
-   : Asset(internString("SettingsMenu")),
+CreditsMenu::CreditsMenu(const XmlNode data)
+   : Asset(internString("CreditsMenu")),
      Entity(data.firstChild().firstChild().firstChild()),
      Menu(data.firstChild()) {
 
    try {
-      XML_NODE_CHECK(data, SettingsMenu);
+      XML_NODE_CHECK(data, CreditsMenu);
    }
    catch (XmlException& e) {
-      e.prepend("Error parsing XML for instance of class SettingsMenu; ");
+      e.prepend("Error parsing XML for instance of class CreditsMenu; ");
       throw;
    }
 }
 
 //===========================================
-// SettingsMenu::SettingsMenu
+// CreditsMenu::CreditsMenu
 //===========================================
-SettingsMenu::SettingsMenu(const SettingsMenu& copy)
-   : Asset(internString("SettingsMenu")),
+CreditsMenu::CreditsMenu(const CreditsMenu& copy)
+   : Asset(internString("CreditsMenu")),
      Entity(copy),
      Menu(copy) {}
 
 //===========================================
-// SettingsMenu::SettingsMenu
+// CreditsMenu::CreditsMenu
 //===========================================
-SettingsMenu::SettingsMenu(const SettingsMenu& copy, long name)
-   : Asset(internString("SettingsMenu")),
+CreditsMenu::CreditsMenu(const CreditsMenu& copy, long name)
+   : Asset(internString("CreditsMenu")),
      Entity(copy, name),
      Menu(copy, name) {}
 
 //===========================================
-// SettingsMenu::onMenuItemActivate
+// CreditsMenu::onMenuItemActivate
 //===========================================
-void SettingsMenu::onMenuItemActivate(pMenuItem_t item) {
-   static long mnuBackToStartMenuStr = internString("mnuSettingsToStartMenu");
+void CreditsMenu::onMenuItemActivate(pMenuItem_t item) {
+   static long mnuBackToStartMenuStr = internString("mnuCreditsToStartMenu");
 
    if (item->getName() == mnuBackToStartMenuStr)
       returnToParentMenu();
 }
 
 //===========================================
-// SettingsMenu::getSize
+// CreditsMenu::getSize
 //===========================================
-size_t SettingsMenu::getSize() const {
-   return sizeof(SettingsMenu)
+size_t CreditsMenu::getSize() const {
+   return sizeof(CreditsMenu)
       - sizeof(Menu)
       + Menu::getSize();
 }
 
 //===========================================
-// SettingsMenu::clone
+// CreditsMenu::clone
 //===========================================
-SettingsMenu* SettingsMenu::clone() const {
-   return new SettingsMenu(*this);
+CreditsMenu* CreditsMenu::clone() const {
+   return new CreditsMenu(*this);
 }
 
 //===========================================
-// SettingsMenu::addToWorld
+// CreditsMenu::addToWorld
 //===========================================
-void SettingsMenu::addToWorld() {
+void CreditsMenu::addToWorld() {
    Menu::addToWorld();
 }
 
 //===========================================
-// SettingsMenu::removeFromWorld
+// CreditsMenu::removeFromWorld
 //===========================================
-void SettingsMenu::removeFromWorld() {
+void CreditsMenu::removeFromWorld() {
    Menu::removeFromWorld();
 }
 
 #ifdef DEBUG
 //===========================================
-// SettingsMenu::dbg_print
+// CreditsMenu::dbg_print
 //===========================================
-void SettingsMenu::dbg_print(ostream& out, int tab) const {
+void CreditsMenu::dbg_print(ostream& out, int tab) const {
    for (int i = 0; i < tab; ++i) out << "\t";
 
-   out << "SettingsMenu\n";
+   out << "CreditsMenu\n";
 
    Item::dbg_print(out, tab + 1);
    Menu::dbg_print(out, tab + 1);
@@ -97,25 +97,25 @@ void SettingsMenu::dbg_print(ostream& out, int tab) const {
 #endif
 
 //===========================================
-// SettingsMenu::update
+// CreditsMenu::update
 //===========================================
-void SettingsMenu::update() {
+void CreditsMenu::update() {
    Menu::update();
 }
 
 //===========================================
-// SettingsMenu::draw
+// CreditsMenu::draw
 //===========================================
-void SettingsMenu::draw() const {
+void CreditsMenu::draw() const {
    Menu::draw();
 }
 
 //===========================================
-// SettingsMenu::assignData
+// CreditsMenu::assignData
 //===========================================
-void SettingsMenu::assignData(const XmlNode data) {
+void CreditsMenu::assignData(const XmlNode data) {
    try {
-      XML_NODE_CHECK(data, SettingsMenu)
+      XML_NODE_CHECK(data, CreditsMenu)
 
       XmlNode node = data.firstChild();
       if (!node.isNull() && node.name() == "Menu") {
@@ -123,12 +123,12 @@ void SettingsMenu::assignData(const XmlNode data) {
       }
    }
    catch (XmlException& e) {
-      e.prepend("Error parsing XML for instance of class SettingsMenu; ");
+      e.prepend("Error parsing XML for instance of class CreditsMenu; ");
       throw;
    }
 }
 
 //===========================================
-// SettingsMenu::~SettingsMenu
+// CreditsMenu::~CreditsMenu
 //===========================================
-SettingsMenu::~SettingsMenu() {}
+CreditsMenu::~CreditsMenu() {}

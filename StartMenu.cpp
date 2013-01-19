@@ -49,6 +49,8 @@ void StartMenu::onMenuItemActivate(pMenuItem_t item) {
    static long settingsMenuStr = internString("settingsMenu");
    static long mnuStartGameStr = internString("mnuStartGame");
    static long mnuSettingsStr = internString("mnuSettings");
+   static long mnuCreditsStr = internString("mnuCredits");
+   static long creditsMenuStr = internString("creditsMenu");
    static long mnuQuitStr = internString("mnuQuit");
 
    if (item->getName() == mnuStartGameStr) {
@@ -58,6 +60,9 @@ void StartMenu::onMenuItemActivate(pMenuItem_t item) {
    }
    else if (item->getName() == mnuSettingsStr) {
       activateSubmenu(settingsMenuStr);
+   }
+   else if (item->getName() == mnuCreditsStr) {
+      activateSubmenu(creditsMenuStr);
    }
    else if (item->getName() == mnuQuitStr) {
       EventManager eventManager;

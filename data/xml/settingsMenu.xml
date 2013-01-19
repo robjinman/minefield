@@ -4,7 +4,7 @@
       <asset id="705" addToWorld="false">
          <MenuItem>
             <Item>
-               <Entity type="menuItem" name="mnuBackToStartMenu" x="0.02" y="0.1" z="2" rot="0.0">
+               <Entity type="menuItem" name="mnuSettingsToStartMenu" x="0.02" y="0.1" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
