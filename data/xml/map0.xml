@@ -12,9 +12,15 @@
       <segmentsDir>data/xml/0</segmentsDir>
    </settings>
    <customSettings>
-      <windowSize><Vec2i x="300" y="300"/></windowSize>
+      <windowSize><Vec2i x="400" y="400"/></windowSize>
       <bgColour><Colour r="0.8" g="0.8" b="0.8" a="1.0"/></bgColour>
-      <tileSize><Vec2f x="0.1" y="0.1"/></tileSize>
+      <minefieldBoundary>
+         <Range>
+            <pos><Vec2f x="0.0" y="0.0"/></pos>
+            <size><Vec2f x="1.0" y="0.75"/></size>
+         </Range>
+      </minefieldBoundary>
+      <tileSize><Vec2f x="0.0625" y="0.0625"/></tileSize>
       <startMenuId>601</startMenuId>
       <playerProtoId>201</playerProtoId>
       <exitProtoId>501</exitProtoId>
@@ -37,7 +43,8 @@
    </using>
    <assets>
       <asset id="0"><Texture path="data/textures/gradient.png"/></asset>
-      <asset id="1" addToWorld="true">
+      <asset id="1"><Texture path="data/textures/sky.png"/></asset>
+      <asset id="50" addToWorld="true">
          <CSprite>
             <Item>
                <Entity type="gradient" name="gradient" x="0.0" y="0.0" z="9" rot="0.0">
@@ -61,7 +68,38 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
+                     <Vec2f x="1.0" y="0.75"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </CSprite>
+      </asset>
+      <asset id="51" addToWorld="true">
+         <CSprite>
+            <Item>
+               <Entity type="sky" name="sky" x="0.0" y="0.75" z="8" rot="0.0">
+                  <scale>
                      <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="1"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="128" y="32"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="1.0" y="0.25"/>
                   </onScreenSize>
                </EntityAnimations>
                <EntityTransformations/>

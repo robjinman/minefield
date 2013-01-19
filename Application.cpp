@@ -155,8 +155,8 @@ void Application::keyboard() {
       case ST_RUNNING:
          switch (m_player->getState()) {
             case Player::ALIVE: {
-               Vec2f mapPos = m_mapLoader.getMapBoundary().getPosition();
-               Vec2f mapSz = m_mapLoader.getMapBoundary().getSize();
+               Vec2f mapPos = m_minefieldBoundary.getPosition();
+               Vec2f mapSz = m_minefieldBoundary.getSize();
 
                Vec2f pos = m_player->getTranslation_abs();
 
@@ -237,6 +237,10 @@ void Application::setMapSettings(const XmlNode data) {
       node = node.nextSibling();
       XML_NODE_CHECK(node, bgColour);
       m_bgColour = Colour(node.firstChild());
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, minefieldBoundary);
+      m_minefieldBoundary = Range(node.firstChild());
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, tileSize);
@@ -329,7 +333,7 @@ void Application::deleteAsset(pAsset_t asset) {
       entity->removeFromWorld();
       m_items.erase(entity->getName());
 
-      const Range& mb = m_mapLoader.getMapBoundary();
+      const Range& mb = m_minefieldBoundary;
       const Vec2f& sz = mb.getSize();
 
       int w = floor(sz.x / m_tileSize.x + 0.5);
@@ -553,7 +557,7 @@ void Application::populateMap() {
    static long numericTileStr = internString("numericTile");
    static long mineStr = internString("mine");
 
-   const Range& mb = m_mapLoader.getMapBoundary();
+   const Range& mb = m_minefieldBoundary;
    const Vec2f& pos = mb.getPosition();
    const Vec2f& sz = mb.getSize();
 

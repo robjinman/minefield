@@ -11,9 +11,9 @@
                   <shape>
                      <Polygon>
                         <Vec2f x="0.0" y="0.0"/>
-                        <Vec2f x="0.1" y="0.0"/>
-                        <Vec2f x="0.1" y="0.1"/>
-                        <Vec2f x="0.0" y="0.1"/>
+                        <Vec2f x="0.0625" y="0.0"/>
+                        <Vec2f x="0.0625" y="0.0625"/>
+                        <Vec2f x="0.0" y="0.0625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -36,7 +36,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.1" y="0.1"/>
+                     <Vec2f x="0.0625" y="0.0625"/>
                   </onScreenSize>
                   <animation>
                      <Animation name="moveDown" duration="0.16667">
@@ -168,22 +168,22 @@
                   <transformation>
                      <Transformation name="moveDown">
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.0" y="-0.025"/></transl>
+                           <transl><Vec2f x="0.0" y="-0.015625"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.0" y="-0.025"/></transl>
+                           <transl><Vec2f x="0.0" y="-0.015625"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.0" y="-0.025"/></transl>
+                           <transl><Vec2f x="0.0" y="-0.015625"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.0" y="-0.025"/></transl>
+                           <transl><Vec2f x="0.0" y="-0.015625"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
@@ -192,22 +192,22 @@
                   <transformation>
                      <Transformation name="moveLeft">
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="-0.025" y="0.0"/></transl>
+                           <transl><Vec2f x="-0.015625" y="0.0"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="-0.025" y="0.0"/></transl>
+                           <transl><Vec2f x="-0.015625" y="0.0"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="-0.025" y="0.0"/></transl>
+                           <transl><Vec2f x="-0.015625" y="0.0"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="-0.025" y="0.0"/></transl>
+                           <transl><Vec2f x="-0.015625" y="0.0"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
@@ -216,22 +216,22 @@
                   <transformation>
                      <Transformation name="moveUp">
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.0" y="0.025"/></transl>
+                           <transl><Vec2f x="0.0" y="0.015625"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.0" y="0.025"/></transl>
+                           <transl><Vec2f x="0.0" y="0.015625"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.0" y="0.025"/></transl>
+                           <transl><Vec2f x="0.0" y="0.015625"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.0" y="0.025"/></transl>
+                           <transl><Vec2f x="0.0" y="0.015625"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
@@ -240,22 +240,22 @@
                   <transformation>
                      <Transformation name="moveRight">
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.025" y="0.0"/></transl>
+                           <transl><Vec2f x="0.015625" y="0.0"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.025" y="0.0"/></transl>
+                           <transl><Vec2f x="0.015625" y="0.0"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.025" y="0.0"/></transl>
+                           <transl><Vec2f x="0.015625" y="0.0"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
                         <TransPart duration="0.05">
-                           <transl><Vec2f x="0.025" y="0.0"/></transl>
+                           <transl><Vec2f x="0.015625" y="0.0"/></transl>
                            <rot>0.0</rot>
                            <scale><Vec2f x="1.0" y="1.0"/></scale>
                         </TransPart>
@@ -265,42 +265,42 @@
             </Sprite>
             <footSensor>
                <Quad>
-                  <Vec2f x="0.00625" y="-0.025"/>
-                  <Vec2f x="0.09375" y="-0.025"/>
-                  <Vec2f x="0.09375" y="-0.00625"/>
-                  <Vec2f x="0.00625" y="-0.00625"/>
+                  <Vec2f x="0.00390625" y="-0.015625"/>
+                  <Vec2f x="0.05859375" y="-0.015625"/>
+                  <Vec2f x="0.05859375" y="-0.00390625"/>
+                  <Vec2f x="0.00390625" y="-0.00390625"/>
                </Quad>
             </footSensor>
             <headSensor>
                <Quad>
-                  <Vec2f x="0.00625" y="0.1"/>
-                  <Vec2f x="0.09375" y="0.1"/>
-                  <Vec2f x="0.09375" y="0.125"/>
-                  <Vec2f x="0.00625" y="0.125"/>
+                  <Vec2f x="0.00390625" y="0.0625"/>
+                  <Vec2f x="0.05859375" y="0.0625"/>
+                  <Vec2f x="0.05859375" y="0.078125"/>
+                  <Vec2f x="0.00390625" y="0.078125"/>
                </Quad>
             </headSensor>
             <leftSensor>
                <Quad>
-                  <Vec2f x="-0.025" y="0.00625"/>
-                  <Vec2f x="-0.0" y="0.00625"/>
-                  <Vec2f x="-0.0" y="0.09375"/>
-                  <Vec2f x="-0.025" y="0.09375"/>
+                  <Vec2f x="-0.015625" y="0.00390625"/>
+                  <Vec2f x="-0.0" y="0.00390625"/>
+                  <Vec2f x="-0.0" y="0.05859375"/>
+                  <Vec2f x="-0.015625" y="0.05859375"/>
                </Quad>
             </leftSensor>
             <rightSensor>
                <Quad>
-                  <Vec2f x="0.1" y="0.00625"/>
-                  <Vec2f x="0.125" y="0.00625"/>
-                  <Vec2f x="0.125" y="0.09375"/>
-                  <Vec2f x="0.1" y="0.09375"/>
+                  <Vec2f x="0.0625" y="0.00390625"/>
+                  <Vec2f x="0.078125" y="0.00390625"/>
+                  <Vec2f x="0.078125" y="0.05859375"/>
+                  <Vec2f x="0.0625" y="0.05859375"/>
                </Quad>
             </rightSensor>
             <midSensor>
                <Quad>
-                  <Vec2f x="0.00625" y="0.00625"/>
-                  <Vec2f x="0.09375" y="0.00625"/>
-                  <Vec2f x="0.09375" y="0.09375"/>
-                  <Vec2f x="0.00625" y="0.09375"/>
+                  <Vec2f x="0.00390625" y="0.00390625"/>
+                  <Vec2f x="0.05859375" y="0.00390625"/>
+                  <Vec2f x="0.05859375" y="0.05859375"/>
+                  <Vec2f x="0.00390625" y="0.05859375"/>
                </Quad>
             </midSensor>
          </Player>

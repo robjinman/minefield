@@ -4,12 +4,12 @@
       <asset id="705" addToWorld="false">
          <MenuItem>
             <Item>
-               <Entity type="menuItem" name="mnuBackToStartMenu" x="0.0" y="0.0" z="2" rot="0.0">
+               <Entity type="menuItem" name="mnuBackToStartMenu" x="0.02" y="0.1" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.4" y="0.1"/>
+                        <Vec2f x="0.3" y="0.075"/>
                         <Vec2f x="0" y="0.1"/>
                      </Polygon>
                   </shape>
@@ -34,7 +34,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.4" y="0.1"/>
+                        <Vec2f x="0.3" y="0.075"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -204,12 +204,12 @@
       <asset id="704" addToWorld="false">
          <MenuItem>
             <Item>
-               <Entity type="menuItem" name="mnuSFXVolume" x="0.0" y="0.2" z="2" rot="0.0">
+               <Entity type="menuItem" name="mnuSFXVolume" x="0.02" y="0.2" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.4" y="0.1"/>
+                        <Vec2f x="0.3" y="0.075"/>
                         <Vec2f x="0" y="0.1"/>
                      </Polygon>
                   </shape>
@@ -234,7 +234,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.4" y="0.1"/>
+                        <Vec2f x="0.3" y="0.075"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -346,12 +346,12 @@
       <asset id="702" addToWorld="false">
          <MenuItem>
             <Item>
-               <Entity type="menuItem" name="mnuMusicVolume" x="0.0" y="0.4" z="2" rot="0.0">
+               <Entity type="menuItem" name="mnuMusicVolume" x="0.02" y="0.3" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.4" y="0.1"/>
+                        <Vec2f x="0.3" y="0.075"/>
                         <Vec2f x="0" y="0.1"/>
                      </Polygon>
                   </shape>
@@ -376,7 +376,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.4" y="0.1"/>
+                        <Vec2f x="0.3" y="0.075"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">

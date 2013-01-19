@@ -20,6 +20,10 @@ Mine::Mine(const Dodge::XmlNode data)
 
    try {
       XML_NODE_CHECK(data, Mine);
+
+      XmlNode node = data.nthChild(2);
+      XML_NODE_CHECK(node, blastRadius);
+      m_blastRadius = node.getFloat();
    }
    catch (XmlException& e) {
       e.prepend("Error parsing XML for instance of class Mine; ");
@@ -35,7 +39,8 @@ Mine::Mine(const Mine& copy)
      Entity(copy),
      Item(copy),
      Sprite(copy),
-     m_state(IDLE) {}
+     m_state(IDLE),
+     m_blastRadius(copy.m_blastRadius) {}
 
 //===========================================
 // Mine::Mine
@@ -45,7 +50,8 @@ Mine::Mine(const Mine& copy, long name)
      Entity(copy, name),
      Item(copy, name),
      Sprite(copy, name),
-     m_state(IDLE) {}
+     m_state(IDLE),
+     m_blastRadius(copy.m_blastRadius) {}
 
 //===========================================
 // Mine::update
@@ -125,7 +131,7 @@ void Mine::explode() {
       playAnimation(explodeStr);
 
       EventManager eventManager;
-      EExplosion* event = new EExplosion(getTranslation_abs() + (getOnScreenSize() / 2.f), 0.25);
+      EExplosion* event = new EExplosion(getTranslation_abs() + (getOnScreenSize() / 2.f), m_blastRadius);
       eventManager.queueEvent(event);
 
       m_state = EXPLODING;
@@ -146,5 +152,10 @@ void Mine::assignData(const Dodge::XmlNode data) {
 
    if (!node.isNull() && node.name() == "Sprite") {
       Sprite::assignData(node);
+      node = node.nextSibling();
+   }
+
+   if (!node.isNull() && node.name() == "blastRadius") {
+      m_blastRadius = node.getFloat();
    }
 }

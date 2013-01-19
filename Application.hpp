@@ -94,6 +94,7 @@ class Application {
 
       std::vector<std::vector<pItem_t> > m_mineField;
 
+      Dodge::Range                  m_minefieldBoundary;
       Dodge::Vec2f                  m_tileSize;
       long                          m_startMenuId;
       long                          m_playerProtoId;

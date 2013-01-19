@@ -9,9 +9,9 @@
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
-                        <Vec2f x="0.1" y="0"/>
-                        <Vec2f x="0.1" y="0.1"/>
-                        <Vec2f x="0" y="0.1"/>
+                        <Vec2f x="0.0625" y="0"/>
+                        <Vec2f x="0.0625" y="0.0625"/>
+                        <Vec2f x="0" y="0.0625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -34,7 +34,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.1" y="0.1"/>
+                     <Vec2f x="0.0625" y="0.0625"/>
                   </onScreenSize>
                   <animation>
                      <Animation name="openIdle" duration="0.4">

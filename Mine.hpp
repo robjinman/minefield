@@ -29,7 +29,7 @@ class Mine : public Item, public Dodge::Sprite {
       enum state_t { IDLE, EXPLODING };
 
       state_t m_state;
-      unsigned int m_value;
+      Dodge::float32_t m_blastRadius;
 };
 
 typedef boost::shared_ptr<Mine> pMine_t;
