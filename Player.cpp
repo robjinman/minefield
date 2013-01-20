@@ -1,8 +1,13 @@
-#include "Player.hpp"
-#include "EExplosion.hpp"
 #include <dodge/EventManager.hpp>
 #include <dodge/math/math.hpp>
 #include <dodge/EAnimFinished.hpp>
+#include <dodge/WinIO.hpp>
+#include <dodge/globals.hpp>
+#include <dodge/renderer/Renderer.hpp>
+#include <dodge/AssetManager.hpp>
+#include "Player.hpp"
+#include "EExplosion.hpp"
+#include "ERequestToThrowThrowable.hpp"
 
 
 using namespace std;
@@ -17,12 +22,24 @@ Player::Player(const Dodge::XmlNode data)
      Entity(data.firstChild().firstChild()),
      Item(data.firstChild()),
      Sprite(data.nthChild(1)),
-     m_state(ALIVE) {
+     m_state(ALIVE),
+     m_mode(NORMAL_MODE) {
 
    try {
+      AssetManager assetManager;
+
       XML_NODE_CHECK(data, Player);
 
       XmlNode node = data.nthChild(2);
+      XML_NODE_CHECK(node, crosshairsId);
+      long crosshairsId = node.getLong();
+
+      m_crosshairs = boost::dynamic_pointer_cast<Item>(assetManager.getAssetPointer(crosshairsId));
+
+      if (!m_crosshairs)
+         throw XmlException("Bad asset id for crosshairs", __FILE__, __LINE__);
+
+      node = node.nextSibling();
       XML_NODE_CHECK(node, footSensor);
       m_footSensor = Quad(node.firstChild());
 
@@ -58,7 +75,8 @@ Player::Player(const Player& copy)
      Entity(copy),
      Item(copy),
      Sprite(copy),
-     m_state(ALIVE) {
+     m_state(ALIVE),
+     m_mode(NORMAL_MODE) {
 
    deepCopy(copy);
    init();
@@ -72,7 +90,8 @@ Player::Player(const Player& copy, long name)
      Entity(copy, name),
      Item(copy, name),
      Sprite(copy, name),
-     m_state(ALIVE) {
+     m_state(ALIVE),
+     m_mode(NORMAL_MODE) {
 
    deepCopy(copy);
    init();
@@ -101,6 +120,19 @@ void Player::deepCopy(const Player& copy) {
 //===========================================
 void Player::update() {
    Sprite::update();
+
+   if (m_mode == THROWING_MODE)
+      m_crosshairs->update();
+}
+
+//===========================================
+// Player::draw
+//===========================================
+void Player::draw() {
+   Sprite::draw();
+
+   if (m_mode == THROWING_MODE)
+      m_crosshairs->draw();
 }
 
 //===========================================
@@ -206,10 +238,69 @@ void Player::die() {
 }
 
 //===========================================
+// Player::enterNormalMode
+//===========================================
+void Player::enterNormalMode() {
+   m_mode = NORMAL_MODE;
+
+   WinIO win;
+   win.unregisterCallback(WinIO::EVENT_MOUSEMOVE, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseMove));
+   win.unregisterCallback(WinIO::EVENT_BTN1PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseLeftClick));
+
+   m_throwable.reset();
+   m_crosshairs->removeFromWorld();
+}
+
+//===========================================
 // Player::enterThrowingMode
 //===========================================
-void Player::enterThrowingMode(pEntity_t throwable) {
-   cout << "Player::enterThrowingMode()\n";
+void Player::enterThrowingMode(pThrowable_t throwable) {
+   m_mode = THROWING_MODE;
+
+   WinIO win;
+   win.registerCallback(WinIO::EVENT_MOUSEMOVE, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseMove));
+   win.registerCallback(WinIO::EVENT_BTN1PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseLeftClick));
+
+   m_throwable = throwable;
+   m_crosshairs->addToWorld();
+}
+
+//===========================================
+// Player::mouseMove
+//===========================================
+void Player::mouseMove(int x, int y) {
+   assert(m_mode == THROWING_MODE);
+
+   Vec2f viewPos = Renderer::getInstance().getCamera().getTranslation();
+
+   WinIO win;
+   y = win.getWindowHeight() - y;
+   float32_t wx = viewPos.x + static_cast<float32_t>(x) * gGetPixelSize().x;
+   float32_t wy = viewPos.y + static_cast<float32_t>(y) * gGetPixelSize().y;
+
+   const Vec2f& sz = m_crosshairs->getBoundary().getSize();
+   m_crosshairs->setTranslation(wx - sz.x / 2.f, wy - sz.y / 2.f);
+}
+
+//===========================================
+// Player::mouseLeftClick
+//===========================================
+void Player::mouseLeftClick(int x, int y) {
+   assert(m_mode == THROWING_MODE);
+   assert(m_throwable);
+
+   Vec2f viewPos = Renderer::getInstance().getCamera().getTranslation();
+
+   WinIO win;
+   y = win.getWindowHeight() - y;
+   float32_t wx = viewPos.x + static_cast<float32_t>(x) * gGetPixelSize().x;
+   float32_t wy = viewPos.y + static_cast<float32_t>(y) * gGetPixelSize().y;
+
+   EventManager eventManager;
+   ERequestToThrowThrowable* event = new ERequestToThrowThrowable(m_throwable, wx, wy);
+   eventManager.queueEvent(event);
+
+   enterNormalMode();
 }
 
 //===========================================
@@ -278,10 +369,15 @@ void Player::checkForCollisions() {
          l = true;
       }
 
+
       // Check if the player has stumbled upon a throwable item
       if (Math::overlap(m_midSensor, A, vec[i]->getShape(), B)) {
-         if (vec[i]->getTypeName() == throwableStr && numActiveTransformations() == 0)
-            enterThrowingMode(vec[i]);
+         if (vec[i]->getTypeName() == throwableStr && numActiveTransformations() == 0) {
+            pThrowable_t item = boost::dynamic_pointer_cast<Throwable>(vec[i]);
+            assert(item);
+
+            enterThrowingMode(item);
+         }
       }
    }
 }
@@ -307,8 +403,11 @@ void Player::move(dir_t dir) {
    playAnimation(anim, true);
    pauseAnimation();
 
-   if (numActiveTransformations() == 0)
+   if (numActiveTransformations() == 0) {
+      if (m_mode == THROWING_MODE) enterNormalMode();
+
       playTransformation(anim);
+   }
 }
 
 //===========================================
@@ -326,4 +425,8 @@ void Player::assignData(const Dodge::XmlNode data) {
 Player::~Player() {
    EventManager eventManager;
    eventManager.unregisterCallback(internString("explosion"), Functor<void, TYPELIST_1(EEvent*)>(this, &Player::explosionHandler));
+
+   WinIO win;
+   win.unregisterCallback(WinIO::EVENT_MOUSEMOVE, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseMove));
+   win.unregisterCallback(WinIO::EVENT_BTN1PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseLeftClick));
 }

@@ -18,10 +18,13 @@
 #include "MenuItem.hpp"
 #include "CSprite.hpp"
 #include "CTextEntity.hpp"
+#include "Throwable.hpp"
+#include "Zombie.hpp"
 #include "Counter.hpp"
 #include "Collectable.hpp"
 #include "CreditsMenu.hpp"
 #include "EUpdateScore.hpp"
+#include "ERequestToThrowThrowable.hpp"
 
 
 #define TARGET_MEM_USAGE 9999999
@@ -264,6 +267,10 @@ void Application::setMapSettings(const XmlNode data) {
       m_throwableProtoId = node.getLong();
 
       node = node.nextSibling();
+      XML_NODE_CHECK(node, zombieProtoId);
+      m_zombieProtoId = node.getLong();
+
+      node = node.nextSibling();
       XML_NODE_CHECK(node, timeCounterId);
       m_timeCounterId = node.getLong();
 
@@ -442,6 +449,8 @@ pAsset_t Application::constructAsset(const XmlNode data) {
       if (node.name() == "MenuItem") item = pItem_t(new MenuItem(node));
       if (node.name() == "CSprite") item = pItem_t(new CSprite(node));
       if (node.name() == "CTextEntity") item = pItem_t(new CTextEntity(node));
+      if (node.name() == "Throwable") item = pItem_t(new Throwable(node));
+      if (node.name() == "Zombie") item = pItem_t(new Zombie(node));
       if (node.name() == "Counter") item = pItem_t(new Counter(node));
       if (node.name() == "Collectable") item = pItem_t(new Collectable(node));
       // ...
@@ -497,6 +506,19 @@ void Application::playerDeath(EEvent* event) {
 //===========================================
 void Application::gameSuccess(const EEvent* event) {
    // TODO
+}
+
+//===========================================
+// Application::reqToThrowThrowable
+//===========================================
+void Application::reqToThrowThrowable(EEvent* event) {
+   ERequestToThrowThrowable* e = static_cast<ERequestToThrowThrowable*>(event);
+
+   int toX = e->to.x / m_tileSize.x;
+   int toY = e->to.y / m_tileSize.y;
+   Vec2f dest(toX * m_tileSize.x, toY * m_tileSize.y);
+
+   e->item->throwTo(dest.x, dest.y);
 }
 
 //===========================================
@@ -702,7 +724,7 @@ void Application::populateMap() {
          continue;
       }
 
-      pCSprite_t item(dynamic_cast<CSprite*>(m_assetManager.cloneAsset(m_throwableProtoId)));
+      pThrowable_t item(dynamic_cast<Throwable*>(m_assetManager.cloneAsset(m_throwableProtoId)));
 
       if (!item)
          throw Exception("Error populating map; Bad throwable proto id", __FILE__, __LINE__);
@@ -714,6 +736,37 @@ void Application::populateMap() {
       m_items[item->getName()] = item;
 
       coinsAndThrowables[i][j] = true;
+   }
+
+   for (int c = 0; c < m_numZombies; ++c) {
+      int i = rand() % w;
+      int j = rand() % h;
+
+      if (i == exitI && j == exitJ) {
+         --c;
+         continue;
+      }
+
+      if (i == plyrI && j == plyrJ) {
+         --c;
+         continue;
+      }
+
+      if (m_mineField[i][j] && m_mineField[i][j]->getTypeName() == mineStr) {
+         --c;
+         continue;
+      }
+
+      pZombie_t item(dynamic_cast<Zombie*>(m_assetManager.cloneAsset(m_zombieProtoId)));
+
+      if (!item)
+         throw Exception("Error populating map; Bad zombie proto id", __FILE__, __LINE__);
+
+      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_tileSize.x, pos.y + static_cast<float32_t>(j) * m_tileSize.y);
+
+      item->addToWorld();
+      m_worldSpace.trackEntity(item);
+      m_items[item->getName()] = item;
    }
 
    for (int i = 0; i < w; ++i) {
@@ -744,7 +797,8 @@ void Application::startGame(EEvent* event) {
    // TODO:
    m_numMines = 10;
    m_numCollectables = 8;
-   m_numThrowables = 3;
+   m_numThrowables = 8;
+   m_numZombies = 3;
    m_requiredScore = 5;
    m_timeLimit = 100;
 
@@ -868,6 +922,9 @@ void Application::launch(int argc, char** argv) {
 
    m_eventManager.registerCallback(internString("playerDeath"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::playerDeath));
+
+   m_eventManager.registerCallback(internString("requestToThrowThrowable"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqToThrowThrowable));
 
    m_gameState = ST_START_MENU;
 

@@ -1,6 +1,6 @@
 NAME = demo
 CC = g++
-CFLAGS = -std=c++0x -Wall -g -DDEBUG
+CFLAGS = -std=c++0x -Wall -g -DDEBUG -O3
 INCL = -I../Dodge/Dodge/include
 LIBS = -L../Dodge/Dodge/lib -L/usr/lib -lDodge -lX11 -lGLESv2 -lEGL -lpnglite -lz -lBox2D
 OBJS = Application.o \
@@ -19,7 +19,9 @@ OBJS = Application.o \
 	Player.o \
 	Soil.o \
 	SettingsMenu.o \
-	StartMenu.o
+	StartMenu.o \
+	Throwable.o \
+	Zombie.o
 
 all: $(OBJS)
 	$(CC) $(OBJS) -o $(NAME) $(LIBS)

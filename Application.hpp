@@ -64,6 +64,7 @@ class Application {
       void quitGame(Dodge::EEvent* event);
       void updateScore(Dodge::EEvent* event);
       void updateTimer();
+      void reqToThrowThrowable(Dodge::EEvent* event);
 
       void exitDefault();
 
@@ -105,6 +106,7 @@ class Application {
       long                          m_soilProtoId;
       long                          m_collectableProtoId;
       long                          m_throwableProtoId;
+      long                          m_zombieProtoId;
       long                          m_scoreCounterId;
       long                          m_timeCounterId;
       pPlayer_t                     m_player;
@@ -115,6 +117,7 @@ class Application {
       pCounter_t                    m_timeCounter;
       int                           m_numCollectables;
       int                           m_numThrowables;
+      int                           m_numZombies;
       int                           m_timeLimit;
       int                           m_requiredScore;
 };

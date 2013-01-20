@@ -21,14 +21,10 @@ void programExit() {
 int main(int argc, char** argv) {
    Application app;
 
-   try {
+
       app.onExit(Functor<void, TYPELIST_0()>(programExit));
       app.launch(argc, argv);
-   }
-   catch (Dodge::Exception& e) {
-      std::cerr << e.what() << "\n";
-      app.quit();
-   }
+
 
    return 0;
 }

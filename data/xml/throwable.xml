@@ -3,7 +3,7 @@
    <assets>
       <asset id="1000"><Texture path="data/textures/stick.png"/></asset>
       <asset id="1001" addToWorld="false">
-         <CSprite>
+         <Throwable>
             <Item>
                <Entity type="throwable" name="throwableProto" x="0.0" y="0.0" z="9" rot="-30.0">
                   <shape>
@@ -36,10 +36,54 @@
                   <onScreenSize>
                      <Vec2f x="0.016" y="0.0625"/>
                   </onScreenSize>
+                  <animation>
+                     <Animation name="dissolve" duration="0.25">
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="8" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="8" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.875"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="8" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.75"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="8" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.625"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="8" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.5"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="8" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.375"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="8" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.25"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="8" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.125"/></col>
+                        </AnimFrame>
+                     </Animation>
+                  </animation>
                </EntityAnimations>
                <EntityTransformations/>
             </Sprite>
-         </CSprite>
+         </Throwable>
       </asset>
    </assets>
 </ASSETFILE>

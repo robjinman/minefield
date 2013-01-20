@@ -836,7 +836,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="1.0" y="1.0"/>
+                        <Vec2f x="1.2" y="1.0"/>
                      </onScreenSize>
                   </EntityAnimations>
                   <EntityTransformations/>

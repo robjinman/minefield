@@ -4,20 +4,20 @@
       <boundary>
          <Range>
             <pos><Vec2f x="0.0" y="0.0"/></pos>
-            <size><Vec2f x="1.0" y="1.0"/></size>
+            <size><Vec2f x="1.2" y="1.0"/></size>
          </Range>
       </boundary>
       <numSegments><Vec2i x="1" y="1"/></numSegments>
-      <segmentSize><Vec2f x="1.0" y="1.0"/></segmentSize>
+      <segmentSize><Vec2f x="1.2" y="1.0"/></segmentSize>
       <segmentsDir>data/xml/0</segmentsDir>
    </settings>
    <customSettings>
-      <windowSize><Vec2i x="400" y="400"/></windowSize>
+      <windowSize><Vec2i x="480" y="400"/></windowSize>
       <bgColour><Colour r="0.8" g="0.8" b="0.8" a="1.0"/></bgColour>
       <minefieldBoundary>
          <Range>
             <pos><Vec2f x="0.0" y="0.0"/></pos>
-            <size><Vec2f x="1.0" y="0.75"/></size>
+            <size><Vec2f x="1.2" y="0.75"/></size>
          </Range>
       </minefieldBoundary>
       <tileSize><Vec2f x="0.0625" y="0.0625"/></tileSize>
@@ -29,12 +29,9 @@
       <soilProtoId>401</soilProtoId>
       <collectableProtoId>801</collectableProtoId>
       <throwableProtoId>1001</throwableProtoId>
+      <zombieProtoId>1101</zombieProtoId>
       <timeCounterId>56</timeCounterId>
-      <scoreCounterId>57</scoreCounterId><!--
-      <numMines>20</numMines>
-      <numCollectables>10</numCollectables>
-      <requiredScore>5</requiredScore>
-      <timeLimit>300</timeLimit>-->
+      <scoreCounterId>57</scoreCounterId>
    </customSettings>
    <using>
       <file>data/xml/numericTile.xml</file>
@@ -44,6 +41,7 @@
       <file>data/xml/exit.xml</file>
       <file>data/xml/collectable.xml</file>
       <file>data/xml/throwable.xml</file>
+      <file>data/xml/zombie.xml</file>
       <file>data/xml/startMenu.xml</file>
    </using>
    <assets>
@@ -87,7 +85,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="1.0" y="0.75"/>
+                     <Vec2f x="1.2" y="0.75"/>
                   </onScreenSize>
                </EntityAnimations>
                <EntityTransformations/>
@@ -118,7 +116,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="1.0" y="0.25"/>
+                     <Vec2f x="1.2" y="0.25"/>
                   </onScreenSize>
                </EntityAnimations>
                <EntityTransformations/>
@@ -144,8 +142,8 @@
                   <texture ptr="2"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="48" y="0"/></pos>
-                        <size><Vec2f x="48" y="64"/></size>
+                        <pos><Vec2f x="24" y="0"/></pos>
+                        <size><Vec2f x="24" y="32"/></size>
                      </Range>
                   </textureSection>
                   <onScreenSize>
@@ -175,8 +173,8 @@
                   <texture ptr="2"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="96" y="0"/></pos>
-                        <size><Vec2f x="32" y="64"/></size>
+                        <pos><Vec2f x="48" y="0"/></pos>
+                        <size><Vec2f x="16" y="32"/></size>
                      </Range>
                   </textureSection>
                   <onScreenSize>
@@ -207,7 +205,7 @@
                   <textureSection>
                      <Range>
                         <pos><Vec2f x="0" y="0"/></pos>
-                        <size><Vec2f x="48" y="64"/></size>
+                        <size><Vec2f x="24" y="32"/></size>
                      </Range>
                   </textureSection>
                   <onScreenSize>
@@ -237,8 +235,8 @@
                   <texture ptr="2"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="96" y="0"/></pos>
-                        <size><Vec2f x="32" y="64"/></size>
+                        <pos><Vec2f x="48" y="0"/></pos>
+                        <size><Vec2f x="16" y="32"/></size>
                      </Range>
                   </textureSection>
                   <onScreenSize>
