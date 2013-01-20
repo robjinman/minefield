@@ -61,12 +61,9 @@ void Application::exitDefault() {
 //===========================================
 // Application::quit
 //===========================================
-void Application::quit() {
-   m_eventManager.clear(); // TODO Some monostate/singletons may not have been initialised!
+void Application::quit() { // TODO Some monostate/singletons may not have been initialised!
+   m_eventManager.clear();
    freeAllAssets();
-#ifdef DEBUG
-   cout << "All assets should have been destroyed by this point\n";
-#endif
    m_renderer.stop();
    m_win.destroyWindow();
 
@@ -85,6 +82,8 @@ void Application::freeAllAssets() {
    m_player.reset();
    m_exit.reset();
    m_startMenu.reset();
+   m_timeCounter.reset();
+   m_scoreCounter.reset();
 }
 
 //===========================================
@@ -208,23 +207,6 @@ void Application::computeFrameRate() {
 }
 
 //===========================================
-// Application::onAnimFinished
-//===========================================
-void Application::onAnimFinished(const EEvent* event) {
-   static long animFinishedStr = internString("animFinished");
-   static long playerStr = internString("player");
-   static long explodeStr = internString("explode");
-
-   if (event->getType() == animFinishedStr) {
-      const EAnimFinished* e = static_cast<const EAnimFinished*>(event);
-      pAnimation_t anim = e->animation;
-
-      if (e->entity->getName() == playerStr && anim->getName() == explodeStr)
-         playerDeath();
-   }
-}
-
-//===========================================
 // Application::setMapSettings
 //===========================================
 void Application::setMapSettings(const XmlNode data) {
@@ -278,28 +260,16 @@ void Application::setMapSettings(const XmlNode data) {
       m_collectableProtoId = node.getLong();
 
       node = node.nextSibling();
+      XML_NODE_CHECK(node, throwableProtoId);
+      m_throwableProtoId = node.getLong();
+
+      node = node.nextSibling();
       XML_NODE_CHECK(node, timeCounterId);
       m_timeCounterId = node.getLong();
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, scoreCounterId);
       m_scoreCounterId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, numMines);
-      m_numMines = node.getInt();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, numCollectables);
-      m_numCollectables = node.getInt();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, requiredScore);
-      m_requiredScore = node.getInt();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, timeLimit);
-      m_timeLimit = node.getInt();
 
       m_win.init("Minefield", winSz.x, winSz.y, false);
       m_renderer.start();
@@ -518,7 +488,7 @@ void Application::onWindowResize(int w, int h) {
 //===========================================
 // Application::playerDeath
 //===========================================
-void Application::playerDeath() {
+void Application::playerDeath(EEvent* event) {
    // TODO
 }
 
@@ -533,15 +503,6 @@ void Application::gameSuccess(const EEvent* event) {
 // Application::draw
 //===========================================
 void Application::draw() const {
-/*
-   vector<pEntity_t> visibleEnts;
-
-   m_worldSpace.getEntities(m_viewArea, visibleEnts);
-
-   for (uint_t i = 0; i < visibleEnts.size(); ++i)
-      visibleEnts[i]->draw();
-*/
-
    switch (m_gameState) {
       case ST_RUNNING:
          for (auto i = m_items.begin(); i != m_items.end(); ++i)
@@ -686,8 +647,8 @@ void Application::populateMap() {
       }
    }
 
-   vector<vector<bool> > coins;
-   for (int i = 0; i < w; ++i) coins.push_back(vector<bool>(h, false));
+   vector<vector<bool> > coinsAndThrowables;
+   for (int i = 0; i < w; ++i) coinsAndThrowables.push_back(vector<bool>(h, false));
 
    for (int c = 0; c < m_numCollectables; ++c) {
       int i = rand() % w;
@@ -703,12 +664,15 @@ void Application::populateMap() {
          continue;
       }
 
-      if (coins[i][j]) {
+      if (coinsAndThrowables[i][j]) {
          --c;
          continue;
       }
 
       pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_collectableProtoId)));
+
+      if (!item)
+         throw Exception("Error populating map; Bad collectable proto id", __FILE__, __LINE__);
 
       item->setTranslation(pos.x + static_cast<float32_t>(i) * m_tileSize.x, pos.y + static_cast<float32_t>(j) * m_tileSize.y);
 
@@ -716,7 +680,40 @@ void Application::populateMap() {
       m_worldSpace.trackEntity(item);
       m_items[item->getName()] = item;
 
-      coins[i][j] = true;
+      coinsAndThrowables[i][j] = true;
+   }
+
+   for (int c = 0; c < m_numThrowables; ++c) {
+      int i = rand() % w;
+      int j = rand() % h;
+
+      if (i == exitI && j == exitJ) {
+         --c;
+         continue;
+      }
+
+      if (i == plyrI && j == plyrJ) {
+         --c;
+         continue;
+      }
+
+      if (coinsAndThrowables[i][j]) {
+         --c;
+         continue;
+      }
+
+      pCSprite_t item(dynamic_cast<CSprite*>(m_assetManager.cloneAsset(m_throwableProtoId)));
+
+      if (!item)
+         throw Exception("Error populating map; Bad throwable proto id", __FILE__, __LINE__);
+
+      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_tileSize.x, pos.y + static_cast<float32_t>(j) * m_tileSize.y);
+
+      item->addToWorld();
+      m_worldSpace.trackEntity(item);
+      m_items[item->getName()] = item;
+
+      coinsAndThrowables[i][j] = true;
    }
 
    for (int i = 0; i < w; ++i) {
@@ -743,7 +740,16 @@ void Application::populateMap() {
 //===========================================
 void Application::startGame(EEvent* event) {
    m_startMenu->removeFromWorld();
+
+   // TODO:
+   m_numMines = 10;
+   m_numCollectables = 8;
+   m_numThrowables = 3;
+   m_requiredScore = 5;
+   m_timeLimit = 100;
+
    populateMap();
+
    m_scoreCounter->setValue(m_requiredScore);
    m_timeCounter->setValue(m_timeLimit);
    m_gameState = ST_RUNNING;
@@ -798,13 +804,17 @@ void Application::updateScore(EEvent* event) {
 void Application::updateTimer() {
    static Timer timer;
 
+   if (!m_player) return;
+   if (m_player->getState() == Player::DEAD) return;
+
    if (timer.getTime() > 1.0) {
       timer.reset();
 
       m_timeCounter->decrement();
 
-      if (m_timeCounter->getValue() == 0)
-         playerDeath();
+      if (m_timeCounter->getValue() == 0) {
+         m_player->die();
+      }
    }
 }
 
@@ -844,9 +854,6 @@ void Application::launch(int argc, char** argv) {
    m_eventManager.registerCallback(internString("pendingDeletion"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::deletePending));
 
-   m_eventManager.registerCallback(internString("animFinished"),
-      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::onAnimFinished));
-
    m_eventManager.registerCallback(internString("success"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::gameSuccess));
 
@@ -858,6 +865,9 @@ void Application::launch(int argc, char** argv) {
 
    m_eventManager.registerCallback(internString("updateScore"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::updateScore));
+
+   m_eventManager.registerCallback(internString("playerDeath"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::playerDeath));
 
    m_gameState = ST_START_MENU;
 

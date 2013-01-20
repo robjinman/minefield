@@ -22,6 +22,8 @@ class Player : public Item, public Dodge::Sprite {
       inline void moveUp();
       inline void moveDown();
 
+      void die();
+
       inline state_t getState() const;
 
       virtual void update();
@@ -50,6 +52,8 @@ class Player : public Item, public Dodge::Sprite {
       void move(dir_t direction);
       void deepCopy(const Player& copy);
       void init();
+      void checkForCollisions();
+      void enterThrowingMode(Dodge::pEntity_t throwable);
       void explosionHandler(Dodge::EEvent* event);
 };
 

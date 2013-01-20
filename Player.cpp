@@ -94,7 +94,6 @@ void Player::deepCopy(const Player& copy) {
    m_headSensor = copy.m_headSensor;
    m_leftSensor = copy.m_leftSensor;
    m_rightSensor = copy.m_rightSensor;
-   m_midSensor = copy.m_midSensor;
 }
 
 //===========================================
@@ -117,8 +116,7 @@ size_t Player::getSize() const {
       - sizeof(Quad) + m_footSensor.getSize()
       - sizeof(Quad) + m_headSensor.getSize()
       - sizeof(Quad) + m_leftSensor.getSize()
-      - sizeof(Quad) + m_rightSensor.getSize()
-      - sizeof(Quad) + m_midSensor.getSize();
+      - sizeof(Quad) + m_rightSensor.getSize();
 }
 
 //===========================================
@@ -146,11 +144,15 @@ void Player::dbg_print(ostream& out, int tab) const {
 // Player::onEvent
 //===========================================
 void Player::onEvent(const EEvent* event) {
+   static long entityTranslationStr = internString("entityTranslation");
    static long transPartFinishedStr = internString("transPartFinished");
+   static long animFinishedStr = internString("animFinished");
+   static long explodeStr = internString("explode");
    static long moveLeftStr = internString("moveLeft");
    static long moveRightStr = internString("moveRight");
    static long moveUpStr = internString("moveUp");
    static long moveDownStr = internString("moveDown");
+   static long playerDeathStr = internString("playerDeath");
 
    Sprite::onEvent(event);
 
@@ -163,6 +165,19 @@ void Player::onEvent(const EEvent* event) {
          || trans->getName() == moveRightStr
          || trans->getName() == moveDownStr) stepAnimation();
    }
+   else if (event->getType() == animFinishedStr) {
+      const EAnimFinished* e = static_cast<const EAnimFinished*>(event);
+      pAnimation_t anim = e->animation;
+
+      if (anim->getName() == explodeStr) {
+         EventManager eventManager;
+         EEvent* eDeath = new EEvent(playerDeathStr);
+         eventManager.queueEvent(eDeath);
+      }
+   }
+   else if (event->getType() == entityTranslationStr) {
+      checkForCollisions();
+   }
 }
 
 //===========================================
@@ -174,11 +189,99 @@ void Player::explosionHandler(EEvent* event) {
    Vec2f diff = pos - e->pos;
 
    if (diff.x * diff.x + diff.y * diff.y < e->radius * e->radius) {
-      if (m_state == ALIVE) {
-         stopAnimation();
-         stopTransformations();
-         playAnimation(internString("explode"));
-         m_state = DEAD;
+      if (m_state == ALIVE) die();
+   }
+}
+
+//===========================================
+// Player::die
+//===========================================
+void Player::die() {
+   static long explodeStr = internString("explode");
+
+   stopAnimation();
+   stopTransformations();
+   playAnimation(explodeStr);
+   m_state = DEAD;
+}
+
+//===========================================
+// Player::enterThrowingMode
+//===========================================
+void Player::enterThrowingMode(pEntity_t throwable) {
+   cout << "Player::enterThrowingMode()\n";
+}
+
+//===========================================
+// Player::checkForCollisions
+//===========================================
+void Player::checkForCollisions() {
+   static long throwableStr = internString("throwable");
+   static long hitFromRightStr = internString("hitFromRight");
+   static long hitFromLeftStr = internString("hitFromLeft");
+   static long hitFromBottomStr = internString("hitFromBottom");
+   static long hitFromTopStr = internString("hitFromTop");
+   static long hitFromAboveStr = internString("hitFromAbove");
+
+   vector<pEntity_t> vec;
+   m_worldSpace.getEntities(getBoundary(), vec);
+
+   for (uint_t i = 0; i < vec.size(); ++i) {
+      if (vec[i].get() == this) continue;
+      if (!vec[i]->hasShape()) continue;
+
+      Vec2f A = getTranslation_abs();
+      Vec2f B = vec[i]->getTranslation_abs();
+
+      bool l = false;
+      bool r = false;
+      bool t = false;
+      bool b = false;
+
+      if (Math::overlap(m_leftSensor, A, vec[i]->getShape(), B)) {
+         EEvent* event = new EEvent(hitFromRightStr);
+         vec[i]->onEvent(event);
+         delete event;
+
+         l = true;
+      }
+
+      if (Math::overlap(m_rightSensor, A, vec[i]->getShape(), B)) {
+         EEvent* event = new EEvent(hitFromLeftStr);
+         vec[i]->onEvent(event);
+         delete event;
+
+         r = true;
+      }
+
+      if (Math::overlap(m_headSensor, A, vec[i]->getShape(), B)) {
+         EEvent* event = new EEvent(hitFromBottomStr);
+         vec[i]->onEvent(event);
+         delete event;
+
+         t = true;
+      }
+
+      if (Math::overlap(m_footSensor, A, vec[i]->getShape(), B)) {
+         EEvent* event = new EEvent(hitFromTopStr);
+         vec[i]->onEvent(event);
+         delete event;
+
+         b = true;
+      }
+
+      if (l && r && t && b) {
+         EEvent* event = new EEvent(hitFromAboveStr);
+         vec[i]->onEvent(event);
+         delete event;
+
+         l = true;
+      }
+
+      // Check if the player has stumbled upon a throwable item
+      if (Math::overlap(m_midSensor, A, vec[i]->getShape(), B)) {
+         if (vec[i]->getTypeName() == throwableStr && numActiveTransformations() == 0)
+            enterThrowingMode(vec[i]);
       }
    }
 }
@@ -188,79 +291,33 @@ void Player::explosionHandler(EEvent* event) {
 //===========================================
 void Player::move(dir_t dir) {
    static long moveLeftStr = internString("moveLeft");
-   static long hitFromRightStr = internString("hitFromRight");
    static long moveRightStr = internString("moveRight");
-   static long hitFromLeftStr = internString("hitFromLeft");
    static long moveUpStr = internString("moveUp");
-   static long hitFromBottomStr = internString("hitFromBottom");
    static long moveDownStr = internString("moveDown");
-   static long hitFromTopStr = internString("hitFromTop");
 
-   Shape* sensor = NULL;
+   long anim = 0;
 
-   long plyrAnim = 0, eventType = 0;
    switch (dir) {
-      case MOVE_LEFT:
-         sensor = &m_leftSensor;
-         plyrAnim = moveLeftStr;
-         eventType = hitFromRightStr;
-         break;
-      case MOVE_UP:
-         sensor = &m_headSensor;
-         plyrAnim = moveUpStr;
-         eventType = hitFromBottomStr;
-         break;
-      case MOVE_RIGHT:
-         sensor = &m_rightSensor;
-         plyrAnim = moveRightStr;
-         eventType = hitFromLeftStr;
-         break;
-      case MOVE_DOWN:
-         sensor = &m_footSensor;
-         plyrAnim = moveDownStr;
-         eventType = hitFromTopStr;
-         break;
+      case MOVE_LEFT:   anim = moveLeftStr;  break;
+      case MOVE_RIGHT:  anim = moveRightStr; break;
+      case MOVE_DOWN:   anim = moveDownStr;  break;
+      case MOVE_UP:     anim = moveUpStr;    break;
    }
 
-   playAnimation(plyrAnim, true);
+   playAnimation(anim, true);
    pauseAnimation();
 
-   if (numActiveTransformations() == 0) {
-      playTransformation(plyrAnim);
-
-      Vec2f min = sensor->getMinimum();
-      Vec2f pos = getTranslation_abs() + min;
-      Range range(pos, sensor->getMaximum() - min);
-
-      vector<pEntity_t> vec;
-      m_worldSpace.getEntities(range, vec);
-      for (uint_t i = 0; i < vec.size(); ++i) {
-         if (vec[i].get() == this) continue;
-         if (!vec[i]->hasShape()) continue;
-
-         if (Math::overlap(*sensor, getTranslation_abs(), vec[i]->getShape(), vec[i]->getTranslation_abs())) {
-            EEvent* event = new EEvent(eventType);
-            vec[i]->onEvent(event);
-         }
-      }
-   }
+   if (numActiveTransformations() == 0)
+      playTransformation(anim);
 }
 
 //===========================================
 // Player::assignData
+//
+// I'm not using this function
 //===========================================
 void Player::assignData(const Dodge::XmlNode data) {
-   if (data.isNull() || data.name() != "Player") return;
-
-   XmlNode node = data.firstChild();
-   if (!node.isNull() && node.name() == "Item") {
-      Item::assignData(node);
-      node = node.nextSibling();
-   }
-
-   if (!node.isNull() && node.name() == "Sprite") {
-      Sprite::assignData(node);
-   }
+   assert(false);
 }
 
 //===========================================

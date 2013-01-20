@@ -28,12 +28,13 @@
       <mineProtoId>301</mineProtoId>
       <soilProtoId>401</soilProtoId>
       <collectableProtoId>801</collectableProtoId>
+      <throwableProtoId>1001</throwableProtoId>
       <timeCounterId>56</timeCounterId>
-      <scoreCounterId>57</scoreCounterId>
+      <scoreCounterId>57</scoreCounterId><!--
       <numMines>20</numMines>
       <numCollectables>10</numCollectables>
       <requiredScore>5</requiredScore>
-      <timeLimit>300</timeLimit>
+      <timeLimit>300</timeLimit>-->
    </customSettings>
    <using>
       <file>data/xml/numericTile.xml</file>
@@ -42,6 +43,7 @@
       <file>data/xml/soil.xml</file>
       <file>data/xml/exit.xml</file>
       <file>data/xml/collectable.xml</file>
+      <file>data/xml/throwable.xml</file>
       <file>data/xml/startMenu.xml</file>
    </using>
    <assets>
@@ -126,11 +128,11 @@
       <asset id="52" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="label" name="lblCoinsRequired" x="0.35" y="0.9" z="8" rot="0.0">
+               <Entity type="label" name="lblCoinsRequired" x="0.25" y="0.9" z="8" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></fillColour>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>
@@ -157,11 +159,11 @@
       <asset id="53" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="label" name="lblCoinsRequiredArrow" x="0.425" y="0.9" z="8" rot="0.0">
+               <Entity type="label" name="lblCoinsRequiredArrow" x="0.325" y="0.9" z="8" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></fillColour>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>
@@ -192,7 +194,7 @@
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></fillColour>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>
@@ -223,7 +225,7 @@
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></fillColour>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>
@@ -255,7 +257,7 @@
                      <scale>
                         <Vec2f x="1.0" y="1.0"/>
                      </scale>
-                     <fillColour><Colour r="0.3" g="0.7" b="0.3" a="0.7"/></fillColour>
+                     <fillColour><Colour r="0.3" g="0.7" b="0.3" a="1.0"/></fillColour>
                      <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                      <lineWidth>0</lineWidth>
                      <children/>
@@ -275,11 +277,11 @@
          <Counter>
             <CTextEntity>
                <Item>
-                  <Entity type="counter" name="txtCoinsRequired" x="0.45" y="0.9" z="9" rot="0.0">
+                  <Entity type="counter" name="txtCoinsRequired" x="0.35" y="0.9" z="9" rot="0.0">
                      <scale>
                         <Vec2f x="1.0" y="1.0"/>
                      </scale>
-                     <fillColour><Colour r="0.3" g="0.7" b="0.3" a="0.7"/></fillColour>
+                     <fillColour><Colour r="0.3" g="0.7" b="0.3" a="1.0"/></fillColour>
                      <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                      <lineWidth>0</lineWidth>
                      <children/>

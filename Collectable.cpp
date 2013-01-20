@@ -75,6 +75,8 @@ Collectable* Collectable::clone() const {
 void Collectable::addToWorld() {
    static long idleStr = internString("idle");
 
+   m_hasBeenCollected = false;
+
    Sprite::addToWorld();
    playAnimation(idleStr, true);
 
@@ -110,12 +112,16 @@ void Collectable::onEvent(const EEvent* event) {
       || event->getType() == hitFromTopStr
       || event->getType() == hitFromBottomStr) {
 
-      stopAnimation();
-      playAnimation(collectStr);
+      if (!m_hasBeenCollected) {
+         stopAnimation();
+         playAnimation(collectStr);
 
-      EventManager eventManager;
-      EEvent* e = new EUpdateScore(m_value);
-      eventManager.queueEvent(e);
+         EventManager eventManager;
+         EEvent* e = new EUpdateScore(m_value);
+         eventManager.queueEvent(e);
+
+         m_hasBeenCollected = true;
+      }
    }
    else if (event->getType() == animFinishedStr) {
       const EAnimFinished* e = static_cast<const EAnimFinished*>(event);

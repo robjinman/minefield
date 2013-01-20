@@ -54,9 +54,8 @@ class Application {
       void draw() const;
       void update();
       void populateMap();
-      void playerDeath();
+      void playerDeath(Dodge::EEvent* event = NULL);
       void freeAllAssets();
-      void onAnimFinished(const Dodge::EEvent* event);
       bool isAdjacentTo(const Dodge::Vec2i& a, const Dodge::Vec2i& b) const;
       void gameSuccess(const Dodge::EEvent* event);
       void startGame(Dodge::EEvent* event);
@@ -105,6 +104,7 @@ class Application {
       long                          m_mineProtoId;
       long                          m_soilProtoId;
       long                          m_collectableProtoId;
+      long                          m_throwableProtoId;
       long                          m_scoreCounterId;
       long                          m_timeCounterId;
       pPlayer_t                     m_player;
@@ -114,6 +114,7 @@ class Application {
       pCounter_t                    m_scoreCounter;
       pCounter_t                    m_timeCounter;
       int                           m_numCollectables;
+      int                           m_numThrowables;
       int                           m_timeLimit;
       int                           m_requiredScore;
 };

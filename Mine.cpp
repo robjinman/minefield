@@ -97,18 +97,11 @@ void Mine::dbg_print(ostream& out, int tab) const {
 // Mine::onEvent
 //===========================================
 void Mine::onEvent(const EEvent* event) {
-   static long hitFromLeftStr = internString("hitFromLeft");
-   static long hitFromRightStr = internString("hitFromRight");
-   static long hitFromTopStr = internString("hitFromTop");
-   static long hitFromBottomStr = internString("hitFromBottom");
+   static long hitFromAboveStr = internString("hitFromAbove");
    static long animFinishedStr = internString("animFinished");
    static long explodeStr = internString("explode");
 
-   if (event->getType() == hitFromLeftStr
-      || event->getType() == hitFromRightStr
-      || event->getType() == hitFromTopStr
-      || event->getType() == hitFromBottomStr) {
-
+   if (event->getType() == hitFromAboveStr) {
       explode();
    }
 

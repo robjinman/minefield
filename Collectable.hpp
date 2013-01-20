@@ -32,6 +32,7 @@ class Collectable : public Item, public Dodge::Sprite {
 
    private:
       int m_value;
+      bool m_hasBeenCollected;
 };
 
 typedef boost::shared_ptr<Collectable> pCollectable_t;
