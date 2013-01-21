@@ -13,7 +13,7 @@
    </settings>
    <customSettings>
       <windowSize><Vec2i x="480" y="400"/></windowSize>
-      <bgColour><Colour r="0.8" g="0.8" b="0.8" a="1.0"/></bgColour>
+      <bgColour><Colour r="0.075" g="0.05" b="0.025" a="1.0"/></bgColour>
       <minefieldBoundary>
          <Range>
             <pos><Vec2f x="0.0" y="0.0"/></pos>

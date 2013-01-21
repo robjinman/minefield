@@ -32,7 +32,7 @@
                   <textureSection>
                      <Range>
                         <pos><Vec2f x="0" y="0"/></pos>
-                        <size><Vec2f x="16" y="16"/></size>
+                        <size><Vec2f x="32" y="32"/></size>
                      </Range>
                   </textureSection>
                   <onScreenSize>
@@ -42,22 +42,22 @@
                      <Animation name="explode" duration="0.3">
                         <AnimFrame>
                            <pos><Vec2i x="0" y="0"/></pos>
-                           <dim><Vec2i x="16" y="16"/></dim>
+                           <dim><Vec2i x="32" y="32"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.75"/></col>
                         </AnimFrame>
                         <AnimFrame>
                            <pos><Vec2i x="0" y="0"/></pos>
-                           <dim><Vec2i x="16" y="16"/></dim>
+                           <dim><Vec2i x="32" y="32"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.5"/></col>
                         </AnimFrame>
                         <AnimFrame>
                            <pos><Vec2i x="0" y="0"/></pos>
-                           <dim><Vec2i x="16" y="16"/></dim>
+                           <dim><Vec2i x="32" y="32"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.25"/></col>
                         </AnimFrame>
                         <AnimFrame>
                            <pos><Vec2i x="0" y="0"/></pos>
-                           <dim><Vec2i x="16" y="16"/></dim>
+                           <dim><Vec2i x="32" y="32"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.0"/></col>
                         </AnimFrame>
                      </Animation>
@@ -65,7 +65,7 @@
                </EntityAnimations>
                <EntityTransformations/>
             </Sprite>
-            <blastRadius>0.15625</blastRadius>
+            <blastRadius>0.12</blastRadius>
          </Mine>
       </asset>
    </assets>

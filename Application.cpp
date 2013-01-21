@@ -563,6 +563,9 @@ void Application::populateMap() {
    const Vec2f& pos = mb.getPosition();
    const Vec2f& sz = mb.getSize();
 
+   int w = floor(sz.x / m_tileSize.x + 0.5);
+   int h = floor(sz.y / m_tileSize.y + 0.5);
+
    m_player = boost::dynamic_pointer_cast<Player>(m_assetManager.getAssetPointer(m_playerProtoId));
 
    if (!m_player)
@@ -577,12 +580,9 @@ void Application::populateMap() {
    if (!m_exit)
       throw Exception("Error populating map; Bad exit proto id", __FILE__, __LINE__);
 
-   m_exit->setTranslation(pos + sz - m_tileSize);
+   m_exit->setTranslation((w - 1) * m_tileSize.x, (h - 1) * m_tileSize.y);
    m_exit->addToWorld();
    m_worldSpace.trackEntity(m_exit);
-
-   int w = floor(sz.x / m_tileSize.x + 0.5);
-   int h = floor(sz.y / m_tileSize.y + 0.5);
 
    m_mineField.clear();
    for (int i = 0; i < w; ++i) {
@@ -724,6 +724,11 @@ void Application::populateMap() {
          continue;
       }
 
+      if (m_mineField[i][j] && m_mineField[i][j]->getTypeName() == mineStr) {
+         --c;
+         continue;
+      }
+
       pThrowable_t item(dynamic_cast<Throwable*>(m_assetManager.cloneAsset(m_throwableProtoId)));
 
       if (!item)
@@ -753,6 +758,11 @@ void Application::populateMap() {
       }
 
       if (m_mineField[i][j] && m_mineField[i][j]->getTypeName() == mineStr) {
+         --c;
+         continue;
+      }
+
+      if (abs(i - plyrI) < 4 || abs(j - plyrJ) < 4) {
          --c;
          continue;
       }
@@ -795,12 +805,12 @@ void Application::startGame(EEvent* event) {
    m_startMenu->removeFromWorld();
 
    // TODO:
-   m_numMines = 10;
-   m_numCollectables = 8;
-   m_numThrowables = 8;
+   m_numMines = 40;
+   m_numCollectables = 12;
+   m_numThrowables = 2;
    m_numZombies = 3;
-   m_requiredScore = 5;
-   m_timeLimit = 100;
+   m_requiredScore = 9;
+   m_timeLimit = 180;
 
    populateMap();
 

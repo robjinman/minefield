@@ -185,6 +185,7 @@ void Player::onEvent(const EEvent* event) {
    static long moveUpStr = internString("moveUp");
    static long moveDownStr = internString("moveDown");
    static long playerDeathStr = internString("playerDeath");
+   static long hitFromAboveStr = internString("hitFromAbove");
 
    Sprite::onEvent(event);
 
@@ -209,6 +210,9 @@ void Player::onEvent(const EEvent* event) {
    }
    else if (event->getType() == entityTranslationStr) {
       checkForCollisions();
+   }
+   else if (event->getType() == hitFromAboveStr) { // Zombie kill
+      if (m_state == ALIVE) die();
    }
 }
 

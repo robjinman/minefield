@@ -8,8 +8,8 @@
                <Entity type="throwable" name="throwableProto" x="0.0" y="0.0" z="9" rot="-30.0">
                   <shape>
                      <Polygon>
-                        <Vec2f x="0" y="0"/>
-                        <Vec2f x="0.016" y="0"/>
+                        <Vec2f x="0" y="0.02"/>
+                        <Vec2f x="0.016" y="0.02"/>
                         <Vec2f x="0.016" y="0.0625"/>
                         <Vec2f x="0" y="0.0625"/>
                      </Polygon>

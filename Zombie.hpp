@@ -6,6 +6,7 @@
 #include <dodge/EEvent.hpp>
 #include <dodge/Sprite.hpp>
 #include "dodge/xml/xml.hpp"
+#include <dodge/WorldSpace.hpp>
 #include "Item.hpp"
 
 
@@ -17,7 +18,7 @@ class Zombie : public Item, public Dodge::Sprite {
 
       virtual void draw() const;
 
-      virtual void onEvent(const Dodge::EEvent* event) { Sprite::onEvent(event); }
+      virtual void onEvent(const Dodge::EEvent* event);
       virtual void update();
 
       virtual size_t getSize() const;
@@ -29,7 +30,23 @@ class Zombie : public Item, public Dodge::Sprite {
 #ifdef DEBUG
       virtual void dbg_print(std::ostream& out, int tab = 0) const;
 #endif
-      virtual ~Zombie() {}
+      virtual ~Zombie();
+
+   private:
+      enum dir_t { LEFT, RIGHT, UP, DOWN };
+      enum state_t { IDLE, EMERGING, ALIVE, DEAD };
+
+      void entityMovedHandler(Dodge::EEvent* event);
+      void explosionHandler(Dodge::EEvent* event);
+      void playerDeathHandler(Dodge::EEvent* event);
+      void move(dir_t dir);
+      void checkForCollisions();
+
+      Dodge::WorldSpace m_worldSpace;
+      state_t m_state;
+      bool m_active;
+      Dodge::float32_t m_alertRadiusSq;
+      Dodge::Vec2f m_lastKnownPos;
 };
 
 typedef boost::shared_ptr<Zombie> pZombie_t;
