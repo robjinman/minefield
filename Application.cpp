@@ -568,8 +568,8 @@ void Application::populateMap() {
    const Vec2f& pos = mb.getPosition();
    const Vec2f& sz = mb.getSize();
 
-   int w = floor(sz.x / m_tileSize.x + 0.5);
-   int h = floor(sz.y / m_tileSize.y + 0.5);
+   int w = floor(sz.x / m_tileSize.x);
+   int h = floor(sz.y / m_tileSize.y);
 
    m_player = boost::dynamic_pointer_cast<Player>(m_assetManager.getAssetPointer(m_playerProtoId));
 
@@ -585,7 +585,7 @@ void Application::populateMap() {
    if (!m_exit)
       throw Exception("Error populating map; Bad exit proto id", __FILE__, __LINE__);
 
-   m_exit->setTranslation((w - 1) * m_tileSize.x, (h - 1) * m_tileSize.y);
+   m_exit->setTranslation(pos.x + (w - 1) * m_tileSize.x, pos.y + (h - 1) * m_tileSize.y);
    m_exit->addToWorld();
    m_worldSpace.trackEntity(m_exit);
 

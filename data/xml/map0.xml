@@ -4,15 +4,15 @@
       <boundary>
          <Range>
             <pos><Vec2f x="0.0" y="0.0"/></pos>
-            <size><Vec2f x="1.2" y="1.0"/></size>
+            <size><Vec2f x="1.3125" y="1.0"/></size>
          </Range>
       </boundary>
       <numSegments><Vec2i x="1" y="1"/></numSegments>
-      <segmentSize><Vec2f x="1.2" y="1.0"/></segmentSize>
+      <segmentSize><Vec2f x="1.3125" y="1.0"/></segmentSize>
       <segmentsDir>data/xml/0</segmentsDir>
    </settings>
    <customSettings>
-      <windowSize><Vec2i x="480" y="400"/></windowSize>
+      <windowSize><Vec2i x="525" y="400"/></windowSize>
       <soundTrack>
          <MusicTrack path="data/sounds/Planetarium.ogg"/>
       </soundTrack>
@@ -20,7 +20,7 @@
       <minefieldBoundary>
          <Range>
             <pos><Vec2f x="0.0" y="0.0"/></pos>
-            <size><Vec2f x="1.2" y="0.75"/></size>
+            <size><Vec2f x="1.3125" y="0.75"/></size>
          </Range>
       </minefieldBoundary>
       <tileSize><Vec2f x="0.0625" y="0.0625"/></tileSize>
@@ -52,6 +52,7 @@
       <asset id="1"><Texture path="data/textures/sky.png"/></asset>
       <asset id="2"><Texture path="data/textures/labels.png"/></asset>
       <asset id="3"><Texture path="data/textures/font1.png"/></asset>
+      <asset id="5"><Texture path="data/textures/trees.png"/></asset>
       <asset id="4">
          <Font>
             <texture ptr="3"/>
@@ -88,7 +89,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="1.2" y="0.75"/>
+                     <Vec2f x="1.3125" y="0.75"/>
                   </onScreenSize>
                </EntityAnimations>
                <EntityTransformations/>
@@ -98,7 +99,7 @@
       <asset id="51" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="sky" name="sky" x="0.0" y="0.75" z="7" rot="0.0">
+               <Entity type="sky" name="sky" x="0.0" y="0.75" z="6" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
@@ -119,7 +120,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="1.2" y="0.25"/>
+                     <Vec2f x="1.3125" y="0.25"/>
                   </onScreenSize>
                </EntityAnimations>
                <EntityTransformations/>
@@ -297,6 +298,37 @@
             </CTextEntity>
             <value>48</value>
          </Counter>
+      </asset>
+      <asset id="58" addToWorld="true">
+         <CSprite>
+            <Item>
+               <Entity type="shrubbery" name="trees" x="0.0" y="0.715" z="7" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="5"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="256" y="40"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="1.3125" y="0.1875"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </CSprite>
       </asset>
    </assets>
 </MAPFILE>

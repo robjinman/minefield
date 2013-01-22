@@ -6,6 +6,51 @@
       <file>data/xml/creditsMenu.xml</file>
    </using>
    <assets>
+      <asset id="610"><Texture path="data/textures/flare.png"/></asset>
+      <asset id="611" addToWorld="false">
+         <CSprite>
+            <Item>
+               <Entity type="flare" name="flare" x="0.1" y="-0.12" z="9" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.92"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="610"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="256" y="256"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="1.5" y="1.5"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations>
+                  <transformation>
+                     <Transformation name="rotate">
+                        <TransPart duration="180.0">
+                           <transl><Vec2f x="0.0" y="0.0"/></transl>
+                           <rot>
+                              <angle>360.0</angle>
+                              <pivot><Vec2f x="0.75" y="0.75"/></pivot>
+                           </rot>
+                           <scale><Vec2f x="1.0" y="1.0"/></scale>
+                        </TransPart>
+                     </Transformation>
+                  </transformation>
+               </EntityTransformations>
+            </Sprite>
+         </CSprite>
+      </asset>
       <asset id="606" addToWorld="false">
          <MenuItem position="3">
             <Item>
@@ -836,7 +881,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="1.2" y="1.0"/>
+                        <Vec2f x="1.3125" y="1.0"/>
                      </onScreenSize>
                   </EntityAnimations>
                   <EntityTransformations/>

@@ -5,7 +5,7 @@
       <asset id="501" addToWorld="false">
          <Exit>
             <Item>
-               <Entity type="exit" name="exitProto" x="0.0" y="0.0" z="7" rot="0.0">
+               <Entity type="exit" name="exitProto" x="0.0" y="0.0" z="5" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
