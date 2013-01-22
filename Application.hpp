@@ -14,6 +14,7 @@
 #include "Exit.hpp"
 #include "StartMenu.hpp"
 #include "Counter.hpp"
+#include "SoundFx.hpp"
 
 
 class Application {
@@ -123,6 +124,7 @@ class Application {
       int                           m_requiredScore;
 
       Dodge::pMusicTrack_t          m_music;
+      SoundFx                       m_soundFx;
 };
 
 

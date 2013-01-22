@@ -18,6 +18,7 @@ OBJS = Application.o \
 	NumericTile.o \
 	Player.o \
 	Soil.o \
+	SoundFx.o \
 	SettingsMenu.o \
 	StartMenu.o \
 	Throwable.o \

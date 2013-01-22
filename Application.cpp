@@ -902,7 +902,6 @@ void Application::launch(int argc, char** argv) {
    }
 #endif
    gInitialise();
-   m_audio.initialise();
 
    m_mapLoader.initialise(Functor<void, TYPELIST_1(const Dodge::XmlNode)>(this, &Application::setMapSettings),
       Functor<Dodge::pAsset_t, TYPELIST_1(const Dodge::XmlNode)>(this, &Application::constructAsset),
@@ -910,6 +909,9 @@ void Application::launch(int argc, char** argv) {
       TARGET_MEM_USAGE);
 
    loadAssets();
+
+   m_audio.initialise();
+   m_soundFx.initialise();
 
    m_win.registerCallback(WinIO::EVENT_WINCLOSE, Functor<void, TYPELIST_0()>(this, &Application::quit));
    m_win.registerCallback(WinIO::EVENT_KEYDOWN, Functor<void, TYPELIST_1(int)>(this, &Application::keyDown));

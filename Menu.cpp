@@ -95,6 +95,7 @@ void Menu::init() {
    set<pair<int, pMenuItem_t> > menuItems;
    const set<pEntity_t>& children = getChildren();
    for (auto i = children.begin(); i != children.end(); ++i) {
+
       if ((*i)->getTypeName() == menuItemStr) {
          pMenuItem_t mnuItem = boost::dynamic_pointer_cast<MenuItem>(*i);
 
@@ -124,8 +125,8 @@ void Menu::activateSubmenu(long name) {
       if (m_submenus[i]->getName() == name) {
          if (m_activeSubmenu != -1) m_submenus[m_activeSubmenu]->removeFromWorld();
 
-         m_submenus[i]->addToWorld();
          removeFromWorld();
+         m_submenus[i]->addToWorld();
          m_activeSubmenu = i;
          break;
       }
@@ -262,8 +263,10 @@ void Menu::addToWorld() {
 
    Sprite::addToWorld();
 
-   for (uint_t i = 0; i < m_menuItems.size(); ++i)
-      m_menuItems[i]->addToWorld();
+   const set<pEntity_t>& children = getChildren();
+   for (auto i = children.begin(); i != children.end(); ++i) {
+      (*i)->addToWorld();
+   }
 }
 
 //===========================================
@@ -272,8 +275,9 @@ void Menu::addToWorld() {
 void Menu::removeFromWorld() {
    Sprite::removeFromWorld();
 
-   for (uint_t i = 0; i < m_menuItems.size(); ++i)
-      m_menuItems[i]->removeFromWorld();
+   const set<pEntity_t>& children = getChildren();
+   for (auto i = children.begin(); i != children.end(); ++i)
+      (*i)->removeFromWorld();
 
    m_active = false;
 }
@@ -299,6 +303,13 @@ void Menu::dbg_print(ostream& out, int tab) const {
    Sprite::dbg_print(out, tab + 1);
 }
 #endif
+
+//===========================================
+// Menu::isActive
+//===========================================
+bool Menu::isActive() const {
+   return m_active;
+}
 
 //===========================================
 // Menu::update

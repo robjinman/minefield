@@ -18,7 +18,23 @@ StartMenu::StartMenu(const XmlNode data)
      Menu(data.firstChild()) {
 
    try {
+      AssetManager assetManager;
+
       XML_NODE_CHECK(data, StartMenu);
+
+      XmlNode node = data.nthChild(1);
+      XML_NODE_CHECK(node, flare);
+
+      XmlAttribute attr = node.firstAttribute();
+      XML_ATTR_CHECK(attr, ptr);
+      long id = attr.getLong();
+
+      m_flare = boost::dynamic_pointer_cast<CSprite>(assetManager.getAssetPointer(id));
+
+      if (!m_flare)
+         throw XmlException("Bad asset id for flare item", __FILE__, __LINE__);
+
+      m_flare->addToWorld();
    }
    catch (XmlException& e) {
       e.prepend("Error parsing XML for instance of class StartMenu; ");
@@ -92,6 +108,7 @@ StartMenu* StartMenu::clone() const {
 //===========================================
 void StartMenu::addToWorld() {
    Menu::addToWorld();
+   m_flare->addToWorld();
 }
 
 //===========================================
@@ -99,6 +116,7 @@ void StartMenu::addToWorld() {
 //===========================================
 void StartMenu::removeFromWorld() {
    Menu::removeFromWorld();
+   m_flare->removeFromWorld();
 }
 
 #ifdef DEBUG
@@ -119,7 +137,15 @@ void StartMenu::dbg_print(ostream& out, int tab) const {
 // StartMenu::update
 //===========================================
 void StartMenu::update() {
+   static long rotateStr = internString("rotate");
+
    Menu::update();
+   m_flare->update();
+
+   if (m_flare) {
+      if (m_flare->numActiveTransformations() == 0)
+         m_flare->playTransformation(rotateStr);
+   }
 }
 
 //===========================================
@@ -127,6 +153,7 @@ void StartMenu::update() {
 //===========================================
 void StartMenu::draw() const {
    Menu::draw();
+   m_flare->draw();
 }
 
 //===========================================

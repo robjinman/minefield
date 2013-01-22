@@ -46,6 +46,8 @@ class Menu : public Item, public Dodge::Sprite {
       void activateSubmenu(long name);
       void returnToParentMenu();
 
+      bool isActive() const;
+
    private:
       void init();
 

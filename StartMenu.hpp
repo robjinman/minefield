@@ -3,6 +3,7 @@
 
 
 #include "Menu.hpp"
+#include "CSprite.hpp"
 
 
 class StartMenu : public Menu {
@@ -26,6 +27,8 @@ class StartMenu : public Menu {
       virtual ~StartMenu();
 
    private:
+      pCSprite_t m_flare;
+
       virtual void onMenuItemActivate(pMenuItem_t item);
 };
 

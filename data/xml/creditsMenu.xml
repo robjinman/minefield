@@ -214,6 +214,7 @@
                      <lineWidth>0</lineWidth>
                      <children>
                         <child ptr="902"/>
+                        <child ptr="611"/>
                      </children>
                   </Entity>
                </Item>
@@ -224,7 +225,7 @@
                      <textureSection>
                         <Range>
                            <pos><Vec2f x="0" y="0"/></pos>
-                           <size><Vec2f x="256" y="256"/></size>
+                           <size><Vec2f x="307" y="256"/></size>
                         </Range>
                      </textureSection>
                      <onScreenSize>

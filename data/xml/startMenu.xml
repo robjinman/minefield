@@ -832,7 +832,7 @@
                      <textureSection>
                         <Range>
                            <pos><Vec2f x="0" y="0"/></pos>
-                           <size><Vec2f x="256" y="256"/></size>
+                           <size><Vec2f x="307" y="256"/></size>
                         </Range>
                      </textureSection>
                      <onScreenSize>
@@ -846,6 +846,7 @@
                   <submenu ptr="901"/>
                </submenus>
             </Menu>
+            <flare ptr="611"/>
          </StartMenu>
       </asset>
    </assets>
