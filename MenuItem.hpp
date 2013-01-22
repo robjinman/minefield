@@ -15,6 +15,8 @@ class MenuItem : public Item, public Dodge::UiButton {
       MenuItem(const MenuItem& copy);
       MenuItem(const MenuItem& copy, long name);
 
+      inline int getPosition() const;
+
       virtual void draw() const;
       virtual void update();
 
@@ -29,9 +31,19 @@ class MenuItem : public Item, public Dodge::UiButton {
       virtual void dbg_print(std::ostream& out, int tab = 0) const;
 #endif
       virtual ~MenuItem();
+
+   private:
+      int m_position;
 };
 
 typedef boost::shared_ptr<MenuItem> pMenuItem_t;
+
+//===========================================
+// MenuItem::getPosition
+//===========================================
+inline int MenuItem::getPosition() const {
+   return m_position;
+}
 
 
 #endif

@@ -1,8 +1,8 @@
 NAME = demo
 CC = g++
-CFLAGS = -std=c++0x -Wall -g -DDEBUG -O3
+CFLAGS = -std=c++0x -Wall -g -DDEBUG -O3 `sdl-config --cflags`
 INCL = -I../Dodge/Dodge/include
-LIBS = -L../Dodge/Dodge/lib -L/usr/lib -lDodge -lX11 -lGLESv2 -lEGL -lpnglite -lz -lBox2D
+LIBS = -L../Dodge/Dodge/lib -L/usr/lib -lDodge -lX11 -lGLESv2 -lEGL -lpnglite -lz -lBox2D `sdl-config --libs` -lSDLmain -lSDL -lSDL_mixer
 OBJS = Application.o \
 	Collectable.o \
 	Counter.o \

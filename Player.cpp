@@ -235,6 +235,9 @@ void Player::explosionHandler(EEvent* event) {
 void Player::die() {
    static long explodeStr = internString("explode");
 
+   if (m_mode == THROWING_MODE)
+      enterNormalMode();
+
    stopAnimation();
    stopTransformations();
    playAnimation(explodeStr);

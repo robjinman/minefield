@@ -120,6 +120,8 @@ void Mine::explode() {
    static long explodeStr = internString("explode");
 
    if (m_state != EXPLODING) {
+      setZ(getZ() + 1);
+
       stopAnimation();
       playAnimation(explodeStr);
 

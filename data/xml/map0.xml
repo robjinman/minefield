@@ -13,6 +13,9 @@
    </settings>
    <customSettings>
       <windowSize><Vec2i x="480" y="400"/></windowSize>
+      <soundTrack>
+         <MusicTrack path="data/sounds/Planetarium.ogg"/>
+      </soundTrack>
       <bgColour><Colour r="0.075" g="0.05" b="0.025" a="1.0"/></bgColour>
       <minefieldBoundary>
          <Range>

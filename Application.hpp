@@ -75,6 +75,7 @@ class Application {
       Functor<void, TYPELIST_0()>   m_onExit;
 
       Dodge::Renderer&              m_renderer;
+      Dodge::Audio                  m_audio;
       std::map<int, bool>           m_keyState;
       bool                          m_mouseState[NUM_MOUSE_BUTTONS];
       Dodge::WinIO                  m_win;
@@ -120,6 +121,8 @@ class Application {
       int                           m_numZombies;
       int                           m_timeLimit;
       int                           m_requiredScore;
+
+      Dodge::pMusicTrack_t          m_music;
 };
 
 

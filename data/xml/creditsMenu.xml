@@ -2,7 +2,7 @@
 <ASSETFILE>
    <assets>
       <asset id="902" addToWorld="false">
-         <MenuItem>
+         <MenuItem position="0">
             <Item>
                <Entity type="menuItem" name="mnuCreditsToStartMenu" x="0.02" y="0.1" z="2" rot="0.0">
                   <shape>

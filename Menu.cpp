@@ -92,6 +92,7 @@ Menu::Menu(const Menu& copy, long name)
 void Menu::init() {
    static long menuItemStr = internString("menuItem");
 
+   set<pair<int, pMenuItem_t> > menuItems;
    const set<pEntity_t>& children = getChildren();
    for (auto i = children.begin(); i != children.end(); ++i) {
       if ((*i)->getTypeName() == menuItemStr) {
@@ -100,15 +101,19 @@ void Menu::init() {
          if (!mnuItem)
             throw Exception("Error constructing Menu; Menu item is not of class MenuItem", __FILE__, __LINE__);
 
-         m_menuItems.push_back(mnuItem);
+         menuItems.insert(make_pair(mnuItem->getPosition(), mnuItem));
          mnuItem->setOnReleaseHandler(Functor<void, TYPELIST_1(pEntity_t)>(this, &Menu::menuItemClick));
          mnuItem->registerCallback(UIEVENT_KEY_DOWN, Functor<void, TYPELIST_2(pEntity_t, int)>(this, &Menu::menuItemKeyDown));
          mnuItem->registerCallback(UIEVENT_HOVER_ON, Functor<void, TYPELIST_3(pEntity_t, float32_t, float32_t)>(this, &Menu::menuItemHoverOn));
       }
    }
 
+   m_menuItems.clear();
+   for (auto i = menuItems.begin(); i != menuItems.end(); ++i)
+      m_menuItems.push_back(i->second);
+
    if (m_menuItems.size() > 0)
-      setFocus(m_menuItems.back()->getName());
+      setFocus(m_menuItems.front()->getName());
 }
 
 //===========================================
@@ -225,8 +230,8 @@ void Menu::menuItemKeyDown(pEntity_t entity, int key) {
 
    int idx = -1;
    switch (key) {
-      case WinIO::KEY_UP:     idx = nextItem(m_hasFocus);   break;
-      case WinIO::KEY_DOWN:   idx = prevItem(m_hasFocus);   break;
+      case WinIO::KEY_UP:     idx = prevItem(m_hasFocus);   break;
+      case WinIO::KEY_DOWN:   idx = nextItem(m_hasFocus);   break;
    }
 
    if (idx != -1) {

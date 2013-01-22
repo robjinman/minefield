@@ -7,7 +7,7 @@
    </using>
    <assets>
       <asset id="606" addToWorld="false">
-         <MenuItem>
+         <MenuItem position="3">
             <Item>
                <Entity type="menuItem" name="mnuQuit" x="0.02" y="0.1" z="2" rot="0.0">
                   <shape>
@@ -207,7 +207,7 @@
          </MenuItem>
       </asset>
       <asset id="605" addToWorld="false">
-         <MenuItem>
+         <MenuItem position="2">
             <Item>
                <Entity type="menuItem" name="mnuCredits" x="0.02" y="0.2" z="2" rot="0.0">
                   <shape>
@@ -407,7 +407,7 @@
          </MenuItem>
       </asset>
       <asset id="604" addToWorld="false">
-         <MenuItem>
+         <MenuItem position="1">
             <Item>
                <Entity type="menuItem" name="mnuSettings" x="0.02" y="0.3" z="2" rot="0.0">
                   <shape>
@@ -607,7 +607,7 @@
          </MenuItem>
       </asset>
       <asset id="602" addToWorld="false">
-         <MenuItem>
+         <MenuItem position="0">
             <Item>
                <Entity type="menuItem" name="mnuStartGame" x="0.02" y="0.4" z="2" rot="0.0">
                   <shape>

@@ -68,6 +68,7 @@ void Application::quit() { // TODO Some monostate/singletons may not have been i
    m_eventManager.clear();
    freeAllAssets();
    m_renderer.stop();
+   m_audio.quit();
    m_win.destroyWindow();
 
    m_onExit();
@@ -221,6 +222,10 @@ void Application::setMapSettings(const XmlNode data) {
       XmlNode node = data.firstChild();
       XML_NODE_CHECK(node, windowSize);
       Vec2i winSz(node.firstChild());
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, soundTrack);
+      m_music = pMusicTrack_t(new MusicTrack(node.firstChild()));
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, bgColour);
@@ -897,6 +902,7 @@ void Application::launch(int argc, char** argv) {
    }
 #endif
    gInitialise();
+   m_audio.initialise();
 
    m_mapLoader.initialise(Functor<void, TYPELIST_1(const Dodge::XmlNode)>(this, &Application::setMapSettings),
       Functor<Dodge::pAsset_t, TYPELIST_1(const Dodge::XmlNode)>(this, &Application::constructAsset),
@@ -936,6 +942,7 @@ void Application::launch(int argc, char** argv) {
    m_eventManager.registerCallback(internString("requestToThrowThrowable"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqToThrowThrowable));
 
+   m_music->play(true);
    m_gameState = ST_START_MENU;
 
    while (1) {

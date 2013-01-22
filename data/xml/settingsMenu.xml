@@ -2,7 +2,7 @@
 <ASSETFILE>
    <assets>
       <asset id="705" addToWorld="false">
-         <MenuItem>
+         <MenuItem position="2">
             <Item>
                <Entity type="menuItem" name="mnuSettingsToStartMenu" x="0.02" y="0.1" z="2" rot="0.0">
                   <shape>
@@ -202,7 +202,7 @@
          </MenuItem>
       </asset>
       <asset id="704" addToWorld="false">
-         <MenuItem>
+         <MenuItem position="1">
             <Item>
                <Entity type="menuItem" name="mnuSFXVolume" x="0.02" y="0.2" z="2" rot="0.0">
                   <shape>
@@ -344,7 +344,7 @@
          </MenuItem>
       </asset>
       <asset id="702" addToWorld="false">
-         <MenuItem>
+         <MenuItem position="0">
             <Item>
                <Entity type="menuItem" name="mnuMusicVolume" x="0.02" y="0.3" z="2" rot="0.0">
                   <shape>

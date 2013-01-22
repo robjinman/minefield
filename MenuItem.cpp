@@ -19,6 +19,10 @@ MenuItem::MenuItem(const XmlNode data)
 
    try {
       XML_NODE_CHECK(data, MenuItem);
+
+      XmlAttribute attr = data.firstAttribute();
+      XML_ATTR_CHECK(attr, position);
+      m_position = attr.getInt();
    }
    catch (XmlException& e) {
       e.prepend("Error parsing XML for instance of class MenuItem; ");
@@ -117,6 +121,10 @@ void MenuItem::draw() const {
 void MenuItem::assignData(const XmlNode data) {
    try {
       XML_NODE_CHECK(data, MenuItem)
+
+      XmlAttribute attr = data.firstAttribute();
+      if (!attr.isNull() && attr.name() == "position")
+         m_position = attr.getInt();
 
       XmlNode node = data.firstChild();
       if (!node.isNull() && node.name() == "Item") {
