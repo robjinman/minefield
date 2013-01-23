@@ -57,6 +57,7 @@
       <asset id="1"><Texture path="data/textures/sky.png"/></asset>
       <asset id="2"><Texture path="data/textures/labels.png"/></asset>
       <asset id="5"><Texture path="data/textures/trees.png"/></asset>
+      <asset id="6"><Texture path="data/textures/pixel.png"/></asset>
       <asset id="50" addToWorld="true">
          <CSprite>
             <Item>

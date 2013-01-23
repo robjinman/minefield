@@ -868,7 +868,7 @@ void Application::startGame(EEvent* event) {
 // Application::loadAssets
 //===========================================
 void Application::loadAssets() {
-   m_mapLoader.parseMapFile("data/xml/map0.xml");
+   m_mapLoader.parseMapFile("data/xml/PersistentAssets.xml");
 
    m_mapLoader.update(m_renderer.getCamera().getTranslation());
 
