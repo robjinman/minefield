@@ -2,6 +2,8 @@
 #include <dodge/EAnimFinished.hpp>
 #include <dodge/EventManager.hpp>
 #include <dodge/AssetManager.hpp>
+#include <dodge/TextEntity.hpp>
+#include <dodge/globals.hpp>
 #include "CreditsMenu.hpp"
 
 
@@ -18,12 +20,32 @@ CreditsMenu::CreditsMenu(const XmlNode data)
      Menu(data.firstChild()) {
 
    try {
+      AssetManager assetManager;
+
       XML_NODE_CHECK(data, CreditsMenu);
+
+      XmlNode node = data.nthChild(1);
+      XML_NODE_CHECK(node, font);
+
+      XmlAttribute attr = node.firstAttribute();
+      XML_ATTR_CHECK(attr, ptr);
+
+      long id = attr.getLong();
+      m_font = boost::dynamic_pointer_cast<Dodge::Font>(assetManager.getAssetPointer(id));
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, fadeInTime);
+      m_fadeInTime = node.getFloat();
+
+      if (!m_font)
+         throw XmlException("Bad font asset id", __FILE__, __LINE__);
    }
    catch (XmlException& e) {
       e.prepend("Error parsing XML for instance of class CreditsMenu; ");
       throw;
    }
+
+   init();
 }
 
 //===========================================
@@ -32,7 +54,7 @@ CreditsMenu::CreditsMenu(const XmlNode data)
 CreditsMenu::CreditsMenu(const CreditsMenu& copy)
    : Asset(internString("CreditsMenu")),
      Entity(copy),
-     Menu(copy) {}
+     Menu(copy) { init(); }
 
 //===========================================
 // CreditsMenu::CreditsMenu
@@ -40,7 +62,38 @@ CreditsMenu::CreditsMenu(const CreditsMenu& copy)
 CreditsMenu::CreditsMenu(const CreditsMenu& copy, long name)
    : Asset(internString("CreditsMenu")),
      Entity(copy, name),
-     Menu(copy, name) {}
+     Menu(copy, name) { init(); }
+
+//===========================================
+// CreditsMenu::init
+//===========================================
+void CreditsMenu::init() {
+//TextEntity(long type, const pFont_t font, const std::string& text, const Vec2f& size);
+
+   pTextEntity_t txt1(new TextEntity(internString("text"), m_font, "Design & Programming: Rob Jinman", Vec2f(0.02, 0.04)));
+   pTextEntity_t txt2(new TextEntity(internString("text"), m_font, "Music:                Dan Wilkinson", Vec2f(0.02, 0.04)));
+   pTextEntity_t txt3(new TextEntity(internString("text"), m_font, "Sprites:              Sith Jester", Vec2f(0.02, 0.04)));
+
+   m_textEntities.push_back(txt1);
+   m_textEntities.push_back(txt2);
+   m_textEntities.push_back(txt3);
+
+   addChild(txt1);
+   addChild(txt2);
+   addChild(txt3);
+
+   txt1->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
+   txt1->setTranslation(0.51, 0.65);
+   txt1->setZ(9);
+
+   txt2->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
+   txt2->setTranslation(0.51, 0.61);
+   txt2->setZ(9);
+
+   txt3->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
+   txt3->setTranslation(0.51, 0.57);
+   txt3->setZ(9);
+}
 
 //===========================================
 // CreditsMenu::onMenuItemActivate
@@ -73,6 +126,11 @@ CreditsMenu* CreditsMenu::clone() const {
 //===========================================
 void CreditsMenu::addToWorld() {
    Menu::addToWorld();
+
+   m_txtAlpha = 0.f;
+   for (uint_t i = 0; i < m_textEntities.size(); ++i) {
+      m_textEntities[i]->setFillColour(Colour(0.f, 0.f, 0.f, m_txtAlpha));
+   }
 }
 
 //===========================================
@@ -100,7 +158,17 @@ void CreditsMenu::dbg_print(ostream& out, int tab) const {
 // CreditsMenu::update
 //===========================================
 void CreditsMenu::update() {
+   float32_t fr = gGetTargetFrameRate();
+
    Menu::update();
+
+   if (m_txtAlpha < 1.f) { 
+      m_txtAlpha += m_fadeInTime / fr;
+
+      for (uint_t i = 0; i < m_textEntities.size(); ++i) {
+         m_textEntities[i]->setFillColour(Colour(0.f, 0.f, 0.f, m_txtAlpha));
+      }
+   }
 }
 
 //===========================================

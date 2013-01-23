@@ -4,7 +4,7 @@
       <asset id="902" addToWorld="false">
          <MenuItem position="0">
             <Item>
-               <Entity type="menuItem" name="mnuCreditsToStartMenu" x="0.02" y="0.1" z="2" rot="0.0">
+               <Entity type="menuItem" name="mnuCreditsToStartMenu" x="0.02" y="0.01" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
@@ -235,6 +235,8 @@
                </Sprite>
                <submenus/>
             </Menu>
+            <font ptr="4"/>
+            <fadeInTime>0.5</fadeInTime>
          </CreditsMenu>
       </asset>
    </assets>

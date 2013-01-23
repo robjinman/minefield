@@ -38,6 +38,7 @@
       <scoreCounterId>57</scoreCounterId>
    </customSettings>
    <using>
+      <file>data/xml/fonts.xml</file>
       <file>data/xml/numericTile.xml</file>
       <file>data/xml/mine.xml</file>
       <file>data/xml/player.xml</file>
@@ -55,20 +56,7 @@
       <asset id="0"><Texture path="data/textures/gradient.png"/></asset>
       <asset id="1"><Texture path="data/textures/sky.png"/></asset>
       <asset id="2"><Texture path="data/textures/labels.png"/></asset>
-      <asset id="3"><Texture path="data/textures/font1.png"/></asset>
       <asset id="5"><Texture path="data/textures/trees.png"/></asset>
-      <asset id="4">
-         <Font>
-            <texture ptr="3"/>
-            <textureSection>
-               <Range>
-                  <pos><Vec2f x="0" y="0"/></pos>
-                  <size><Vec2f x="192" y="192"/></size>
-               </Range>
-            </textureSection>
-            <charSize><Vec2f x="16" y="24"/></charSize>
-         </Font>
-      </asset>
       <asset id="50" addToWorld="true">
          <CSprite>
             <Item>

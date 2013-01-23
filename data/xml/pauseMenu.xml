@@ -4,7 +4,7 @@
       <asset id="1204" addToWorld="false">
          <MenuItem position="2">
             <Item>
-               <Entity type="menuItem" name="pauseMnuQuit" x="0.02" y="0.1" z="2" rot="0.0">
+               <Entity type="menuItem" name="pauseMnuQuit" x="0.02" y="0.01" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
@@ -204,7 +204,7 @@
       <asset id="1203" addToWorld="false">
          <MenuItem position="1">
             <Item>
-               <Entity type="menuItem" name="pauseMnuSettings" x="0.02" y="0.2" z="2" rot="0.0">
+               <Entity type="menuItem" name="pauseMnuSettings" x="0.02" y="0.11" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
@@ -404,7 +404,7 @@
       <asset id="1202" addToWorld="false">
          <MenuItem position="0">
             <Item>
-               <Entity type="menuItem" name="pauseMnuResume" x="0.02" y="0.3" z="2" rot="0.0">
+               <Entity type="menuItem" name="pauseMnuResume" x="0.02" y="0.21" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>

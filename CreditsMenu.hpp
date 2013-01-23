@@ -2,6 +2,7 @@
 #define __CREDITS_MENU_HPP__
 
 
+#include <vector>
 #include "Menu.hpp"
 
 
@@ -26,7 +27,13 @@ class CreditsMenu : public Menu {
       virtual ~CreditsMenu();
 
    private:
+      void init();
       virtual void onMenuItemActivate(pMenuItem_t item);
+
+      Dodge::pFont_t m_font;
+      std::vector<Dodge::pTextEntity_t> m_textEntities;
+      Dodge::float32_t m_txtAlpha;
+      Dodge::float32_t m_fadeInTime;
 };
 
 typedef boost::shared_ptr<CreditsMenu> pCreditsMenu_t;

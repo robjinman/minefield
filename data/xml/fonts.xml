@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASSETFILE>
+   <assets>
+      <asset id="3"><Texture path="data/textures/font1.png"/></asset>
+      <asset id="4">
+         <Font>
+            <texture ptr="3"/>
+            <textureSection>
+               <Range>
+                  <pos><Vec2f x="0" y="0"/></pos>
+                  <size><Vec2f x="192" y="192"/></size>
+               </Range>
+            </textureSection>
+            <charSize><Vec2f x="16" y="24"/></charSize>
+         </Font>
+      </asset>
+   </assets>
+</ASSETFILE>
