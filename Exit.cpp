@@ -25,6 +25,8 @@ Exit::Exit(const XmlNode data)
       e.prepend("Error parsing XML for instance of class Exit; ");
       throw;
    }
+
+   init();
 }
 
 //===========================================
@@ -35,7 +37,7 @@ Exit::Exit(const Exit& copy)
      Entity(copy),
      Item(copy),
      Sprite(copy),
-     m_state(IS_CLOSED) {}
+     m_state(IS_CLOSED) { init(); }
 
 //===========================================
 // Exit::Exit
@@ -45,7 +47,14 @@ Exit::Exit(const Exit& copy, long name)
      Entity(copy, name),
      Item(copy, name),
      Sprite(copy, name),
-     m_state(IS_CLOSED) {}
+     m_state(IS_CLOSED) { init(); }
+
+//===========================================
+// Exit::init
+//===========================================
+void Exit::init() {
+   m_originalTexSection = getTextureSection();
+}
 
 //===========================================
 // Exit::getSize
@@ -77,6 +86,7 @@ void Exit::addToWorld() {
 //===========================================
 void Exit::removeFromWorld() {
    Sprite::removeFromWorld();
+   m_state = IS_CLOSED;
 }
 
 //===========================================
@@ -97,8 +107,7 @@ void Exit::onEvent(const EEvent* event) {
       || event->getType() == hitFromBottomStr) {
 
       EventManager eventManager;
-      EEvent* e = new EEvent(successStr);
-      eventManager.queueEvent(e);
+      eventManager.queueEvent(new EEvent(successStr));
    }
 }
 
@@ -140,6 +149,15 @@ void Exit::open() {
       playAnimation(openIdleStr, true);
       m_state = IS_OPEN;
    }
+}
+
+//===========================================
+// Exit::close
+//===========================================
+void Exit::close() {
+   m_state = IS_CLOSED;
+   stopAnimation();
+   setTextureSection(m_originalTexSection);
 }
 
 //===========================================

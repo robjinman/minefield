@@ -2,6 +2,7 @@
 #include <dodge/EAnimFinished.hpp>
 #include <dodge/EventManager.hpp>
 #include <dodge/AssetManager.hpp>
+#include "ERequestGameStateChange.hpp"
 #include "StartMenu.hpp"
 
 
@@ -71,8 +72,7 @@ void StartMenu::onMenuItemActivate(pMenuItem_t item) {
 
    if (item->getName() == mnuStartGameStr) {
       EventManager eventManager;
-      EEvent* event = new EEvent(internString("startGame"));
-      eventManager.queueEvent(event);
+      eventManager.queueEvent(new ERequestGameStateChange(ST_RUNNING));
    }
    else if (item->getName() == mnuSettingsStr) {
       activateSubmenu(settingsMenuStr);
@@ -82,8 +82,7 @@ void StartMenu::onMenuItemActivate(pMenuItem_t item) {
    }
    else if (item->getName() == mnuQuitStr) {
       EventManager eventManager;
-      EEvent* event = new EEvent(internString("quitGame"));
-      eventManager.queueEvent(event);
+      eventManager.queueEvent(new EEvent(internString("quitGame")));
    }
 }
 

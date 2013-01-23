@@ -16,6 +16,7 @@ class Exit : public Item, public Dodge::Sprite {
       Exit(const Exit& copy, long name);
 
       void open();
+      void close();
 
       virtual void draw() const;
       virtual void update();
@@ -36,6 +37,9 @@ class Exit : public Item, public Dodge::Sprite {
       enum state_t { IS_CLOSED, IS_OPEN };
 
       state_t m_state;
+      Dodge::Range m_originalTexSection;
+
+      void init();
 };
 
 typedef boost::shared_ptr<Exit> pExit_t;

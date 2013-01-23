@@ -7,7 +7,7 @@
       <asset id="611" addToWorld="false">
          <CSprite>
             <Item>
-               <Entity type="flare" name="flare" x="0.1" y="-0.12" z="9" rot="0.0">
+               <Entity type="flare" name="flare" x="0.145" y="-0.05" z="9" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
@@ -34,7 +34,7 @@
                <EntityTransformations>
                   <transformation>
                      <Transformation name="rotate">
-                        <TransPart duration="180.0">
+                        <TransPart duration="240.0">
                            <transl><Vec2f x="0.0" y="0.0"/></transl>
                            <rot>
                               <angle>360.0</angle>

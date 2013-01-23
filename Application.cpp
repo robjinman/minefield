@@ -82,7 +82,8 @@ void Application::quit() { // TODO Some monostate/singletons may not have been i
 void Application::freeAllAssets() {
    m_assetManager.freeAllAssets();
    m_mineField.clear();
-   m_items.clear();
+   m_persistentItems.clear();
+   m_expendableItems.clear();
    m_worldSpace.removeAndUntrackAll();
    m_mapLoader.freeAllAssets();
    m_player.reset();
@@ -99,6 +100,7 @@ void Application::keyDown(int key) {
 
    switch (key) {
 #ifdef DEBUG
+      case WinIO::KEY_1: dbg_worldSpaceVisible = !dbg_worldSpaceVisible; break;
       case WinIO::KEY_F:
          cout << "Frame rate (main thread): " << m_frameRate << "fps\n";
          cout << "Frame rate (renderer): " << m_renderer.getFrameRate() << "fps\n";
@@ -205,7 +207,10 @@ void Application::keyboard() {
             }
             break;
             case Player::DEAD: {
-               if (m_keyState[WinIO::KEY_ENTER]) resetGame();
+               if (m_keyState[WinIO::KEY_ENTER]) {
+                  resetGame();
+                  startGame();
+               }
             }
             break;
          }
@@ -221,9 +226,18 @@ void Application::keyboard() {
 // Application::resetGame
 //===========================================
 void Application::resetGame() {
+   m_txtRestart->removeFromWorld();
+
    m_eventManager.clear();
-   freeAllAssets();
-   loadAssets();
+//   freeAllAssets();
+//   loadAssets();
+
+   m_mineField.clear();
+   m_expendableItems.clear();
+
+   m_worldSpace.removeAndUntrackAll();
+   for (auto i = m_persistentItems.begin(); i != m_persistentItems.end(); ++i)
+      m_worldSpace.insertAndTrackEntity(i->second);
 
    m_startMenu->addToWorld();
    m_gameState = ST_START_MENU;
@@ -277,12 +291,12 @@ void Application::setMapSettings(const XmlNode data) {
       m_pauseMenuId = node.getLong();
 
       node = node.nextSibling();
-      XML_NODE_CHECK(node, playerProtoId);
-      m_playerProtoId = node.getLong();
+      XML_NODE_CHECK(node, playerId);
+      m_playerId = node.getLong();
 
       node = node.nextSibling();
-      XML_NODE_CHECK(node, exitProtoId);
-      m_exitProtoId = node.getLong();
+      XML_NODE_CHECK(node, exitId);
+      m_exitId = node.getLong();
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, numericTileProtoId);
@@ -315,6 +329,10 @@ void Application::setMapSettings(const XmlNode data) {
       node = node.nextSibling();
       XML_NODE_CHECK(node, scoreCounterId);
       m_scoreCounterId = node.getLong();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, txtRestartId);
+      m_txtRestartId = node.getLong();
 
       m_win.init("Minefield", winSz.x, winSz.y, false);
       m_renderer.start();
@@ -361,7 +379,8 @@ void Application::deleteAsset(pAsset_t asset) {
    if (entity) {
       m_worldSpace.removeAndUntrackEntity(entity);
       entity->removeFromWorld();
-      m_items.erase(entity->getName());
+
+      m_expendableItems.erase(entity->getName());
 
       const Range& mb = m_minefieldBoundary;
       const Vec2f& sz = mb.getSize();
@@ -429,7 +448,7 @@ void Application::deleteAsset(pAsset_t asset) {
 
             tile->addToWorld();
             m_worldSpace.trackEntity(tile);
-            m_items[tile->getName()] = tile;
+            m_expendableItems[tile->getName()] = tile;
             m_mineField[i][j] = tile;
          }
       }
@@ -464,6 +483,7 @@ pAsset_t Application::constructAsset(const XmlNode data) {
 
    if (node.name() == "Texture") return pAsset_t(new Texture(node));
    if (node.name() == "Font") return pAsset_t(new Dodge::Font(node));
+   if (node.name() == "TextEntity") return pAsset_t(new TextEntity(node));
    // ...
 
 
@@ -501,7 +521,7 @@ pAsset_t Application::constructAsset(const XmlNode data) {
    if (addToWorld) {
       item->addToWorld();
       m_worldSpace.insertAndTrackEntity(item);
-      m_items[item->getName()] = item;
+      m_persistentItems[item->getName()] = item;
    }
 
    return item;
@@ -513,11 +533,14 @@ pAsset_t Application::constructAsset(const XmlNode data) {
 void Application::update() {
    switch (m_gameState) {
       case ST_RUNNING:
-         for (auto i = m_items.begin(); i != m_items.end(); ++i)
+         for (auto i = m_persistentItems.begin(); i != m_persistentItems.end(); ++i)
             i->second->update();
 
-         m_player->update();
-         m_exit->update();
+         for (auto i = m_expendableItems.begin(); i != m_expendableItems.end(); ++i)
+            i->second->update();
+
+         if (m_player->getState() == Player::DEAD)
+            m_txtRestart->update();
       break;
       case ST_START_MENU:
          m_startMenu->update();
@@ -526,6 +549,35 @@ void Application::update() {
          m_pauseMenu->update();
       break;
    }
+}
+
+//===========================================
+// Application::draw
+//===========================================
+void Application::draw() const {
+   switch (m_gameState) {
+      case ST_RUNNING:
+         for (auto i = m_persistentItems.begin(); i != m_persistentItems.end(); ++i)
+            i->second->draw();
+
+         for (auto i = m_expendableItems.begin(); i != m_expendableItems.end(); ++i)
+            i->second->draw();
+
+         if (m_player->getState() == Player::DEAD)
+            m_txtRestart->draw();
+      break;
+      case ST_START_MENU:
+         m_startMenu->draw();
+      break;
+      case ST_PAUSED:
+         m_pauseMenu->draw();
+      break;
+   }
+
+#ifdef DEBUG
+   if (dbg_worldSpaceVisible)
+      m_worldSpace.dbg_draw(Colour(1.f, 1.f, 1.f, 1.f), 2, 9);
+#endif
 }
 
 //===========================================
@@ -540,7 +592,7 @@ void Application::onWindowResize(int w, int h) {
 // Application::playerDeath
 //===========================================
 void Application::playerDeath(EEvent* event) {
-   // TODO
+   m_txtRestart->addToWorld();
 }
 
 //===========================================
@@ -561,32 +613,6 @@ void Application::reqToThrowThrowable(EEvent* event) {
    Vec2f dest(toX * m_tileSize.x, toY * m_tileSize.y);
 
    e->item->throwTo(dest.x, dest.y);
-}
-
-//===========================================
-// Application::draw
-//===========================================
-void Application::draw() const {
-   switch (m_gameState) {
-      case ST_RUNNING:
-         for (auto i = m_items.begin(); i != m_items.end(); ++i)
-            i->second->draw();
-
-         m_player->draw();
-         m_exit->draw();
-      break;
-      case ST_START_MENU:
-         m_startMenu->draw();
-      break;
-      case ST_PAUSED:
-         m_pauseMenu->draw();
-      break;
-   }
-
-#ifdef DEBUG
-   if (dbg_worldSpaceVisible)
-      m_worldSpace.dbg_draw(Colour(1.f, 1.f, 1.f, 1.f), 2, 9);
-#endif
 }
 
 //===========================================
@@ -611,23 +637,8 @@ void Application::populateMap() {
    int w = floor(sz.x / m_tileSize.x);
    int h = floor(sz.y / m_tileSize.y);
 
-   m_player = boost::dynamic_pointer_cast<Player>(m_assetManager.getAssetPointer(m_playerProtoId));
-
-   if (!m_player)
-      throw Exception("Error populating map; Bad player proto id", __FILE__, __LINE__);
-
    m_player->setTranslation(pos);
-   m_player->addToWorld();
-   m_worldSpace.trackEntity(m_player);
-
-   m_exit = boost::dynamic_pointer_cast<Exit>(m_assetManager.getAssetPointer(m_exitProtoId));
-
-   if (!m_exit)
-      throw Exception("Error populating map; Bad exit proto id", __FILE__, __LINE__);
-
    m_exit->setTranslation(pos.x + (w - 1) * m_tileSize.x, pos.y + (h - 1) * m_tileSize.y);
-   m_exit->addToWorld();
-   m_worldSpace.trackEntity(m_exit);
 
    m_mineField.clear();
    for (int i = 0; i < w; ++i) {
@@ -673,7 +684,7 @@ void Application::populateMap() {
 
       mine->addToWorld();
       m_worldSpace.trackEntity(mine);
-      m_items[mine->getName()] = mine;
+      m_expendableItems[mine->getName()] = mine;
       m_mineField[i][j] = mine;
 
       for (int n = 0; n < 8; ++n) {
@@ -708,7 +719,7 @@ void Application::populateMap() {
 
             tile->addToWorld();
             m_worldSpace.trackEntity(tile);
-            m_items[tile->getName()] = tile;
+            m_expendableItems[tile->getName()] = tile;
             m_mineField[k][l] = tile;
          }
       }
@@ -745,7 +756,7 @@ void Application::populateMap() {
 
       item->addToWorld();
       m_worldSpace.trackEntity(item);
-      m_items[item->getName()] = item;
+      m_expendableItems[item->getName()] = item;
 
       coinsAndThrowables[i][j] = true;
    }
@@ -783,7 +794,7 @@ void Application::populateMap() {
 
       item->addToWorld();
       m_worldSpace.trackEntity(item);
-      m_items[item->getName()] = item;
+      m_expendableItems[item->getName()] = item;
 
       coinsAndThrowables[i][j] = true;
    }
@@ -821,7 +832,7 @@ void Application::populateMap() {
 
       item->addToWorld();
       m_worldSpace.trackEntity(item);
-      m_items[item->getName()] = item;
+      m_expendableItems[item->getName()] = item;
    }
 
    for (int i = 0; i < w; ++i) {
@@ -838,7 +849,7 @@ void Application::populateMap() {
 
          soil->addToWorld();
          m_worldSpace.trackEntity(soil);
-         m_items[soil->getName()] = soil;
+         m_expendableItems[soil->getName()] = soil;
       }
    }
 }
@@ -846,14 +857,26 @@ void Application::populateMap() {
 //===========================================
 // Application::startGame
 //===========================================
-void Application::startGame(EEvent* event) {
+void Application::startGame() {
    m_startMenu->removeFromWorld();
 
+   m_player->revive();
+
+   m_exit->close();
+
    // TODO:
+/*
    m_numMines = 40;
    m_numCollectables = 12;
    m_numThrowables = 2;
    m_numZombies = 3;
+   m_requiredScore = 9;
+   m_timeLimit = 180;
+*/
+   m_numMines = 44;
+   m_numCollectables = 12;
+   m_numThrowables = 3;
+   m_numZombies = 2;
    m_requiredScore = 9;
    m_timeLimit = 180;
 
@@ -872,6 +895,14 @@ void Application::loadAssets() {
 
    m_mapLoader.update(m_renderer.getCamera().getTranslation());
 
+   m_player = boost::dynamic_pointer_cast<Player>(m_assetManager.getAssetPointer(m_playerId));
+   if (!m_player)
+      throw Exception("Error loading map; Bad player proto id", __FILE__, __LINE__);
+
+   m_exit = boost::dynamic_pointer_cast<Exit>(m_assetManager.getAssetPointer(m_exitId));
+   if (!m_exit)
+      throw Exception("Error loading map; Bad exit proto id", __FILE__, __LINE__);
+
    m_startMenu = boost::dynamic_pointer_cast<StartMenu>(m_assetManager.getAssetPointer(m_startMenuId));
    if (!m_startMenu)
       throw Exception("Error loading map; Bad start menu id", __FILE__, __LINE__);
@@ -887,6 +918,10 @@ void Application::loadAssets() {
    m_timeCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_timeCounterId));
    if (!m_timeCounter)
       throw Exception("Error loading map; Bad time counter id", __FILE__, __LINE__);
+
+   m_txtRestart = boost::dynamic_pointer_cast<TextEntity>(m_assetManager.getAssetPointer(m_txtRestartId));
+   if (!m_txtRestart)
+      throw Exception("Error loading map; Bad txtRestart id", __FILE__, __LINE__);
 }
 
 //===========================================
@@ -938,7 +973,13 @@ void Application::reqGameStateChangeHandler(EEvent* event) {
 
    switch (m_gameState) {
       case ST_START_MENU:
-
+         switch (e->state) {
+            case ST_START_MENU: break;
+            case ST_RUNNING:
+               startGame();
+            break;
+            case ST_PAUSED: break;
+         }
       break;
       case ST_RUNNING:
          switch (e->state) {
@@ -1007,9 +1048,6 @@ void Application::launch(int argc, char** argv) {
 
    m_eventManager.registerCallback(internString("success"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::gameSuccess));
-
-   m_eventManager.registerCallback(internString("startGame"),
-      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::startGame));
 
    m_eventManager.registerCallback(internString("quitGame"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::quitGame));

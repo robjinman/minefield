@@ -56,7 +56,7 @@ class Application {
       void freeAllAssets();
       bool isAdjacentTo(const Dodge::Vec2i& a, const Dodge::Vec2i& b) const;
       void gameSuccess(const Dodge::EEvent* event);
-      void startGame(Dodge::EEvent* event);
+      void startGame();
       void loadAssets();
       void resetGame();
       void quitGame(Dodge::EEvent* event);
@@ -88,7 +88,8 @@ class Application {
 
       Dodge::AssetManager           m_assetManager;
       Dodge::WorldSpace             m_worldSpace;
-      std::map<long, pItem_t>       m_items;
+      std::map<long, pItem_t>       m_persistentItems;
+      std::map<long, pItem_t>       m_expendableItems;
 
       Dodge::Colour                 m_bgColour;
 
@@ -101,8 +102,8 @@ class Application {
 
       long                          m_startMenuId;
       long                          m_pauseMenuId;
-      long                          m_playerProtoId;
-      long                          m_exitProtoId;
+      long                          m_playerId;
+      long                          m_exitId;
       long                          m_numericTileProtoId;
       long                          m_mineProtoId;
       long                          m_soilProtoId;
@@ -111,6 +112,7 @@ class Application {
       long                          m_zombieProtoId;
       long                          m_scoreCounterId;
       long                          m_timeCounterId;
+      long                          m_txtRestartId;
 
       pPlayer_t                     m_player;
       pExit_t                       m_exit;
@@ -118,6 +120,7 @@ class Application {
       int                           m_numMines;
       pCounter_t                    m_scoreCounter;
       pCounter_t                    m_timeCounter;
+      Dodge::pTextEntity_t          m_txtRestart;
 
       int                           m_numCollectables;
       int                           m_numThrowables;

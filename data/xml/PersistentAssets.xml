@@ -12,7 +12,7 @@
       <segmentsDir>data/xml/0</segmentsDir>
    </settings>
    <customSettings>
-      <windowSize><Vec2i x="525" y="400"/></windowSize>
+      <windowSize><Vec2i x="630" y="480"/></windowSize>
       <soundTrack>
          <MusicTrack path="data/sounds/Planetarium.ogg"/>
       </soundTrack>
@@ -20,14 +20,14 @@
       <minefieldBoundary>
          <Range>
             <pos><Vec2f x="0.0" y="0.0"/></pos>
-            <size><Vec2f x="1.3125" y="0.75"/></size>
+            <size><Vec2f x="1.3125" y="0.6875"/></size>
          </Range>
       </minefieldBoundary>
       <tileSize><Vec2f x="0.0625" y="0.0625"/></tileSize>
       <startMenuId>601</startMenuId>
       <pauseMenuId>1201</pauseMenuId>
-      <playerProtoId>201</playerProtoId>
-      <exitProtoId>501</exitProtoId>
+      <playerId>201</playerId>
+      <exitId>501</exitId>
       <numericTileProtoId>101</numericTileProtoId>
       <mineProtoId>301</mineProtoId>
       <soilProtoId>401</soilProtoId>
@@ -36,6 +36,7 @@
       <zombieProtoId>1101</zombieProtoId>
       <timeCounterId>56</timeCounterId>
       <scoreCounterId>57</scoreCounterId>
+      <txtRestartId>59</txtRestartId>
    </customSettings>
    <using>
       <file>data/xml/fonts.xml</file>
@@ -57,7 +58,6 @@
       <asset id="1"><Texture path="data/textures/sky.png"/></asset>
       <asset id="2"><Texture path="data/textures/labels.png"/></asset>
       <asset id="5"><Texture path="data/textures/trees.png"/></asset>
-      <asset id="6"><Texture path="data/textures/pixel.png"/></asset>
       <asset id="50" addToWorld="true">
          <CSprite>
             <Item>
@@ -123,11 +123,11 @@
       <asset id="52" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="label" name="lblCoinsRequired" x="0.25" y="0.9" z="8" rot="0.0">
+               <Entity type="label" name="lblCoinsRequired" x="0.22" y="0.94" z="8" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <fillColour><Colour r="0.8" g="0.8" b="0.8" a="1.0"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>
@@ -144,38 +144,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.075" y="0.09"/>
-                  </onScreenSize>
-               </EntityAnimations>
-               <EntityTransformations/>
-            </Sprite>
-         </CSprite>
-      </asset>
-      <asset id="53" addToWorld="true">
-         <CSprite>
-            <Item>
-               <Entity type="label" name="lblCoinsRequiredArrow" x="0.325" y="0.9" z="8" rot="0.0">
-                  <scale>
-                     <Vec2f x="1.0" y="1.0"/>
-                  </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
-                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
-                  <lineWidth>0</lineWidth>
-                  <children/>
-               </Entity>
-            </Item>
-            <Sprite>
-               <Entity/>
-               <EntityAnimations>
-                  <texture ptr="2"/>
-                  <textureSection>
-                     <Range>
-                        <pos><Vec2f x="48" y="0"/></pos>
-                        <size><Vec2f x="16" y="32"/></size>
-                     </Range>
-                  </textureSection>
-                  <onScreenSize>
-                     <Vec2f x="0.025" y="0.05"/>
+                     <Vec2f x="0.05" y="0.05"/>
                   </onScreenSize>
                </EntityAnimations>
                <EntityTransformations/>
@@ -185,11 +154,11 @@
       <asset id="54" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="label" name="lblTimeRemaining" x="0.01" y="0.9" z="8" rot="0.0">
+               <Entity type="label" name="lblTimeRemaining" x="0.01" y="0.94" z="8" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <fillColour><Colour r="0.8" g="0.8" b="0.8" a="1.0"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>
@@ -206,38 +175,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.075" y="0.09"/>
-                  </onScreenSize>
-               </EntityAnimations>
-               <EntityTransformations/>
-            </Sprite>
-         </CSprite>
-      </asset>
-      <asset id="55" addToWorld="true">
-         <CSprite>
-            <Item>
-               <Entity type="label" name="lblTimeRemainingArrow" x="0.085" y="0.9" z="8" rot="0.0">
-                  <scale>
-                     <Vec2f x="1.0" y="1.0"/>
-                  </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
-                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
-                  <lineWidth>0</lineWidth>
-                  <children/>
-               </Entity>
-            </Item>
-            <Sprite>
-               <Entity/>
-               <EntityAnimations>
-                  <texture ptr="2"/>
-                  <textureSection>
-                     <Range>
-                        <pos><Vec2f x="48" y="0"/></pos>
-                        <size><Vec2f x="16" y="32"/></size>
-                     </Range>
-                  </textureSection>
-                  <onScreenSize>
-                     <Vec2f x="0.025" y="0.05"/>
+                     <Vec2f x="0.05" y="0.05"/>
                   </onScreenSize>
                </EntityAnimations>
                <EntityTransformations/>
@@ -248,7 +186,7 @@
          <Counter>
             <CTextEntity>
                <Item>
-                  <Entity type="counter" name="txtTimeRemaining" x="0.11" y="0.9" z="9" rot="0.0">
+                  <Entity type="counter" name="txtTimeRemaining" x="0.06" y="0.94" z="9" rot="0.0">
                      <scale>
                         <Vec2f x="1.0" y="1.0"/>
                      </scale>
@@ -272,7 +210,7 @@
          <Counter>
             <CTextEntity>
                <Item>
-                  <Entity type="counter" name="txtCoinsRequired" x="0.35" y="0.9" z="9" rot="0.0">
+                  <Entity type="counter" name="txtCoinsRequired" x="0.27" y="0.94" z="9" rot="0.0">
                      <scale>
                         <Vec2f x="1.0" y="1.0"/>
                      </scale>
@@ -295,7 +233,7 @@
       <asset id="58" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="shrubbery" name="trees" x="0.0" y="0.715" z="7" rot="0.0">
+               <Entity type="shrubbery" name="trees" x="0.0" y="0.68375" z="7" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
@@ -323,5 +261,81 @@
             </Sprite>
          </CSprite>
       </asset>
+      <asset id="59" addToWorld="false">
+         <TextEntity>
+            <Entity type="text" name="txtRestart" x="0.75" y="0.01" z="9" rot="0.0">
+               <scale>
+                  <Vec2f x="1.0" y="1.0"/>
+               </scale>
+               <fillColour><Colour r="0.3" g="0.7" b="0.3" a="1.0"/></fillColour>
+               <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+               <lineWidth>0</lineWidth>
+               <children/>
+            </Entity>
+            <font ptr="4"/>
+            <textSize><Vec2f x="0.024" y="0.04"/></textSize>
+            <text>Press Enter to restart</text>
+         </TextEntity>
+      </asset>
+      <asset id="60" addToWorld="false">
+         <CSprite>
+            <Item>
+               <Entity type="fakeSoil" name="fakeSoilProto" x="0.0" y="0.0" z="5" rot="0.0">
+                  <shape>
+                     <Polygon>
+                        <Vec2f x="0" y="0"/>
+                        <Vec2f x="0.0625" y="0"/>
+                        <Vec2f x="0.0625" y="0.0625"/>
+                        <Vec2f x="0" y="0.0625"/>
+                     </Polygon>
+                  </shape>
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="400"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="16" y="16"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="0.0625" y="0.0625"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+         </CSprite>
+      </asset>
+      <asset id="61" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil0,0" x="0.0" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="81" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil1,0" x="0.0625" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="62" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil2,0" x="0.125" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="63" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil3,0" x="0.1875" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="64" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil4,0" x="0.25" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="65" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil5,0" x="0.3125" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="66" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil6,0" x="0.375" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="67" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil7,0" x="0.4375" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="68" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil8,0" x="0.5" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="69" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil9,0" x="0.5625" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="70" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil10,0" x="0.625" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="71" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil11,0" x="0.6875" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="72" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil12,0" x="0.75" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="73" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil13,0" x="0.8125" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="74" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil14,0" x="0.875" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="75" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil15,0" x="0.9375" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="76" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil16,0" x="1.0" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="77" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil17,0" x="1.0625" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="78" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil18,0" x="1.125" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="79" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil19,0" x="1.1875" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
+      <asset id="80" proto="60" addToWorld="true"><CSprite><Item><Entity type="fakeSoil" name="fakeSoil20,0" x="1.25" y="0.6875" z="5" rot="0.0"/></Item></CSprite></asset>
    </assets>
 </MAPFILE>

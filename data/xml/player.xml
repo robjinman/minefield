@@ -42,7 +42,7 @@
             </Sprite>
          </CSprite>
       </asset>
-      <asset id="201" addToWorld="false">
+      <asset id="201" addToWorld="true">
          <Player>
             <Item>
                <Entity type="player" name="player" x="0.0" y="0.0" z="8" rot="0.0">

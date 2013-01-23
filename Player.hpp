@@ -23,11 +23,12 @@ class Player : public Item, public Dodge::Sprite {
       inline void moveUp();
       inline void moveDown();
 
+      void revive();
       void die();
 
       inline state_t getState() const;
 
-      virtual void draw();
+      virtual void draw() const;
       virtual void update();
       virtual void onEvent(const Dodge::EEvent* event);
       virtual size_t getSize() const;
@@ -51,6 +52,8 @@ class Player : public Item, public Dodge::Sprite {
       Dodge::Quad m_midSensor;
       pItem_t m_crosshairs;
       pThrowable_t m_throwable;
+
+      Dodge::Range m_originalTexSection;
 
       state_t m_state;
       mode_t m_mode;

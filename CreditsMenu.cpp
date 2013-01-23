@@ -68,11 +68,9 @@ CreditsMenu::CreditsMenu(const CreditsMenu& copy, long name)
 // CreditsMenu::init
 //===========================================
 void CreditsMenu::init() {
-//TextEntity(long type, const pFont_t font, const std::string& text, const Vec2f& size);
-
-   pTextEntity_t txt1(new TextEntity(internString("text"), m_font, "Design & Programming: Rob Jinman", Vec2f(0.02, 0.04)));
-   pTextEntity_t txt2(new TextEntity(internString("text"), m_font, "Music:                Dan Wilkinson", Vec2f(0.02, 0.04)));
-   pTextEntity_t txt3(new TextEntity(internString("text"), m_font, "Sprites:              Sith Jester", Vec2f(0.02, 0.04)));
+   pTextEntity_t txt1(new TextEntity(internString("text"), m_font, "Design & Programming: Rob Jinman", Vec2f(0.022, 0.044)));
+   pTextEntity_t txt2(new TextEntity(internString("text"), m_font, "Music:                Jack Normal", Vec2f(0.022, 0.044)));
+   pTextEntity_t txt3(new TextEntity(internString("text"), m_font, "(Sprites: http://untamed.wild-refuge.net)", Vec2f(0.02, 0.04)));
 
    m_textEntities.push_back(txt1);
    m_textEntities.push_back(txt2);
@@ -83,15 +81,15 @@ void CreditsMenu::init() {
    addChild(txt3);
 
    txt1->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
-   txt1->setTranslation(0.51, 0.65);
+   txt1->setTranslation(0.54, 0.7);
    txt1->setZ(9);
 
    txt2->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
-   txt2->setTranslation(0.51, 0.61);
+   txt2->setTranslation(0.54, 0.66);
    txt2->setZ(9);
 
-   txt3->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
-   txt3->setTranslation(0.51, 0.57);
+   txt3->setFillColour(Colour(0.5f, 0.5f, 0.5f, 0.f));
+   txt3->setTranslation(0.42, 0.02);
    txt3->setZ(9);
 }
 
@@ -129,7 +127,10 @@ void CreditsMenu::addToWorld() {
 
    m_txtAlpha = 0.f;
    for (uint_t i = 0; i < m_textEntities.size(); ++i) {
-      m_textEntities[i]->setFillColour(Colour(0.f, 0.f, 0.f, m_txtAlpha));
+      Colour col = m_textEntities[i]->getFillColour();
+      col.a = m_txtAlpha;
+
+      m_textEntities[i]->setFillColour(col);
    }
 }
 
@@ -166,7 +167,10 @@ void CreditsMenu::update() {
       m_txtAlpha += m_fadeInTime / fr;
 
       for (uint_t i = 0; i < m_textEntities.size(); ++i) {
-         m_textEntities[i]->setFillColour(Colour(0.f, 0.f, 0.f, m_txtAlpha));
+         Colour col = m_textEntities[i]->getFillColour();
+         col.a = m_txtAlpha;
+
+         m_textEntities[i]->setFillColour(col);
       }
    }
 }

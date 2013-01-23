@@ -103,6 +103,8 @@ Player::Player(const Player& copy, long name)
 void Player::init() {
    EventManager eventManager;
    eventManager.registerCallback(internString("explosion"), Functor<void, TYPELIST_1(EEvent*)>(this, &Player::explosionHandler));
+
+   m_originalTexSection = getTextureSection();
 }
 
 //===========================================
@@ -128,7 +130,7 @@ void Player::update() {
 //===========================================
 // Player::draw
 //===========================================
-void Player::draw() {
+void Player::draw() const {
    Sprite::draw();
 
    if (m_mode == THROWING_MODE)
@@ -242,6 +244,15 @@ void Player::die() {
    stopTransformations();
    playAnimation(explodeStr);
    m_state = DEAD;
+}
+
+//===========================================
+// Player::revive
+//===========================================
+void Player::revive() {
+   m_state = ALIVE;
+   setTextureSection(m_originalTexSection);
+   setFillColour(Colour(1, 1, 1, 1));
 }
 
 //===========================================
