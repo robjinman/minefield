@@ -16,6 +16,7 @@ OBJS = Application.o \
 	MenuItem.o \
 	Mine.o \
 	NumericTile.o \
+	PauseMenu.o \
 	Player.o \
 	Soil.o \
 	SoundFx.o \

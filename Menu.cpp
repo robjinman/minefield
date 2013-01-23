@@ -40,7 +40,7 @@ Menu::Menu(const XmlNode data)
          if (!submenu)
             throw XmlException("Bad submenu asset id", __FILE__, __LINE__);
 
-         submenu->setParent(this);
+//         submenu->setParent(this);
          m_submenus.push_back(submenu);
 
          node_ = node_.nextSibling();
@@ -126,6 +126,7 @@ void Menu::activateSubmenu(long name) {
          if (m_activeSubmenu != -1) m_submenus[m_activeSubmenu]->removeFromWorld();
 
          removeFromWorld();
+         m_submenus[i]->setParent(this);
          m_submenus[i]->addToWorld();
          m_activeSubmenu = i;
          break;

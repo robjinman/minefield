@@ -46,9 +46,9 @@ SettingsMenu::SettingsMenu(const SettingsMenu& copy, long name)
 // SettingsMenu::onMenuItemActivate
 //===========================================
 void SettingsMenu::onMenuItemActivate(pMenuItem_t item) {
-   static long mnuBackToStartMenuStr = internString("mnuSettingsToStartMenu");
+   static long mnuSettingsToStartMenuStr = internString("mnuSettingsToStartMenu");
 
-   if (item->getName() == mnuBackToStartMenuStr)
+   if (item->getName() == mnuSettingsToStartMenuStr)
       returnToParentMenu();
 }
 

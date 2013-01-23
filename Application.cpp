@@ -14,6 +14,7 @@
 #include "Soil.hpp"
 #include "Exit.hpp"
 #include "StartMenu.hpp"
+#include "PauseMenu.hpp"
 #include "SettingsMenu.hpp"
 #include "MenuItem.hpp"
 #include "CSprite.hpp"
@@ -25,6 +26,7 @@
 #include "CreditsMenu.hpp"
 #include "EUpdateScore.hpp"
 #include "ERequestToThrowThrowable.hpp"
+#include "ERequestGameStateChange.hpp"
 
 
 #define TARGET_MEM_USAGE 9999999
@@ -96,7 +98,6 @@ void Application::freeAllAssets() {
 void Application::keyDown(int key) {
 
    switch (key) {
-      case WinIO::KEY_ESCAPE: quit(); break;
 #ifdef DEBUG
       case WinIO::KEY_F:
          cout << "Frame rate (main thread): " << m_frameRate << "fps\n";
@@ -106,6 +107,31 @@ void Application::keyDown(int key) {
          cout << "Memory usage: " << static_cast<float32_t>(m_mapLoader.dbg_getMemoryUsage()) / 1000.0 << "KB\n";
       break;
 #endif
+   }
+
+   switch (m_gameState) {
+      case ST_RUNNING:
+         switch (key) {
+            case WinIO::KEY_ESCAPE:
+               m_eventManager.queueEvent(new ERequestGameStateChange(ST_PAUSED));
+            break;
+         }
+      break;
+      case ST_PAUSED:
+         switch (key) {
+            case WinIO::KEY_ESCAPE:
+               m_eventManager.queueEvent(new ERequestGameStateChange(ST_RUNNING));
+            break;
+         }
+      break;
+      case ST_START_MENU:
+         switch (key) {
+            case WinIO::KEY_ESCAPE:
+               quit();
+            break;
+         }
+      break;
+      // ...
    }
 
    m_keyState[key] = true;
@@ -186,6 +212,8 @@ void Application::keyboard() {
       break;
       case ST_START_MENU:
       break;
+      case ST_PAUSED:
+      break;
    }
 }
 
@@ -197,6 +225,7 @@ void Application::resetGame() {
    freeAllAssets();
    loadAssets();
 
+   m_startMenu->addToWorld();
    m_gameState = ST_START_MENU;
 }
 
@@ -242,6 +271,10 @@ void Application::setMapSettings(const XmlNode data) {
       node = node.nextSibling();
       XML_NODE_CHECK(node, startMenuId);
       m_startMenuId = node.getLong();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, pauseMenuId);
+      m_pauseMenuId = node.getLong();
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, playerProtoId);
@@ -449,6 +482,7 @@ pAsset_t Application::constructAsset(const XmlNode data) {
       if (node.name() == "Soil") item = pItem_t(new Soil(node));
       if (node.name() == "Exit") item = pItem_t(new Exit(node));
       if (node.name() == "StartMenu") item = pItem_t(new StartMenu(node));
+      if (node.name() == "PauseMenu") item = pItem_t(new PauseMenu(node));
       if (node.name() == "SettingsMenu") item = pItem_t(new SettingsMenu(node));
       if (node.name() == "CreditsMenu") item = pItem_t(new CreditsMenu(node));
       if (node.name() == "MenuItem") item = pItem_t(new MenuItem(node));
@@ -487,6 +521,9 @@ void Application::update() {
       break;
       case ST_START_MENU:
          m_startMenu->update();
+      break;
+      case ST_PAUSED:
+         m_pauseMenu->update();
       break;
    }
 }
@@ -540,6 +577,9 @@ void Application::draw() const {
       break;
       case ST_START_MENU:
          m_startMenu->draw();
+      break;
+      case ST_PAUSED:
+         m_pauseMenu->draw();
       break;
    }
 
@@ -836,7 +876,9 @@ void Application::loadAssets() {
    if (!m_startMenu)
       throw Exception("Error loading map; Bad start menu id", __FILE__, __LINE__);
 
-   m_startMenu->addToWorld();
+   m_pauseMenu = boost::dynamic_pointer_cast<PauseMenu>(m_assetManager.getAssetPointer(m_pauseMenuId));
+   if (!m_pauseMenu)
+      throw Exception("Error loading map; Bad pause menu id", __FILE__, __LINE__);
 
    m_scoreCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_scoreCounterId));
    if (!m_scoreCounter)
@@ -884,6 +926,43 @@ void Application::updateTimer() {
       if (m_timeCounter->getValue() == 0) {
          m_player->die();
       }
+   }
+}
+
+//===========================================
+// Application::reqGameStateChange
+//===========================================
+void Application::reqGameStateChangeHandler(EEvent* event) {
+   ERequestGameStateChange* e = dynamic_cast<ERequestGameStateChange*>(event);
+   assert(e);
+
+   switch (m_gameState) {
+      case ST_START_MENU:
+
+      break;
+      case ST_RUNNING:
+         switch (e->state) {
+            case ST_START_MENU: break;
+            case ST_RUNNING: break;
+            case ST_PAUSED:
+               m_pauseMenu->addToWorld();
+               m_gameState = ST_PAUSED;
+            break;
+         }
+      break;
+      case ST_PAUSED:
+         switch (e->state) {
+            case ST_START_MENU:
+               m_pauseMenu->removeFromWorld();
+               resetGame();
+            break;
+            case ST_RUNNING:
+               m_pauseMenu->removeFromWorld();
+               m_gameState = ST_RUNNING;
+            break;
+            case ST_PAUSED: break;
+         }
+      break;
    }
 }
 
@@ -944,13 +1023,18 @@ void Application::launch(int argc, char** argv) {
    m_eventManager.registerCallback(internString("requestToThrowThrowable"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqToThrowThrowable));
 
+   m_eventManager.registerCallback(internString("requestGameStateChange"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqGameStateChangeHandler));
+
    m_music->play(true);
+   m_startMenu->addToWorld();
    m_gameState = ST_START_MENU;
 
    while (1) {
       LOOP_START
 
       switch (m_gameState) {
+         case ST_PAUSED:
          case ST_START_MENU:
             computeFrameRate();
             m_win.doEvents();

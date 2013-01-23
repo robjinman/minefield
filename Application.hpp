@@ -13,8 +13,10 @@
 #include "Player.hpp"
 #include "Exit.hpp"
 #include "StartMenu.hpp"
+#include "PauseMenu.hpp"
 #include "Counter.hpp"
 #include "SoundFx.hpp"
+#include "gameState.hpp"
 
 
 class Application {
@@ -33,11 +35,6 @@ class Application {
 
          NUM_MOUSE_BUTTONS = 3
       } mouseBtn_t;
-
-      typedef enum {
-         ST_RUNNING,
-         ST_START_MENU
-      } gameState_t;
 
       void keyDown(int key);
       void keyUp(int key);
@@ -66,6 +63,7 @@ class Application {
       void updateScore(Dodge::EEvent* event);
       void updateTimer();
       void reqToThrowThrowable(Dodge::EEvent* event);
+      void reqGameStateChangeHandler(Dodge::EEvent* event);
 
       void exitDefault();
 
@@ -100,7 +98,9 @@ class Application {
 
       Dodge::Range                  m_minefieldBoundary;
       Dodge::Vec2f                  m_tileSize;
+
       long                          m_startMenuId;
+      long                          m_pauseMenuId;
       long                          m_playerProtoId;
       long                          m_exitProtoId;
       long                          m_numericTileProtoId;
@@ -111,17 +111,22 @@ class Application {
       long                          m_zombieProtoId;
       long                          m_scoreCounterId;
       long                          m_timeCounterId;
+
       pPlayer_t                     m_player;
       pExit_t                       m_exit;
-      pStartMenu_t                  m_startMenu;
+
       int                           m_numMines;
       pCounter_t                    m_scoreCounter;
       pCounter_t                    m_timeCounter;
+
       int                           m_numCollectables;
       int                           m_numThrowables;
       int                           m_numZombies;
       int                           m_timeLimit;
       int                           m_requiredScore;
+
+      pStartMenu_t                  m_startMenu;
+      pPauseMenu_t                  m_pauseMenu;
 
       Dodge::pMusicTrack_t          m_music;
       SoundFx                       m_soundFx;

@@ -25,6 +25,7 @@
       </minefieldBoundary>
       <tileSize><Vec2f x="0.0625" y="0.0625"/></tileSize>
       <startMenuId>601</startMenuId>
+      <pauseMenuId>1201</pauseMenuId>
       <playerProtoId>201</playerProtoId>
       <exitProtoId>501</exitProtoId>
       <numericTileProtoId>101</numericTileProtoId>
@@ -45,6 +46,9 @@
       <file>data/xml/collectable.xml</file>
       <file>data/xml/throwable.xml</file>
       <file>data/xml/zombie.xml</file>
+      <file>data/xml/menuCommon.xml</file>
+      <file>data/xml/settingsMenu.xml</file>
+      <file>data/xml/pauseMenu.xml</file>
       <file>data/xml/startMenu.xml</file>
    </using>
    <assets>
