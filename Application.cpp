@@ -24,6 +24,7 @@
 #include "Counter.hpp"
 #include "Collectable.hpp"
 #include "CreditsMenu.hpp"
+#include "GameOptionsMenu.hpp"
 #include "EUpdateScore.hpp"
 #include "ERequestToThrowThrowable.hpp"
 #include "ERequestGameStateChange.hpp"
@@ -498,6 +499,7 @@ pAsset_t Application::constructAsset(const XmlNode data) {
       if (node.name() == "PauseMenu") item = pItem_t(new PauseMenu(node));
       if (node.name() == "SettingsMenu") item = pItem_t(new SettingsMenu(node));
       if (node.name() == "CreditsMenu") item = pItem_t(new CreditsMenu(node));
+      if (node.name() == "GameOptionsMenu") item = pItem_t(new GameOptionsMenu(node));
       if (node.name() == "MenuItem") item = pItem_t(new MenuItem(node));
       if (node.name() == "CSprite") item = pItem_t(new CSprite(node));
       if (node.name() == "CTextEntity") item = pItem_t(new CTextEntity(node));
@@ -827,7 +829,7 @@ void Application::populateMap() {
       m_worldSpace.trackEntity(item);
       m_expendableItems[item->getName()] = item;
    }
-/*
+
    for (int i = 0; i < w; ++i) {
       for (int j = 0; j < h; ++j) {
          if (isAdjacentTo(Vec2i(i, j), Vec2i(plyrI, plyrJ))) continue;
@@ -844,7 +846,7 @@ void Application::populateMap() {
          m_worldSpace.trackEntity(soil);
          m_expendableItems[soil->getName()] = soil;
       }
-   }*/
+   }
 }
 
 //===========================================
@@ -866,12 +868,12 @@ void Application::startGame() {
    m_requiredScore = 9;
    m_timeLimit = 180;
 */
-   m_numMines = 0;
+   m_numMines = 50;
    m_numCollectables = 12;
-   m_numThrowables = 3;
-   m_numZombies = 1;
+   m_numThrowables = 4;
+   m_numZombies = 2;
    m_requiredScore = 9;
-   m_timeLimit = 180;
+   m_timeLimit = 240;
 
    populateMap();
 

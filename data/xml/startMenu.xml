@@ -4,16 +4,201 @@
       <file>data/xml/creditsMenu.xml</file>
    </using>
    <assets>
+      <asset id="607" addToWorld="false">
+         <MenuItem position="1">
+            <Item>
+               <Entity type="menuItem" name="mnuGameOptions" x="0.02" y="0.31" z="2" rot="0.0">
+                  <shape>
+                     <Polygon>
+                        <Vec2f x="0" y="0"/>
+                        <Vec2f x="0.4" y="0"/>
+                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0" y="0.075"/>
+                     </Polygon>
+                  </shape>
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <UiButton>
+               <Sprite>
+                  <Entity/>
+                  <EntityAnimations>
+                     <texture ptr="603"/>
+                     <textureSection>
+                        <Range>
+                           <pos><Vec2f x="0" y="320"/></pos>
+                           <size><Vec2f x="256" y="32"/></size>
+                        </Range>
+                     </textureSection>
+                     <onScreenSize>
+                        <Vec2f x="0.4" y="0.075"/>
+                     </onScreenSize>
+                     <animation>
+                        <Animation name="noFocusIdle" duration="0.3">
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.9" g="0.9" b="0.9" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.8" g="0.8" b="0.9" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.9" g="0.9" b="0.9" a="1.0"/></col>
+                           </AnimFrame>
+                        </Animation>
+                     </animation>
+                     <animation>
+                        <Animation name="focusIdle" duration="0.3">
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="0.55" b="0.55" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.9" g="0.5" b="0.5" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.8" g="0.45" b="0.45" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.9" g="0.5" b="0.5" a="1.0"/></col>
+                           </AnimFrame>
+                        </Animation>
+                     </animation>
+                     <animation>
+                        <Animation name="press" duration="0.15">
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.9" g="0.55" b="0.55" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.8" g="0.35" b="0.35" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.6" g="0.2" b="0.2" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.4" g="0.0" b="0.0" a="1.0"/></col>
+                           </AnimFrame>
+                        </Animation>
+                     </animation>
+                     <animation>
+                        <Animation name="release" duration="0.2">
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.5" g="0.0" b="0.0" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.6" g="0.2" b="0.2" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.7" g="0.3" b="0.3" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.8" g="0.4" b="0.4" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="0.9" g="0.5" b="0.5" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="0.6" b="0.6" a="1.0"/></col>
+                           </AnimFrame>
+                        </Animation>
+                     </animation>
+                     <animation>
+                        <Animation name="gainFocus" duration="0.2">
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="0.8" b="0.8" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="0.6" b="0.6" a="1.0"/></col>
+                           </AnimFrame>
+                        </Animation>
+                     </animation>
+                     <animation>
+                        <Animation name="loseFocus" duration="0.2">
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="0.6" b="0.6" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="0.8" b="0.8" a="1.0"/></col>
+                           </AnimFrame>
+                           <AnimFrame>
+                              <pos><Vec2i x="0" y="320"/></pos>
+                              <dim><Vec2i x="256" y="32"/></dim>
+                              <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                           </AnimFrame>
+                        </Animation>
+                     </animation>
+                  </EntityAnimations>
+                  <EntityTransformations/>
+               </Sprite>
+            </UiButton>
+         </MenuItem>
+      </asset>
       <asset id="606" addToWorld="false">
-         <MenuItem position="3">
+         <MenuItem position="4">
             <Item>
                <Entity type="menuItem" name="mnuQuit" x="0.02" y="0.01" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.3" y="0.075"/>
-                        <Vec2f x="0" y="0.1"/>
+                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0" y="0.075"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -37,7 +222,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.3" y="0.075"/>
+                        <Vec2f x="0.4" y="0.075"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -190,15 +375,15 @@
          </MenuItem>
       </asset>
       <asset id="605" addToWorld="false">
-         <MenuItem position="2">
+         <MenuItem position="3">
             <Item>
                <Entity type="menuItem" name="mnuCredits" x="0.02" y="0.11" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.3" y="0.075"/>
-                        <Vec2f x="0" y="0.1"/>
+                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0" y="0.075"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -222,7 +407,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.3" y="0.075"/>
+                        <Vec2f x="0.4" y="0.075"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -375,15 +560,15 @@
          </MenuItem>
       </asset>
       <asset id="604" addToWorld="false">
-         <MenuItem position="1">
+         <MenuItem position="2">
             <Item>
                <Entity type="menuItem" name="mnuSettings" x="0.02" y="0.21" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.3" y="0.075"/>
-                        <Vec2f x="0" y="0.1"/>
+                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0" y="0.075"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -407,7 +592,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.3" y="0.075"/>
+                        <Vec2f x="0.4" y="0.075"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -562,13 +747,13 @@
       <asset id="602" addToWorld="false">
          <MenuItem position="0">
             <Item>
-               <Entity type="menuItem" name="mnuStartGame" x="0.02" y="0.31" z="2" rot="0.0">
+               <Entity type="menuItem" name="mnuStartGame" x="0.02" y="0.41" z="2" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.3" y="0.075"/>
-                        <Vec2f x="0" y="0.1"/>
+                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0" y="0.075"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -592,7 +777,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.225" y="0.075"/>
+                        <Vec2f x="0.3" y="0.075"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -760,6 +945,7 @@
                         <child ptr="604"/>
                         <child ptr="605"/>
                         <child ptr="606"/>
+                        <child ptr="607"/>
                      </children>
                   </Entity>
                </Item>
@@ -770,7 +956,7 @@
                      <textureSection>
                         <Range>
                            <pos><Vec2f x="0" y="0"/></pos>
-                           <size><Vec2f x="307" y="256"/></size>
+                           <size><Vec2f x="256" y="256"/></size>
                         </Range>
                      </textureSection>
                      <onScreenSize>
@@ -782,6 +968,7 @@
                <submenus>
                   <submenu ptr="701"/>
                   <submenu ptr="901"/>
+                  <submenu ptr="1301"/>
                </submenus>
             </Menu>
             <flare ptr="611"/>

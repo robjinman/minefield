@@ -68,11 +68,16 @@ void StartMenu::onMenuItemActivate(pMenuItem_t item) {
    static long mnuSettingsStr = internString("mnuSettings");
    static long mnuCreditsStr = internString("mnuCredits");
    static long creditsMenuStr = internString("creditsMenu");
+   static long mnuGameOptionsStr = internString("mnuGameOptions");
+   static long gameOptionsMenuStr = internString("gameOptionsMenu");
    static long mnuQuitStr = internString("mnuQuit");
 
    if (item->getName() == mnuStartGameStr) {
       EventManager eventManager;
       eventManager.queueEvent(new ERequestGameStateChange(ST_RUNNING));
+   }
+   else if (item->getName() == mnuGameOptionsStr) {
+      activateSubmenu(gameOptionsMenuStr);
    }
    else if (item->getName() == mnuSettingsStr) {
       activateSubmenu(settingsMenuStr);

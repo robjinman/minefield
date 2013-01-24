@@ -9,8 +9,8 @@
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.3" y="0.075"/>
-                        <Vec2f x="0" y="0.1"/>
+                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0" y="0.075"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -34,7 +34,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.3" y="0.075"/>
+                        <Vec2f x="0.4" y="0.075"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -209,7 +209,7 @@
                      <textureSection>
                         <Range>
                            <pos><Vec2f x="0" y="0"/></pos>
-                           <size><Vec2f x="307" y="256"/></size>
+                           <size><Vec2f x="256" y="256"/></size>
                         </Range>
                      </textureSection>
                      <onScreenSize>

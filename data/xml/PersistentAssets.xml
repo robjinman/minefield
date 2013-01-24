@@ -49,6 +49,7 @@
       <file>data/xml/throwable.xml</file>
       <file>data/xml/zombie.xml</file>
       <file>data/xml/menuCommon.xml</file>
+      <file>data/xml/gameOptionsMenu.xml</file>
       <file>data/xml/settingsMenu.xml</file>
       <file>data/xml/pauseMenu.xml</file>
       <file>data/xml/startMenu.xml</file>
