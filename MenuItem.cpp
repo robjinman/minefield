@@ -21,8 +21,11 @@ MenuItem::MenuItem(const XmlNode data)
       XML_NODE_CHECK(data, MenuItem);
 
       XmlAttribute attr = data.firstAttribute();
-      XML_ATTR_CHECK(attr, position);
-      m_position = attr.getInt();
+
+      if (!attr.isNull() && attr.name() == "position")
+         m_position = attr.getInt();
+      else
+         m_position = -1;
    }
    catch (XmlException& e) {
       e.prepend("Error parsing XML for instance of class MenuItem; ");

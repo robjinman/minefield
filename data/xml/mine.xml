@@ -122,6 +122,7 @@
                </EntityAnimations>
                <EntityTransformations/>
             </Sprite>
+            <explosionRadius>0.05</explosionRadius>
             <blastRadius>0.12</blastRadius>
          </Mine>
       </asset>

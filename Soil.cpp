@@ -2,7 +2,7 @@
 #include <dodge/EAnimFinished.hpp>
 #include <dodge/EventManager.hpp>
 #include "Soil.hpp"
-#include "EExplosion.hpp"
+#include "EBlast.hpp"
 
 
 using namespace std;
@@ -58,7 +58,7 @@ Soil::Soil(const Soil& copy, long name)
 //===========================================
 void Soil::init() {
    EventManager eventManager;
-   eventManager.registerCallback(internString("explosion"), Functor<void, TYPELIST_1(EEvent*)>(this, &Soil::explosionHandler));
+   eventManager.registerCallback(internString("blast"), Functor<void, TYPELIST_1(EEvent*)>(this, &Soil::blastHandler));
 }
 
 //===========================================
@@ -122,12 +122,12 @@ void Soil::onEvent(const EEvent* event) {
 }
 
 //===========================================
-// Soil::explosionHandler
+// Soil::blastHandler
 //===========================================
-void Soil::explosionHandler(EEvent* event) {
+void Soil::blastHandler(EEvent* event) {
    static long dissolveStr = internString("dissolve");
 
-   EExplosion* e = static_cast<EExplosion*>(event);
+   EBlast* e = static_cast<EBlast*>(event);
    Vec2f pos = getTranslation_abs() + (getOnScreenSize() / 2.f);
    Vec2f diff = pos - e->pos;
 
@@ -191,5 +191,5 @@ void Soil::assignData(const XmlNode data) {
 //===========================================
 Soil::~Soil() {
    EventManager eventManager;
-   eventManager.unregisterCallback(internString("explosion"), Functor<void, TYPELIST_1(EEvent*)>(this, &Soil::explosionHandler)); 
+   eventManager.unregisterCallback(internString("blast"), Functor<void, TYPELIST_1(EEvent*)>(this, &Soil::blastHandler)); 
 }

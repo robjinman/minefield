@@ -27,6 +27,22 @@ Zombie::Zombie(const Dodge::XmlNode data)
       XML_NODE_CHECK(node, alertRadius);
       float32_t f = node.getFloat();
       m_alertRadiusSq = f * f;
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, footSensor);
+      m_footSensor = Quad(node.firstChild());
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, headSensor);
+      m_headSensor = Quad(node.firstChild());
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, leftSensor);
+      m_leftSensor = Quad(node.firstChild());
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, rightSensor);
+      m_rightSensor = Quad(node.firstChild());
    }
    catch (XmlException& e) {
       e.prepend("Error parsing XML for instance of class Zombie; ");
@@ -44,7 +60,10 @@ Zombie::Zombie(const Zombie& copy)
      Sprite(copy),
      m_state(EMERGING),
      m_active(false),
-     m_alertRadiusSq(copy.m_alertRadiusSq) {}
+     m_alertRadiusSq(copy.m_alertRadiusSq) {
+
+   deepCopy(copy);
+}
 
 //===========================================
 // Zombie::Zombie
@@ -56,7 +75,20 @@ Zombie::Zombie(const Zombie& copy, long name)
      Sprite(copy, name),
      m_state(EMERGING),
      m_active(false),
-     m_alertRadiusSq(copy.m_alertRadiusSq) {}
+     m_alertRadiusSq(copy.m_alertRadiusSq) {
+
+   deepCopy(copy);
+}
+
+//===========================================
+// Zombie::deepCopy
+//===========================================
+void Zombie::deepCopy(const Zombie& copy) {
+   m_footSensor = copy.m_footSensor;
+   m_headSensor = copy.m_headSensor;
+   m_leftSensor = copy.m_leftSensor;
+   m_rightSensor = copy.m_rightSensor;
+}
 
 //===========================================
 // Zombie::getSize
@@ -93,10 +125,14 @@ void Zombie::checkForCollisions() {
       Vec2f A = getTranslation_abs();
       Vec2f B = vec[i]->getTranslation_abs();
 
-      if (Math::overlap(getShape(), A, vec[i]->getShape(), B)) {
-         EEvent* event = new EEvent(hitFromAboveStr);
-         vec[i]->onEvent(event);
-         delete event;
+      if (Math::overlap(m_leftSensor, A, vec[i]->getShape(), B)
+         && Math::overlap(m_rightSensor, A, vec[i]->getShape(), B)
+         && Math::overlap(m_headSensor, A, vec[i]->getShape(), B)
+         && Math::overlap(m_footSensor, A, vec[i]->getShape(), B)) {
+
+            EEvent* event = new EEvent(hitFromAboveStr);
+            vec[i]->onEvent(event);
+            delete event;
       }
    }
 }

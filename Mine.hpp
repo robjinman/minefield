@@ -29,6 +29,7 @@ class Mine : public Item, public Dodge::Sprite {
       enum state_t { IDLE, EXPLODING };
 
       state_t m_state;
+      Dodge::float32_t m_explosionRadius;
       Dodge::float32_t m_blastRadius;
 };
 

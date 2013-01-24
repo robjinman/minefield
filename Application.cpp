@@ -27,6 +27,8 @@
 #include "EUpdateScore.hpp"
 #include "ERequestToThrowThrowable.hpp"
 #include "ERequestGameStateChange.hpp"
+#include "ERequestMusicVolumeChange.hpp"
+#include "ERequestSfxVolumeChange.hpp"
 
 
 #define TARGET_MEM_USAGE 9999999
@@ -120,18 +122,8 @@ void Application::keyDown(int key) {
          }
       break;
       case ST_PAUSED:
-         switch (key) {
-            case WinIO::KEY_ESCAPE:
-               m_eventManager.queueEvent(new ERequestGameStateChange(ST_RUNNING));
-            break;
-         }
       break;
       case ST_START_MENU:
-         switch (key) {
-            case WinIO::KEY_ESCAPE:
-               quit();
-            break;
-         }
       break;
       // ...
    }
@@ -484,6 +476,7 @@ pAsset_t Application::constructAsset(const XmlNode data) {
    if (node.name() == "Texture") return pAsset_t(new Texture(node));
    if (node.name() == "Font") return pAsset_t(new Dodge::Font(node));
    if (node.name() == "TextEntity") return pAsset_t(new TextEntity(node));
+   if (node.name() == "UiButton") return pAsset_t(new UiButton(node));
    // ...
 
 
@@ -834,7 +827,7 @@ void Application::populateMap() {
       m_worldSpace.trackEntity(item);
       m_expendableItems[item->getName()] = item;
    }
-
+/*
    for (int i = 0; i < w; ++i) {
       for (int j = 0; j < h; ++j) {
          if (isAdjacentTo(Vec2i(i, j), Vec2i(plyrI, plyrJ))) continue;
@@ -851,7 +844,7 @@ void Application::populateMap() {
          m_worldSpace.trackEntity(soil);
          m_expendableItems[soil->getName()] = soil;
       }
-   }
+   }*/
 }
 
 //===========================================
@@ -866,17 +859,17 @@ void Application::startGame() {
 
    // TODO:
 /*
-   m_numMines = 40;
-   m_numCollectables = 12;
-   m_numThrowables = 2;
-   m_numZombies = 3;
-   m_requiredScore = 9;
-   m_timeLimit = 180;
-*/
    m_numMines = 44;
    m_numCollectables = 12;
    m_numThrowables = 3;
-   m_numZombies = 2;
+   m_numZombies = 8;
+   m_requiredScore = 9;
+   m_timeLimit = 180;
+*/
+   m_numMines = 0;
+   m_numCollectables = 12;
+   m_numThrowables = 3;
+   m_numZombies = 1;
    m_requiredScore = 9;
    m_timeLimit = 180;
 
@@ -965,7 +958,7 @@ void Application::updateTimer() {
 }
 
 //===========================================
-// Application::reqGameStateChange
+// Application::reqGameStateChangeHandler
 //===========================================
 void Application::reqGameStateChangeHandler(EEvent* event) {
    ERequestGameStateChange* e = dynamic_cast<ERequestGameStateChange*>(event);
@@ -1005,6 +998,38 @@ void Application::reqGameStateChangeHandler(EEvent* event) {
          }
       break;
    }
+}
+
+//===========================================
+// Application::reqMusicVolumeChangeHandler
+//===========================================
+void Application::reqMusicVolumeChangeHandler(EEvent* event) {
+   ERequestMusicVolumeChange* e = dynamic_cast<ERequestMusicVolumeChange*>(event);
+   assert(e);
+
+   float32_t v = m_music->getVolume();
+   v += e->volume;
+
+   if (v < 0.0) v = 0.0;
+   if (v > 1.0) v = 1.0;
+
+   m_music->setVolume(v);
+}
+
+//===========================================
+// Application::reqSfxVolumeChangeHandler
+//===========================================
+void Application::reqSfxVolumeChangeHandler(EEvent* event) {
+   ERequestSfxVolumeChange* e = dynamic_cast<ERequestSfxVolumeChange*>(event);
+   assert(e);
+
+   float32_t v = m_audio.getSoundVolume();
+   v += e->volume;
+
+   if (v < 0.0) v = 0.0;
+   if (v > 1.0) v = 1.0;
+
+   m_audio.setSoundVolume(v);
 }
 
 //===========================================
@@ -1063,6 +1088,12 @@ void Application::launch(int argc, char** argv) {
 
    m_eventManager.registerCallback(internString("requestGameStateChange"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqGameStateChangeHandler));
+
+   m_eventManager.registerCallback(internString("requestMusicVolumeChange"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqMusicVolumeChangeHandler));
+
+   m_eventManager.registerCallback(internString("requestSfxVolumeChange"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqSfxVolumeChangeHandler));
 
    m_music->play(true);
    m_startMenu->addToWorld();

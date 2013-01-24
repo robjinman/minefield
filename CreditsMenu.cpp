@@ -164,7 +164,7 @@ void CreditsMenu::update() {
    Menu::update();
 
    if (m_txtAlpha < 1.f) { 
-      m_txtAlpha += m_fadeInTime / fr;
+      m_txtAlpha += 1.f / (fr * m_fadeInTime);
 
       for (uint_t i = 0; i < m_textEntities.size(); ++i) {
          Colour col = m_textEntities[i]->getFillColour();

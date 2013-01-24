@@ -3,8 +3,8 @@
  * Date: 2013
  */
 
-#ifndef __E_EXPLOSION_HPP__
-#define __E_EXPLOSION_HPP__
+#ifndef __E_BLAST_HPP__
+#define __E_BLAST_HPP__
 
 
 #include <boost/shared_ptr.hpp>
@@ -13,10 +13,10 @@
 
 
 // Blasts are non-deadly, whereas explosions are.
-class EExplosion : public Dodge::EEvent {
+class EBlast : public Dodge::EEvent {
    public:
-      EExplosion(const Dodge::Vec2f& pos_, Dodge::float32_t radius_)
-         : EEvent(Dodge::internString("explosion")), pos(pos_), radius(radius_) {}
+      EBlast(const Dodge::Vec2f& pos_, Dodge::float32_t radius_)
+         : EEvent(Dodge::internString("blast")), pos(pos_), radius(radius_) {}
 
       Dodge::Vec2f pos;
       Dodge::float32_t radius;

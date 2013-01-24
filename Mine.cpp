@@ -1,5 +1,6 @@
 #include "Mine.hpp"
 #include "EExplosion.hpp"
+#include "EBlast.hpp"
 #include <dodge/EventManager.hpp>
 #include <dodge/EAnimFinished.hpp>
 
@@ -22,6 +23,10 @@ Mine::Mine(const Dodge::XmlNode data)
       XML_NODE_CHECK(data, Mine);
 
       XmlNode node = data.nthChild(2);
+      XML_NODE_CHECK(node, explosionRadius);
+      m_explosionRadius = node.getFloat();
+
+      node = node.nextSibling();
       XML_NODE_CHECK(node, blastRadius);
       m_blastRadius = node.getFloat();
    }
@@ -40,6 +45,7 @@ Mine::Mine(const Mine& copy)
      Item(copy),
      Sprite(copy),
      m_state(IDLE),
+     m_explosionRadius(copy.m_explosionRadius),
      m_blastRadius(copy.m_blastRadius) {}
 
 //===========================================
@@ -51,6 +57,7 @@ Mine::Mine(const Mine& copy, long name)
      Item(copy, name),
      Sprite(copy, name),
      m_state(IDLE),
+     m_explosionRadius(copy.m_explosionRadius),
      m_blastRadius(copy.m_blastRadius) {}
 
 //===========================================
@@ -126,8 +133,12 @@ void Mine::explode() {
       playAnimation(explodeStr);
 
       EventManager eventManager;
-      EExplosion* event = new EExplosion(getTranslation_abs() + (getOnScreenSize() / 2.f), m_blastRadius);
-      eventManager.queueEvent(event);
+
+      EExplosion* explosion = new EExplosion(getTranslation_abs() + (getOnScreenSize() / 2.f), m_explosionRadius);
+      EBlast* blast = new EBlast(getTranslation_abs() + (getOnScreenSize() / 2.f), m_blastRadius);
+
+      eventManager.queueEvent(explosion);
+      eventManager.queueEvent(blast);
 
       m_state = EXPLODING;
    }
@@ -147,6 +158,11 @@ void Mine::assignData(const Dodge::XmlNode data) {
 
    if (!node.isNull() && node.name() == "Sprite") {
       Sprite::assignData(node);
+      node = node.nextSibling();
+   }
+
+   if (!node.isNull() && node.name() == "explosionRadius") {
+      m_explosionRadius = node.getFloat();
       node = node.nextSibling();
    }
 

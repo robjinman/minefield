@@ -41,8 +41,13 @@ class Zombie : public Item, public Dodge::Sprite {
       void playerDeathHandler(Dodge::EEvent* event);
       void move(dir_t dir);
       void checkForCollisions();
+      void deepCopy(const Zombie& copy);
 
       Dodge::WorldSpace m_worldSpace;
+      Dodge::Quad m_footSensor;
+      Dodge::Quad m_headSensor;
+      Dodge::Quad m_leftSensor;
+      Dodge::Quad m_rightSensor;
       state_t m_state;
       bool m_active;
       Dodge::float32_t m_alertRadiusSq;

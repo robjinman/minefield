@@ -105,6 +105,7 @@ void Menu::init() {
          menuItems.insert(make_pair(mnuItem->getPosition(), mnuItem));
          mnuItem->setOnReleaseHandler(Functor<void, TYPELIST_1(pEntity_t)>(this, &Menu::menuItemClick));
          mnuItem->registerCallback(UIEVENT_KEY_DOWN, Functor<void, TYPELIST_2(pEntity_t, int)>(this, &Menu::menuItemKeyDown));
+         mnuItem->registerCallback(UIEVENT_KEY_UP, Functor<void, TYPELIST_2(pEntity_t, int)>(this, &Menu::menuItemKeyUp));
          mnuItem->registerCallback(UIEVENT_HOVER_ON, Functor<void, TYPELIST_3(pEntity_t, float32_t, float32_t)>(this, &Menu::menuItemHoverOn));
       }
    }
@@ -166,7 +167,13 @@ void Menu::setFocus(long name) {
       if (m_menuItems[i]->getName() == name) {
          if (static_cast<int>(i) != m_hasFocus) {
             m_menuItems[i]->setFocus(true);
-            if (m_hasFocus != -1) m_menuItems[m_hasFocus]->setFocus(false);
+            onMenuItemGainFocus(m_menuItems[i]);
+
+            if (m_hasFocus != -1) {
+               m_menuItems[m_hasFocus]->setFocus(false);
+               onMenuItemLoseFocus(m_menuItems[m_hasFocus]);
+            }
+
             m_hasFocus = i;
          }
          break;
@@ -238,11 +245,30 @@ void Menu::menuItemKeyDown(pEntity_t entity, int key) {
 
    if (idx != -1) {
       item->setFocus(false);
+      onMenuItemLoseFocus(item);
+
       m_menuItems[idx]->setFocus(true);
+      onMenuItemGainFocus(m_menuItems[idx]);
+
       m_hasFocus = idx;
    }
 
    onMenuItemKeyDown(item, key);
+}
+
+//===========================================
+// Menu::menuItemKeyUp
+//===========================================
+void Menu::menuItemKeyUp(pEntity_t entity, int key) {
+   if (!m_active) return;
+
+   pMenuItem_t item = boost::dynamic_pointer_cast<MenuItem>(entity);
+
+   assert(item);
+   assert(m_menuItems[m_hasFocus] == item);
+   assert(item->hasFocus());
+
+   onMenuItemKeyUp(item, key);
 }
 
 //===========================================

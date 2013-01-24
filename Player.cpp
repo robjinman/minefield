@@ -115,6 +115,7 @@ void Player::deepCopy(const Player& copy) {
    m_headSensor = copy.m_headSensor;
    m_leftSensor = copy.m_leftSensor;
    m_rightSensor = copy.m_rightSensor;
+   m_midSensor = copy.m_midSensor;
 }
 
 //===========================================
@@ -383,8 +384,6 @@ void Player::checkForCollisions() {
          EEvent* event = new EEvent(hitFromAboveStr);
          vec[i]->onEvent(event);
          delete event;
-
-         l = true;
       }
 
 

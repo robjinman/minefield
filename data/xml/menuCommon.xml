@@ -34,7 +34,7 @@
                <EntityTransformations>
                   <transformation>
                      <Transformation name="rotate">
-                        <TransPart duration="240.0">
+                        <TransPart duration="360.0">
                            <transl><Vec2f x="0.0" y="0.0"/></transl>
                            <rot>
                               <angle>360.0</angle>

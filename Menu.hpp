@@ -41,7 +41,10 @@ class Menu : public Item, public Dodge::Sprite {
 
    protected:
       virtual void onMenuItemKeyDown(pMenuItem_t item, int key) {}
+      virtual void onMenuItemKeyUp(pMenuItem_t item, int key) {}
       virtual void onMenuItemActivate(pMenuItem_t item) {}
+      virtual void onMenuItemGainFocus(pMenuItem_t item) {}
+      virtual void onMenuItemLoseFocus(pMenuItem_t item) {}
 
       void activateSubmenu(long name);
       void returnToParentMenu();
@@ -52,6 +55,7 @@ class Menu : public Item, public Dodge::Sprite {
       void init();
 
       void menuItemKeyDown(Dodge::pEntity_t entity, int key);
+      void menuItemKeyUp(Dodge::pEntity_t entity, int key);
       void menuItemClick(Dodge::pEntity_t entity);
       void menuItemHoverOn(Dodge::pEntity_t, Dodge::float32_t x, Dodge::float32_t y);
 

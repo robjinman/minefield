@@ -64,6 +64,8 @@ class Application {
       void updateTimer();
       void reqToThrowThrowable(Dodge::EEvent* event);
       void reqGameStateChangeHandler(Dodge::EEvent* event);
+      void reqMusicVolumeChangeHandler(Dodge::EEvent* event);
+      void reqSfxVolumeChangeHandler(Dodge::EEvent* event);
 
       void exitDefault();
 

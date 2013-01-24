@@ -32,7 +32,7 @@ class Soil : public Item, public Dodge::Sprite {
 
    private:
       void init();
-      void explosionHandler(Dodge::EEvent* event);
+      void blastHandler(Dodge::EEvent* event);
 };
 
 typedef boost::shared_ptr<Soil> pSoil_t;
