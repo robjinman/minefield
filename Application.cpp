@@ -248,6 +248,18 @@ void Application::computeFrameRate() {
 }
 
 //===========================================
+// Application::parseGameModes
+//===========================================
+void Application::parseGameModes(XmlNode data) {
+   XmlNode node = data.firstChild();
+
+   while (!node.isNull() && node.name() == "GameOptions") {
+      m_difficultyModes.push_back(GameOptions(node));
+      node = node.nextSibling();
+   }
+}
+
+//===========================================
 // Application::setMapSettings
 //===========================================
 void Application::setMapSettings(const XmlNode data) {
@@ -309,8 +321,12 @@ void Application::setMapSettings(const XmlNode data) {
       m_soilProtoId = node.getLong();
 
       node = node.nextSibling();
-      XML_NODE_CHECK(node, collectableProtoId);
-      m_collectableProtoId = node.getLong();
+      XML_NODE_CHECK(node, coinProtoId);
+      m_coinProtoId = node.getLong();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, nuggetProtoId);
+      m_nuggetProtoId = node.getLong();
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, throwableProtoId);
@@ -331,6 +347,10 @@ void Application::setMapSettings(const XmlNode data) {
       node = node.nextSibling();
       XML_NODE_CHECK(node, txtRestartId);
       m_txtRestartId = node.getLong();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, gameModes);
+      parseGameModes(node);
 
       m_win.init("Minefield", winSz.x, winSz.y, false);
       m_renderer.start();
@@ -728,7 +748,7 @@ void Application::populateMap() {
    vector<vector<bool> > coinsAndThrowables;
    for (int i = 0; i < w; ++i) coinsAndThrowables.push_back(vector<bool>(h, false));
 
-   for (int c = 0; c < m_gameOpts.collectables; ++c) {
+   for (int c = 0; c < m_gameOpts.coins; ++c) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -747,10 +767,48 @@ void Application::populateMap() {
          continue;
       }
 
-      pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_collectableProtoId)));
+      pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_coinProtoId)));
 
       if (!item)
-         throw Exception("Error populating map; Bad collectable proto id", __FILE__, __LINE__);
+         throw Exception("Error populating map; Bad coin proto id", __FILE__, __LINE__);
+
+      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_tileSize.x, pos.y + static_cast<float32_t>(j) * m_tileSize.y);
+
+      item->addToWorld();
+      m_worldSpace.trackEntity(item);
+      m_expendableItems[item->getName()] = item;
+
+      coinsAndThrowables[i][j] = true;
+   }
+
+   for (int c = 0; c < m_gameOpts.nuggets; ++c) {
+      int i = rand() % w;
+      int j = rand() % h;
+
+      if (i == exitI && j == exitJ) {
+         --c;
+         continue;
+      }
+
+      if (i == plyrI && j == plyrJ) {
+         --c;
+         continue;
+      }
+
+      if (coinsAndThrowables[i][j]) {
+         --c;
+         continue;
+      }
+
+      if (m_mineField[i][j] && m_mineField[i][j]->getTypeName() == mineStr) {
+         --c;
+         continue;
+      }
+
+      pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_nuggetProtoId)));
+
+      if (!item)
+         throw Exception("Error populating map; Bad nugget proto id", __FILE__, __LINE__);
 
       item->setTranslation(pos.x + static_cast<float32_t>(i) * m_tileSize.x, pos.y + static_cast<float32_t>(j) * m_tileSize.y);
 
@@ -866,7 +924,7 @@ void Application::startGame() {
 
    populateMap();
 
-   m_scoreCounter->setValue(m_gameOpts.requiredScore);
+   m_scoreCounter->setValue(m_gameOpts.requiredGold);
    m_timeCounter->setValue(m_gameOpts.timeLimit);
    m_gameState = ST_RUNNING;
 }
@@ -925,8 +983,10 @@ void Application::quitGame(EEvent* event) {
 void Application::updateScore(EEvent* event) {
    EUpdateScore* e = static_cast<EUpdateScore*>(event);
 
-   if (m_scoreCounter->getValue() > 0)
-      m_scoreCounter->subtract(e->value);
+   m_scoreCounter->subtract(e->value);
+
+   if (m_scoreCounter->getValue() < 0)
+      m_scoreCounter->setValue(0);
 
    if (m_scoreCounter->getValue() == 0)
       m_exit->open();
@@ -1106,56 +1166,8 @@ void Application::launch(int argc, char** argv) {
    m_music->play(true);
    m_startMenu->addToWorld();
 
-   vector<GameOptions> modes;
-
-   GameOptions easy;
-   easy.mines = 30;
-   easy.collectables = 10;
-   easy.throwables = 2;
-   easy.zombies = 3;
-   easy.requiredScore = 7;
-   easy.timeLimit = 240;
-
-   GameOptions medium;
-   medium.mines = 45;
-   medium.collectables = 15;
-   medium.throwables = 3;
-   medium.zombies = 3;
-   medium.requiredScore = 11;
-   medium.timeLimit = 300;
-
-   GameOptions hard;
-   hard.mines = 55;
-   hard.collectables = 15;
-   hard.throwables = 2;
-   hard.zombies = 4;
-   hard.requiredScore = 11;
-   hard.timeLimit = 300;
-
-   GameOptions veryHard;
-   veryHard.mines = 65;
-   veryHard.collectables = 15;
-   veryHard.throwables = 2;
-   veryHard.zombies = 8;
-   veryHard.requiredScore = 11;
-   veryHard.timeLimit = 300;
-
-   GameOptions superHard;
-   superHard.mines = 70;
-   superHard.collectables = 15;
-   superHard.throwables = 5;
-   superHard.zombies = 2;
-   superHard.requiredScore = 11;
-   superHard.timeLimit = 240;
-
-   modes.push_back(easy);
-   modes.push_back(medium);
-   modes.push_back(hard);
-   modes.push_back(veryHard);
-   modes.push_back(superHard);
-
-   m_gameOptionsMenu->setDifficultyModes(modes);
-   m_gameOpts = easy;
+   m_gameOptionsMenu->setDifficultyModes(m_difficultyModes);
+   m_gameOpts = m_difficultyModes.front();
 
    m_gameState = ST_START_MENU;
 

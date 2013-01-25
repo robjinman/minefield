@@ -10,6 +10,7 @@ OBJS = Application.o \
 	CSprite.o \
 	CTextEntity.o \
 	Exit.o \
+	GameOptions.o \
 	GameOptionsMenu.o \
 	Item.o \
 	main.o \

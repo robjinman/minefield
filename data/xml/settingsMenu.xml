@@ -72,8 +72,8 @@
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.075" y="0"/>
-                        <Vec2f x="0.0.075" y="0.075"/>
-                        <Vec2f x="0" y="0.075"/>
+                        <Vec2f x="0.0.075" y="0.05625"/>
+                        <Vec2f x="0" y="0.05625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -93,7 +93,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.075" y="0.075"/>
+                     <Vec2f x="0.075" y="0.05625"/>
                   </onScreenSize>
                   <animation>
                      <Animation name="noFocusIdle" duration="0.3">
@@ -252,8 +252,8 @@
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.075" y="0"/>
-                        <Vec2f x="0.0.075" y="0.075"/>
-                        <Vec2f x="0" y="0.075"/>
+                        <Vec2f x="0.0.075" y="0.05625"/>
+                        <Vec2f x="0" y="0.05625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -273,7 +273,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.075" y="0.075"/>
+                     <Vec2f x="0.075" y="0.05625"/>
                   </onScreenSize>
                   <animation>
                      <Animation name="noFocusIdle" duration="0.3">
@@ -432,8 +432,8 @@
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.075" y="0"/>
-                        <Vec2f x="0.0.075" y="0.075"/>
-                        <Vec2f x="0" y="0.075"/>
+                        <Vec2f x="0.0.075" y="0.05625"/>
+                        <Vec2f x="0" y="0.05625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -453,7 +453,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.075" y="0.075"/>
+                     <Vec2f x="0.075" y="0.05625"/>
                   </onScreenSize>
                   <animation>
                      <Animation name="noFocusIdle" duration="0.3">
@@ -612,8 +612,8 @@
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.075" y="0"/>
-                        <Vec2f x="0.0.075" y="0.075"/>
-                        <Vec2f x="0" y="0.075"/>
+                        <Vec2f x="0.0.075" y="0.05625"/>
+                        <Vec2f x="0" y="0.05625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -633,7 +633,7 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.075" y="0.075"/>
+                     <Vec2f x="0.075" y="0.05625"/>
                   </onScreenSize>
                   <animation>
                      <Animation name="noFocusIdle" duration="0.3">
@@ -792,8 +792,8 @@
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.4" y="0"/>
-                        <Vec2f x="0.4" y="0.075"/>
-                        <Vec2f x="0" y="0.075"/>
+                        <Vec2f x="0.4" y="0.05625"/>
+                        <Vec2f x="0" y="0.05625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -817,7 +817,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0.4" y="0.05625"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -977,8 +977,8 @@
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.6" y="0"/>
-                        <Vec2f x="0.6" y="0.075"/>
-                        <Vec2f x="0" y="0.075"/>
+                        <Vec2f x="0.6" y="0.05625"/>
+                        <Vec2f x="0" y="0.05625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -1002,7 +1002,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0.4" y="0.05625"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">
@@ -1104,8 +1104,8 @@
                      <Polygon>
                         <Vec2f x="0" y="0"/>
                         <Vec2f x="0.6" y="0"/>
-                        <Vec2f x="0.6" y="0.075"/>
-                        <Vec2f x="0" y="0.075"/>
+                        <Vec2f x="0.6" y="0.05625"/>
+                        <Vec2f x="0" y="0.05625"/>
                      </Polygon>
                   </shape>
                   <scale>
@@ -1129,7 +1129,7 @@
                         </Range>
                      </textureSection>
                      <onScreenSize>
-                        <Vec2f x="0.4" y="0.075"/>
+                        <Vec2f x="0.4" y="0.05625"/>
                      </onScreenSize>
                      <animation>
                         <Animation name="noFocusIdle" duration="0.3">

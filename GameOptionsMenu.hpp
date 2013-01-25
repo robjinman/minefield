@@ -53,7 +53,7 @@ class GameOptionsMenu : public Menu {
       Dodge::pFont_t m_font;
 
       Dodge::pTextEntity_t m_txtMines;
-      Dodge::pTextEntity_t m_txtCollectables;
+      Dodge::pTextEntity_t m_txtGold;
       Dodge::pTextEntity_t m_txtThrowables;
       Dodge::pTextEntity_t m_txtZombies;
       Dodge::pTextEntity_t m_txtReqScore;

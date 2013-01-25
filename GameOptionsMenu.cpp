@@ -110,10 +110,10 @@ void GameOptionsMenu::init() {
    lblMines->setTranslation(0.75, 0.8);
    lblMines->setZ(9);
 
-   pTextEntity_t lblCollectables(new TextEntity(internString("text"), m_font, "Gold: ", Vec2f(0.022, 0.044)));
-   lblCollectables->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   lblCollectables->setTranslation(0.75, 0.75);
-   lblCollectables->setZ(9);
+   pTextEntity_t lblGold(new TextEntity(internString("text"), m_font, "Total gold: ", Vec2f(0.022, 0.044)));
+   lblGold->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
+   lblGold->setTranslation(0.75, 0.75);
+   lblGold->setZ(9);
 
    pTextEntity_t lblThrowables(new TextEntity(internString("text"), m_font, "Sticks: ", Vec2f(0.022, 0.044)));
    lblThrowables->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
@@ -136,7 +136,7 @@ void GameOptionsMenu::init() {
    lblTime->setZ(9);
 
    addChild(lblMines);
-   addChild(lblCollectables);
+   addChild(lblGold);
    addChild(lblThrowables);
    addChild(lblZombies);
    addChild(lblReqScore);
@@ -147,10 +147,10 @@ void GameOptionsMenu::init() {
    m_txtMines->setTranslation(1.1, 0.8);
    m_txtMines->setZ(9);
 
-   m_txtCollectables = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022, 0.044)));
-   m_txtCollectables->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   m_txtCollectables->setTranslation(1.1, 0.75);
-   m_txtCollectables->setZ(9);
+   m_txtGold = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022, 0.044)));
+   m_txtGold->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
+   m_txtGold->setTranslation(1.1, 0.75);
+   m_txtGold->setZ(9);
 
    m_txtThrowables = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022, 0.044)));
    m_txtThrowables->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
@@ -173,7 +173,7 @@ void GameOptionsMenu::init() {
    m_txtTime->setZ(9);
 
    addChild(m_txtMines);
-   addChild(m_txtCollectables);
+   addChild(m_txtGold);
    addChild(m_txtThrowables);
    addChild(m_txtZombies);
    addChild(m_txtReqScore);
@@ -191,8 +191,8 @@ void GameOptionsMenu::updateText() {
    m_txtMines->setText(str.str());
 
    str.str("");
-   str << m_difficultyModes[m_currentMode].collectables;
-   m_txtCollectables->setText(str.str());
+   str << m_difficultyModes[m_currentMode].totalGold;
+   m_txtGold->setText(str.str());
 
    str.str("");
    str << m_difficultyModes[m_currentMode].throwables;
@@ -203,7 +203,7 @@ void GameOptionsMenu::updateText() {
    m_txtZombies->setText(str.str());
 
    str.str("");
-   str << m_difficultyModes[m_currentMode].requiredScore;
+   str << m_difficultyModes[m_currentMode].requiredGold;
    m_txtReqScore->setText(str.str());
 
    str.str("");

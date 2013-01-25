@@ -2,10 +2,174 @@
 <ASSETFILE>
    <assets>
       <asset id="800"><Texture path="data/textures/goldCoin.png"/></asset>
+      <asset id="803"><Texture path="data/textures/nugget.png"/></asset>
+      <asset id="802" addToWorld="false">
+         <Collectable>
+            <Item>
+               <Entity type="collectable" name="nuggetProto" x="0.0" y="0.0" z="4" rot="0.0">
+                  <shape>
+                     <Polygon>
+                        <Vec2f x="0" y="0"/>
+                        <Vec2f x="0.0625" y="0"/>
+                        <Vec2f x="0.0625" y="0.0625"/>
+                        <Vec2f x="0" y="0.0625"/>
+                     </Polygon>
+                  </shape>
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="803"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="32" y="32"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="0.03125" y="0.03125"/>
+                  </onScreenSize>
+                  <animation>
+                     <Animation name="collect" duration="0.25">
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.75"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.50"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.25"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.0"/></col>
+                        </AnimFrame>
+                     </Animation>
+                  </animation>
+                  <animation>
+                     <Animation name="idle" duration="2.0">
+                        <AnimFrame>
+                           <pos><Vec2i x="32" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="32"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="32" y="32"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="32"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
+                        </AnimFrame>
+                     </Animation>
+                  </animation>
+               </EntityAnimations>
+               <EntityTransformations/>
+            </Sprite>
+            <value>5</value>
+         </Collectable>
+      </asset>
       <asset id="801" addToWorld="false">
          <Collectable>
             <Item>
-               <Entity type="collectable" name="collectableProto" x="0.0" y="0.0" z="7" rot="0.0">
+               <Entity type="collectable" name="coinProto" x="0.0" y="0.0" z="7" rot="0.0">
                   <shape>
                      <Polygon>
                         <Vec2f x="0" y="0"/>

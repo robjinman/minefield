@@ -68,6 +68,7 @@ class Application {
       void reqMusicVolumeChangeHandler(Dodge::EEvent* event);
       void reqSfxVolumeChangeHandler(Dodge::EEvent* event);
       void reqGameOptsChangeHandler(Dodge::EEvent* event);
+      void parseGameModes(Dodge::XmlNode data);
 
       void exitDefault();
 
@@ -112,12 +113,15 @@ class Application {
       long                          m_numericTileProtoId;
       long                          m_mineProtoId;
       long                          m_soilProtoId;
-      long                          m_collectableProtoId;
+      long                          m_coinProtoId;
+      long                          m_nuggetProtoId;
       long                          m_throwableProtoId;
       long                          m_zombieProtoId;
       long                          m_scoreCounterId;
       long                          m_timeCounterId;
       long                          m_txtRestartId;
+
+      std::vector<GameOptions>      m_difficultyModes;
 
       pPlayer_t                     m_player;
       pExit_t                       m_exit;
