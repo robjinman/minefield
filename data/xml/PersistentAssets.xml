@@ -26,6 +26,7 @@
       <tileSize><Vec2f x="0.0625" y="0.0625"/></tileSize>
       <startMenuId>601</startMenuId>
       <pauseMenuId>1201</pauseMenuId>
+      <gameOptionsMenuId>1301</gameOptionsMenuId>
       <playerId>201</playerId>
       <exitId>501</exitId>
       <numericTileProtoId>101</numericTileProtoId>

@@ -710,6 +710,7 @@
                </Sprite>
                <submenus/>
             </Menu>
+            <font ptr="4"/>
             <difficultyDownBtn ptr="1304"/>
             <difficultyUpBtn ptr="1305"/>
          </GameOptionsMenu>

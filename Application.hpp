@@ -17,6 +17,7 @@
 #include "Counter.hpp"
 #include "SoundFx.hpp"
 #include "gameState.hpp"
+#include "GameOptionsMenu.hpp"
 
 
 class Application {
@@ -66,6 +67,7 @@ class Application {
       void reqGameStateChangeHandler(Dodge::EEvent* event);
       void reqMusicVolumeChangeHandler(Dodge::EEvent* event);
       void reqSfxVolumeChangeHandler(Dodge::EEvent* event);
+      void reqGameOptsChangeHandler(Dodge::EEvent* event);
 
       void exitDefault();
 
@@ -104,6 +106,7 @@ class Application {
 
       long                          m_startMenuId;
       long                          m_pauseMenuId;
+      long                          m_gameOptionsMenuId;
       long                          m_playerId;
       long                          m_exitId;
       long                          m_numericTileProtoId;
@@ -119,19 +122,15 @@ class Application {
       pPlayer_t                     m_player;
       pExit_t                       m_exit;
 
-      int                           m_numMines;
       pCounter_t                    m_scoreCounter;
       pCounter_t                    m_timeCounter;
       Dodge::pTextEntity_t          m_txtRestart;
 
-      int                           m_numCollectables;
-      int                           m_numThrowables;
-      int                           m_numZombies;
-      int                           m_timeLimit;
-      int                           m_requiredScore;
+      GameOptions                   m_gameOpts;
 
       pStartMenu_t                  m_startMenu;
       pPauseMenu_t                  m_pauseMenu;
+      pGameOptionsMenu_t            m_gameOptionsMenu;
 
       Dodge::pMusicTrack_t          m_music;
       SoundFx                       m_soundFx;

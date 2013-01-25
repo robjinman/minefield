@@ -33,12 +33,12 @@ CreditsMenu::CreditsMenu(const XmlNode data)
       long id = attr.getLong();
       m_font = boost::dynamic_pointer_cast<Dodge::Font>(assetManager.getAssetPointer(id));
 
+      if (!m_font)
+         throw XmlException("Bad font asset id", __FILE__, __LINE__);
+
       node = node.nextSibling();
       XML_NODE_CHECK(node, fadeInTime);
       m_fadeInTime = node.getFloat();
-
-      if (!m_font)
-         throw XmlException("Bad font asset id", __FILE__, __LINE__);
    }
    catch (XmlException& e) {
       e.prepend("Error parsing XML for instance of class CreditsMenu; ");
@@ -85,11 +85,11 @@ void CreditsMenu::init() {
    txt1->setZ(9);
 
    txt2->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
-   txt2->setTranslation(0.54, 0.66);
+   txt2->setTranslation(0.54, 0.65);
    txt2->setZ(9);
 
    txt3->setFillColour(Colour(0.5f, 0.5f, 0.5f, 0.f));
-   txt3->setTranslation(0.42, 0.02);
+   txt3->setTranslation(0.48, 0.02);
    txt3->setZ(9);
 }
 

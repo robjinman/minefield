@@ -2,7 +2,11 @@
 #define __GAME_OPTIONS_MENU_HPP__
 
 
+#include <vector>
+#include <dodge/TextEntity.hpp>
+#include "GameOptions.hpp"
 #include "Menu.hpp"
+#include "ProgressBar.hpp"
 
 
 class GameOptionsMenu : public Menu {
@@ -10,6 +14,8 @@ class GameOptionsMenu : public Menu {
       GameOptionsMenu(const Dodge::XmlNode data);
       GameOptionsMenu(const GameOptionsMenu& copy);
       GameOptionsMenu(const GameOptionsMenu& copy, long name);
+
+      void setDifficultyModes(const std::vector<GameOptions>& modes);
 
       virtual void draw() const;
       virtual void update();
@@ -27,13 +33,31 @@ class GameOptionsMenu : public Menu {
 
    private:
       void init();
+      void updateText();
 
       virtual void onMenuItemActivate(pMenuItem_t item);
       virtual void onMenuItemGainFocus(pMenuItem_t item);
       virtual void onMenuItemLoseFocus(pMenuItem_t item);
 
+      void decreaseDifficulty(Dodge::pEntity_t);
+      void increaseDifficulty(Dodge::pEntity_t);
+
       Dodge::pUiButton_t m_difficultyDownBtn;
       Dodge::pUiButton_t m_difficultyUpBtn;
+
+      std::vector<GameOptions> m_difficultyModes;
+      unsigned int m_currentMode;
+
+      std::unique_ptr<ProgressBar> m_slider;
+
+      Dodge::pFont_t m_font;
+
+      Dodge::pTextEntity_t m_txtMines;
+      Dodge::pTextEntity_t m_txtCollectables;
+      Dodge::pTextEntity_t m_txtThrowables;
+      Dodge::pTextEntity_t m_txtZombies;
+      Dodge::pTextEntity_t m_txtReqScore;
+      Dodge::pTextEntity_t m_txtTime;
 };
 
 typedef boost::shared_ptr<GameOptionsMenu> pGameOptionsMenu_t;

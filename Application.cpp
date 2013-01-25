@@ -30,6 +30,7 @@
 #include "ERequestGameStateChange.hpp"
 #include "ERequestMusicVolumeChange.hpp"
 #include "ERequestSfxVolumeChange.hpp"
+#include "ERequestGameOptsChange.hpp"
 
 
 #define TARGET_MEM_USAGE 9999999
@@ -282,6 +283,10 @@ void Application::setMapSettings(const XmlNode data) {
       node = node.nextSibling();
       XML_NODE_CHECK(node, pauseMenuId);
       m_pauseMenuId = node.getLong();
+
+      node = node.nextSibling();
+      XML_NODE_CHECK(node, gameOptionsMenuId);
+      m_gameOptionsMenuId = node.getLong();
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, playerId);
@@ -649,7 +654,7 @@ void Application::populateMap() {
    int exitI = floor((exitPos.x - mb.getPosition().x) / m_tileSize.x + 0.5);
    int exitJ = floor((exitPos.y - mb.getPosition().y) / m_tileSize.y + 0.5);
 
-   for (int m = 0; m < m_numMines; ++m) {
+   for (int m = 0; m < m_gameOpts.mines; ++m) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -723,7 +728,7 @@ void Application::populateMap() {
    vector<vector<bool> > coinsAndThrowables;
    for (int i = 0; i < w; ++i) coinsAndThrowables.push_back(vector<bool>(h, false));
 
-   for (int c = 0; c < m_numCollectables; ++c) {
+   for (int c = 0; c < m_gameOpts.collectables; ++c) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -756,7 +761,7 @@ void Application::populateMap() {
       coinsAndThrowables[i][j] = true;
    }
 
-   for (int c = 0; c < m_numThrowables; ++c) {
+   for (int c = 0; c < m_gameOpts.throwables; ++c) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -794,7 +799,7 @@ void Application::populateMap() {
       coinsAndThrowables[i][j] = true;
    }
 
-   for (int c = 0; c < m_numZombies; ++c) {
+   for (int c = 0; c < m_gameOpts.zombies; ++c) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -859,26 +864,10 @@ void Application::startGame() {
 
    m_exit->close();
 
-   // TODO:
-/*
-   m_numMines = 44;
-   m_numCollectables = 12;
-   m_numThrowables = 3;
-   m_numZombies = 8;
-   m_requiredScore = 9;
-   m_timeLimit = 180;
-*/
-   m_numMines = 50;
-   m_numCollectables = 12;
-   m_numThrowables = 4;
-   m_numZombies = 2;
-   m_requiredScore = 9;
-   m_timeLimit = 240;
-
    populateMap();
 
-   m_scoreCounter->setValue(m_requiredScore);
-   m_timeCounter->setValue(m_timeLimit);
+   m_scoreCounter->setValue(m_gameOpts.requiredScore);
+   m_timeCounter->setValue(m_gameOpts.timeLimit);
    m_gameState = ST_RUNNING;
 }
 
@@ -905,6 +894,10 @@ void Application::loadAssets() {
    m_pauseMenu = boost::dynamic_pointer_cast<PauseMenu>(m_assetManager.getAssetPointer(m_pauseMenuId));
    if (!m_pauseMenu)
       throw Exception("Error loading map; Bad pause menu id", __FILE__, __LINE__);
+
+   m_gameOptionsMenu = boost::dynamic_pointer_cast<GameOptionsMenu>(m_assetManager.getAssetPointer(m_gameOptionsMenuId));
+   if (!m_gameOptionsMenu)
+      throw Exception("Error loading map; Bad game options menu id", __FILE__, __LINE__);
 
    m_scoreCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_scoreCounterId));
    if (!m_scoreCounter)
@@ -1035,6 +1028,16 @@ void Application::reqSfxVolumeChangeHandler(EEvent* event) {
 }
 
 //===========================================
+// Application::reqGameOptsChangeHandler
+//===========================================
+void Application::reqGameOptsChangeHandler(EEvent* event) {
+   ERequestGameOptsChange* e = dynamic_cast<ERequestGameOptsChange*>(event);
+   assert(e);
+
+   m_gameOpts = e->options;
+}
+
+//===========================================
 // Application::launch
 //===========================================
 void Application::launch(int argc, char** argv) {
@@ -1097,8 +1100,63 @@ void Application::launch(int argc, char** argv) {
    m_eventManager.registerCallback(internString("requestSfxVolumeChange"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqSfxVolumeChangeHandler));
 
+   m_eventManager.registerCallback(internString("requestGameOptsChange"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::reqGameOptsChangeHandler));
+
    m_music->play(true);
    m_startMenu->addToWorld();
+
+   vector<GameOptions> modes;
+
+   GameOptions easy;
+   easy.mines = 30;
+   easy.collectables = 10;
+   easy.throwables = 2;
+   easy.zombies = 3;
+   easy.requiredScore = 7;
+   easy.timeLimit = 240;
+
+   GameOptions medium;
+   medium.mines = 45;
+   medium.collectables = 15;
+   medium.throwables = 3;
+   medium.zombies = 3;
+   medium.requiredScore = 11;
+   medium.timeLimit = 300;
+
+   GameOptions hard;
+   hard.mines = 55;
+   hard.collectables = 15;
+   hard.throwables = 2;
+   hard.zombies = 4;
+   hard.requiredScore = 11;
+   hard.timeLimit = 300;
+
+   GameOptions veryHard;
+   veryHard.mines = 65;
+   veryHard.collectables = 15;
+   veryHard.throwables = 2;
+   veryHard.zombies = 8;
+   veryHard.requiredScore = 11;
+   veryHard.timeLimit = 300;
+
+   GameOptions superHard;
+   superHard.mines = 70;
+   superHard.collectables = 15;
+   superHard.throwables = 5;
+   superHard.zombies = 2;
+   superHard.requiredScore = 11;
+   superHard.timeLimit = 240;
+
+   modes.push_back(easy);
+   modes.push_back(medium);
+   modes.push_back(hard);
+   modes.push_back(veryHard);
+   modes.push_back(superHard);
+
+   m_gameOptionsMenu->setDifficultyModes(modes);
+   m_gameOpts = easy;
+
    m_gameState = ST_START_MENU;
 
    while (1) {
