@@ -611,10 +611,17 @@ void Application::onWindowResize(int w, int h) {
 }
 
 //===========================================
+// Application::gameOver
+//===========================================
+void Application::gameOver(EEvent* event) {
+   m_txtRestart->addToWorld();
+}
+
+//===========================================
 // Application::playerDeath
 //===========================================
 void Application::playerDeath(EEvent* event) {
-   m_txtRestart->addToWorld();
+
 }
 
 //===========================================
@@ -626,8 +633,10 @@ void Application::animFinishedHandler(EEvent* event) {
    EAnimFinished* e = dynamic_cast<EAnimFinished*>(event);
    assert(e);
 
-   if (e->animation->getName() == enterPortalStr)
+   if (e->animation->getName() == enterPortalStr) {
+      m_eventManager.queueEvent(new EEvent(internString("gameOver")));
       m_eventManager.queueEvent(new ERequestGameStateChange(ST_START_MENU));
+   }
 }
 
 //===========================================
@@ -935,8 +944,8 @@ void Application::populateMap() {
 void Application::startGame() {
    m_startMenu->removeFromWorld();
 
+   m_timeCounter->setFillColour(m_timeCounterColour);
    m_player->revive();
-
    m_exit->close();
 
    populateMap();
@@ -981,6 +990,7 @@ void Application::loadAssets() {
    m_timeCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_timeCounterId));
    if (!m_timeCounter)
       throw Exception("Error loading map; Bad time counter id", __FILE__, __LINE__);
+   m_timeCounterColour = m_timeCounter->getFillColour();
 
    m_txtRestart = boost::dynamic_pointer_cast<TextEntity>(m_assetManager.getAssetPointer(m_txtRestartId));
    if (!m_txtRestart)
@@ -1013,20 +1023,29 @@ void Application::updateScore(EEvent* event) {
 // Application::updateTimer
 //===========================================
 void Application::updateTimer() {
-   static Timer timer;
+   static long tenSecondsRemainingStr = internString("tenSecondsRemaining");
+   static float32_t fr = gGetTargetFrameRate();
+   static float32_t i = 0;
 
    if (!m_player) return;
    if (m_player->getState() == Player::DEAD) return;
 
-   if (timer.getTime() > 1.0) {
-      timer.reset();
+   if (i > fr) {
+      i = -1.f;
 
       m_timeCounter->decrement();
+
+      if (m_timeCounter->getValue() == 10) {
+         m_timeCounter->setFillColour(Colour(1, 0, 0, 1));
+         m_eventManager.queueEvent(new EEvent(tenSecondsRemainingStr));
+      }
 
       if (m_timeCounter->getValue() == 0) {
          m_player->die();
       }
    }
+
+   i += 1.f;
 }
 
 //===========================================
@@ -1184,6 +1203,9 @@ void Application::launch(int argc, char** argv) {
 
    m_eventManager.registerCallback(internString("animFinished"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &Application::animFinishedHandler));
+
+   m_eventManager.registerCallback(internString("gameOver"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &Application::gameOver));
 
    m_music->play(true);
    m_startMenu->addToWorld();

@@ -11,6 +11,7 @@ pSound_t SoundFx::m_pickUpCoin;
 pSound_t SoundFx::m_throw;
 pSound_t SoundFx::m_enterPortal;
 pSound_t SoundFx::m_scream;
+pSound_t SoundFx::m_tickTock;
 
 
 //===========================================
@@ -34,11 +35,18 @@ void SoundFx::initialise() {
    eventManager.registerCallback(internString("killedByZombie"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &SoundFx::processMessages));
 
+   eventManager.registerCallback(internString("tenSecondsRemaining"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &SoundFx::processMessages));
+
+   eventManager.registerCallback(internString("gameOver"),
+      Functor<void, TYPELIST_1(EEvent*)>(this, &SoundFx::processMessages));
+
    m_bang = pSound_t(new Sound("data/sounds/bang.wav"));
    m_pickUpCoin = pSound_t(new Sound("data/sounds/pickUpCoin.wav"));
    m_throw = pSound_t(new Sound("data/sounds/throw.wav"));
    m_enterPortal = pSound_t(new Sound("data/sounds/enterPortal.wav"));
    m_scream = pSound_t(new Sound("data/sounds/scream.wav"));
+   m_tickTock = pSound_t(new Sound("data/sounds/tick.wav"));
 }
 
 //===========================================
@@ -50,10 +58,14 @@ void SoundFx::processMessages(Dodge::EEvent* event) {
    static long requestToThrowThrowableStr = internString("requestToThrowThrowable");
    static long successStr = internString("success");
    static long killedByZombieStr = internString("killedByZombie");
+   static long tenSecondsRemainingStr = internString("tenSecondsRemaining");
+   static long gameOverStr = internString("gameOver");
 
    if (event->getType() == explosionStr) m_bang->play();
    else if (event->getType() == updateScoreStr) m_pickUpCoin->play();
    else if (event->getType() == requestToThrowThrowableStr) m_throw->play();
    else if (event->getType() == successStr) m_enterPortal->play();
    else if (event->getType() == killedByZombieStr) m_scream->play();
+   else if (event->getType() == tenSecondsRemainingStr) m_tickTock->play();
+   else if (event->getType() == gameOverStr) m_tickTock->stop();
 }

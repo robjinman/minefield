@@ -70,6 +70,7 @@ class Application {
       void reqGameOptsChangeHandler(Dodge::EEvent* event);
       void parseGameModes(Dodge::XmlNode data);
       void animFinishedHandler(Dodge::EEvent* event);
+      void gameOver(Dodge::EEvent* event = NULL);
 
       void exitDefault();
 
@@ -129,6 +130,7 @@ class Application {
 
       pCounter_t                    m_scoreCounter;
       pCounter_t                    m_timeCounter;
+      Dodge::Colour                 m_timeCounterColour;
       Dodge::pTextEntity_t          m_txtRestart;
 
       GameOptions                   m_gameOpts;

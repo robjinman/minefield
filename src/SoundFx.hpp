@@ -15,6 +15,7 @@ class SoundFx {
       static Dodge::pSound_t m_throw;
       static Dodge::pSound_t m_enterPortal;
       static Dodge::pSound_t m_scream;
+      static Dodge::pSound_t m_tickTock;
 
       void processMessages(Dodge::EEvent* event);
 };

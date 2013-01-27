@@ -188,7 +188,7 @@ void Player::onEvent(const EEvent* event) {
    static long moveRightStr = internString("moveRight");
    static long moveUpStr = internString("moveUp");
    static long moveDownStr = internString("moveDown");
-   static long playerDeathStr = internString("playerDeath");
+   static long gameOverStr = internString("gameOver");
    static long hitFromAboveStr = internString("hitFromAbove");
    static long dieStr = internString("die");
    static long killedByZombieStr = internString("killedByZombie");
@@ -213,8 +213,7 @@ void Player::onEvent(const EEvent* event) {
 
       if (anim->getName() == explodeStr || anim->getName() == dieStr) {
          EventManager eventManager;
-         EEvent* eDeath = new EEvent(playerDeathStr);
-         eventManager.queueEvent(eDeath);
+         eventManager.queueEvent(new EEvent(gameOverStr));
       }
    }
    else if (event->getType() == entityTranslationStr) {
@@ -262,6 +261,9 @@ void Player::die() {
       enterNormalMode();
 
    m_state = DEAD;
+
+   EventManager eventManager;
+   eventManager.queueEvent(new EEvent(internString("playerDeath")));
 }
 
 //===========================================
