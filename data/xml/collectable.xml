@@ -198,8 +198,9 @@
                      </Range>
                   </textureSection>
                   <onScreenSize>
-                     <Vec2f x="0.05" y="0.05"/>
+                     <Vec2f x="0.03" y="0.03"/>
                   </onScreenSize>
+                  <worldOffset><Vec2f x="0.01625" y="0.01625"/></worldOffset>
                   <animation>
                      <Animation name="idle" duration="1.0">
                         <AnimFrame>

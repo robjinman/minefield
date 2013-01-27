@@ -1,32 +1,36 @@
-NAME = demo
+DODGE_LOCATION = ../Dodge
+
+NAME = minefield
 CC = g++
-CFLAGS = -std=c++0x -Wall -g -DDEBUG -O3 `sdl-config --cflags`
-INCL = -I../Dodge/Dodge/include
-LIBS = -L../Dodge/Dodge/lib -L/usr/lib -lDodge -lX11 -lGLESv2 -lEGL -lpnglite -lz -lBox2D `sdl-config --libs` -lSDLmain -lSDL -lSDL_mixer
-OBJS = Application.o \
-	Collectable.o \
-	Counter.o \
-	CreditsMenu.o \
-	CSprite.o \
-	CTextEntity.o \
-	Exit.o \
-	GameOptions.o \
-	GameOptionsMenu.o \
-	Item.o \
-	main.o \
-	Menu.o \
-	MenuItem.o \
-	Mine.o \
-	NumericTile.o \
-	PauseMenu.o \
-	Player.o \
-	ProgressBar.o \
-	Soil.o \
-	SoundFx.o \
-	SettingsMenu.o \
-	StartMenu.o \
-	Throwable.o \
-	Zombie.o
+CFLAGS = -std=c++0x -Wall -O3 `sdl-config --cflags` -g -DDEBUG
+INCL = -I$(DODGE_LOCATION)/Dodge/include
+LIBS = -L$(DODGE_LOCATION)/Dodge/lib -L/usr/lib -lDodge -lX11 -lGLESv2 -lEGL -lpnglite -lz -lBox2D `sdl-config --libs` -lSDLmain -lSDL -lSDL_mixer
+SRC = src
+OBJS = $(SRC)/Application.o \
+	$(SRC)/Clouds.o \
+	$(SRC)/Collectable.o \
+	$(SRC)/Counter.o \
+	$(SRC)/CreditsMenu.o \
+	$(SRC)/CSprite.o \
+	$(SRC)/CTextEntity.o \
+	$(SRC)/Exit.o \
+	$(SRC)/GameOptions.o \
+	$(SRC)/GameOptionsMenu.o \
+	$(SRC)/Item.o \
+	$(SRC)/main.o \
+	$(SRC)/Menu.o \
+	$(SRC)/MenuItem.o \
+	$(SRC)/Mine.o \
+	$(SRC)/NumericTile.o \
+	$(SRC)/PauseMenu.o \
+	$(SRC)/Player.o \
+	$(SRC)/ProgressBar.o \
+	$(SRC)/Soil.o \
+	$(SRC)/SoundFx.o \
+	$(SRC)/SettingsMenu.o \
+	$(SRC)/StartMenu.o \
+	$(SRC)/Throwable.o \
+	$(SRC)/Zombie.o
 
 all: $(OBJS)
 	$(CC) $(OBJS) -o $(NAME) $(LIBS)
@@ -35,5 +39,4 @@ $(OBJS): %.o: %.cpp
 	$(CC) -c $(CFLAGS) $(INCL) $< -o $@
 
 clean:
-	rm -f $(NAME)
-	rm -f *.o
+	rm -f $(SRC)/*.o

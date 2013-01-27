@@ -14,7 +14,7 @@
    <customSettings>
       <windowSize><Vec2i x="630" y="480"/></windowSize>
       <soundTrack>
-         <MusicTrack path="data/sounds/Planetarium.ogg"/>
+         <MusicTrack path="data/sounds/Halothane.ogg"/>
       </soundTrack>
       <bgColour><Colour r="0.075" g="0.05" b="0.025" a="1.0"/></bgColour>
       <minefieldBoundary>
@@ -83,12 +83,12 @@
          <GameOptions>
             <mines>70</mines>
             <coins>5</coins>
-            <nuggets>2</nuggets>
-            <totalGold>15</totalGold>
-            <throwables>2</throwables>
+            <nuggets>3</nuggets>
+            <totalGold>20</totalGold>
+            <throwables>3</throwables>
             <zombies>2</zombies>
-            <requiredGold>11</requiredGold>
-            <timeLimit>240</timeLimit>
+            <requiredGold>15</requiredGold>
+            <timeLimit>300</timeLimit>
          </GameOptions>
       </gameModes>
    </customSettings>
@@ -113,6 +113,104 @@
       <asset id="1"><Texture path="data/textures/sky.png"/></asset>
       <asset id="2"><Texture path="data/textures/labels.png"/></asset>
       <asset id="5"><Texture path="data/textures/trees.png"/></asset>
+      <asset id="6"><Texture path="data/textures/clouds.png"/></asset>
+      <asset id="82" addToWorld="true">
+         <Clouds>
+            <Item>
+               <Entity type="cloud" name="cloud1" x="0.0" y="0.8" z="6" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="0.8" b="0.5" a="0.6"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="6"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="0"/></pos>
+                        <size><Vec2f x="128" y="32"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="1.3125" y="0.25"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations>
+                  <transformation>
+                     <Transformation name="idle">
+                        <TransPart duration="120.0">
+                           <transl><Vec2f x="-1.3125" y="0.0"/></transl>
+                           <rot><angle>0.0</angle><pivot><Vec2f x="0" y="0"/></pivot></rot>
+                           <scale><Vec2f x="1.0" y="1.0"/></scale>
+                        </TransPart>
+                        <TransPart duration="0.009">
+                           <transl><Vec2f x="2.625" y="0.0"/></transl>
+                           <rot><angle>0.0</angle><pivot><Vec2f x="0" y="0"/></pivot></rot>
+                           <scale><Vec2f x="1.0" y="1.0"/></scale>
+                        </TransPart>
+                        <TransPart duration="120.0">
+                           <transl><Vec2f x="-1.3125" y="0.0"/></transl>
+                           <rot><angle>0.0</angle><pivot><Vec2f x="0" y="0"/></pivot></rot>
+                           <scale><Vec2f x="1.0" y="1.0"/></scale>
+                        </TransPart>
+                     </Transformation>
+                  </transformation>
+               </EntityTransformations>
+            </Sprite>
+         </Clouds>
+      </asset>
+      <asset id="83" addToWorld="true">
+         <Clouds>
+            <Item>
+               <Entity type="cloud" name="cloud2" x="1.3125" y="0.8" z="6" rot="0.0">
+                  <scale>
+                     <Vec2f x="1.0" y="1.0"/>
+                  </scale>
+                  <fillColour><Colour r="1.0" g="0.8" b="0.5" a="0.6"/></fillColour>
+                  <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
+                  <lineWidth>0</lineWidth>
+                  <children/>
+               </Entity>
+            </Item>
+            <Sprite>
+               <Entity/>
+               <EntityAnimations>
+                  <texture ptr="6"/>
+                  <textureSection>
+                     <Range>
+                        <pos><Vec2f x="0" y="32"/></pos>
+                        <size><Vec2f x="128" y="32"/></size>
+                     </Range>
+                  </textureSection>
+                  <onScreenSize>
+                     <Vec2f x="1.3125" y="0.25"/>
+                  </onScreenSize>
+               </EntityAnimations>
+               <EntityTransformations>
+                  <transformation>
+                     <Transformation name="idle">
+                        <TransPart duration="240.0">
+                           <transl><Vec2f x="-2.625" y="0.0"/></transl>
+                           <rot><angle>0.0</angle><pivot><Vec2f x="0" y="0"/></pivot></rot>
+                           <scale><Vec2f x="1.0" y="1.0"/></scale>
+                        </TransPart>
+                        <TransPart duration="0.009">
+                           <transl><Vec2f x="2.625" y="0.0"/></transl>
+                           <rot><angle>0.0</angle><pivot><Vec2f x="0" y="0"/></pivot></rot>
+                           <scale><Vec2f x="1.0" y="1.0"/></scale>
+                        </TransPart>
+                     </Transformation>
+                  </transformation>
+               </EntityTransformations>
+            </Sprite>
+         </Clouds>
+      </asset>
       <asset id="50" addToWorld="true">
          <CSprite>
             <Item>
@@ -147,7 +245,7 @@
       <asset id="51" addToWorld="true">
          <CSprite>
             <Item>
-               <Entity type="sky" name="sky" x="0.0" y="0.75" z="6" rot="0.0">
+               <Entity type="sky" name="sky" x="0.0" y="0.75" z="5" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
@@ -182,7 +280,7 @@
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="0.8" g="0.8" b="0.8" a="1.0"/></fillColour>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.8"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>
@@ -213,7 +311,7 @@
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="0.8" g="0.8" b="0.8" a="1.0"/></fillColour>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.8"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>

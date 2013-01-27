@@ -196,6 +196,92 @@
                         </AnimFrame>
                      </Animation>
                   </animation>
+                  <animation>
+                     <Animation name="die" duration="0.4">
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.9" g="1.0" b="0.9" a="0.9"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.8" g="1.0" b="0.8" a="0.8"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.7" g="0.9" b="0.7" a="0.7"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.5" g="0.85" b="0.6" a="0.6"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.4" g="0.8" b="0.55" a="0.5"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.3" g="0.75" b="0.5" a="0.4"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.2" g="0.7" b="0.4" a="0.3"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.1" g="0.6" b="0.3" a="0.2"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.0" g="0.6" b="0.2" a="0.1"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <pos><Vec2i x="0" y="144"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="0.0" g="0.6" b="0.2" a="0.0"/></col>
+                        </AnimFrame>
+                     </Animation>
+                  </animation>
+                  <animation>
+                     <Animation name="enterPortal" duration="0.2">
+                        <AnimFrame>
+                           <worldOffset><Vec2f x="0.008" y="0.008"/></worldOffset>
+                           <size><Vec2f x="0.0625" y="0.0625"/></size>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.8"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <worldOffset><Vec2f x="0.016" y="0.016"/></worldOffset>
+                           <size><Vec2f x="0.05" y="0.05"/></size>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.7"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <worldOffset><Vec2f x="0.024" y="0.024"/></worldOffset>
+                           <size><Vec2f x="0.03" y="0.03"/></size>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.6"/></col>
+                        </AnimFrame>
+                        <AnimFrame>
+                           <worldOffset><Vec2f x="0.032" y="0.032"/></worldOffset>
+                           <size><Vec2f x="0.015" y="0.015"/></size>
+                           <pos><Vec2i x="0" y="0"/></pos>
+                           <dim><Vec2i x="32" y="48"/></dim>
+                           <col><Colour r="1.0" g="1.0" b="1.0" a="0.5"/></col>
+                        </AnimFrame>
+                     </Animation>
+                  </animation>
                </EntityAnimations>
                <EntityTransformations>
                   <transformation>
