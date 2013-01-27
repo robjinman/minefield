@@ -61,12 +61,15 @@ void Application::exitDefault() {
 //===========================================
 // Application::quit
 //===========================================
-void Application::quit() { // TODO Some monostate/singletons may not have been initialised!
-   m_eventManager.clear();
-   freeAllAssets();
-   m_renderer.stop();
-   m_audio.quit();
-   m_win.destroyWindow();
+void Application::quit() throw() {
+   try {
+      m_eventManager.clear();
+      freeAllAssets();
+      m_renderer.stop();
+      m_audio.quit();
+      m_win.destroyWindow();
+   }
+   catch (...) {}
 
    m_onExit();
 }
@@ -109,18 +112,6 @@ void Application::keyDown(int key) {
 #endif
 
 //===========================================
-// Application::parseGameModes
-//===========================================
-void Application::parseGameModes(XmlNode data) {
-   XmlNode node = data.firstChild();
-
-   while (!node.isNull() && node.name() == "GameOptions") {
-      m_data.difficultyModes.push_back(GameOptions(node));
-      node = node.nextSibling();
-   }
-}
-
-//===========================================
 // Application::setMapSettings
 //===========================================
 void Application::setMapSettings(const XmlNode data) {
@@ -134,84 +125,8 @@ void Application::setMapSettings(const XmlNode data) {
       Vec2i winSz(node.firstChild());
 
       node = node.nextSibling();
-      XML_NODE_CHECK(node, soundTrack);
-      m_data.music = pMusicTrack_t(new MusicTrack(node.firstChild()));
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, bgColour);
-      m_data.bgColour = Colour(node.firstChild());
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, minefieldBoundary);
-      m_data.minefieldBoundary = Range(node.firstChild());
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, tileSize);
-      m_data.tileSize = Vec2f(node.firstChild());
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, startMenuId);
-      m_data.startMenuId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, pauseMenuId);
-      m_data.pauseMenuId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, gameOptionsMenuId);
-      m_data.gameOptionsMenuId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, playerId);
-      m_data.playerId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, exitId);
-      m_data.exitId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, numericTileProtoId);
-      m_data.numericTileProtoId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, mineProtoId);
-      m_data.mineProtoId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, soilProtoId);
-      m_data.soilProtoId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, coinProtoId);
-      m_data.coinProtoId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, nuggetProtoId);
-      m_data.nuggetProtoId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, throwableProtoId);
-      m_data.throwableProtoId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, zombieProtoId);
-      m_data.zombieProtoId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, timeCounterId);
-      m_data.timeCounterId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, scoreCounterId);
-      m_data.scoreCounterId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, txtRestartId);
-      m_data.txtRestartId = node.getLong();
-
-      node = node.nextSibling();
-      XML_NODE_CHECK(node, gameModes);
-      parseGameModes(node);
+      XML_NODE_CHECK(node, gameSettingsId);
+      m_gameSettingsId = node.getLong();
 
       m_win.init("Minefield", winSz.x, winSz.y, false);
       m_renderer.start();
@@ -222,12 +137,8 @@ void Application::setMapSettings(const XmlNode data) {
       const Range& mb = m_mapLoader.getMapBoundary();
       Range boundary(mb.getPosition() - Vec2f(0.1, 0.1), mb.getSize() + Vec2f(0.2, 0.2));
       m_worldSpace.init(unique_ptr<Quadtree<pEntity_t> >(new Quadtree<pEntity_t>(1, boundary)));
-
-      m_init = true;
    }
    catch (XmlException& e) {
-      m_init = false;
-
       e.prepend("Error loading map settings; ");
       throw;
    }
@@ -261,15 +172,15 @@ void Application::deleteAsset(pAsset_t asset) {
 
       m_data.expendableItems.erase(entity->getName());
 
-      const Range& mb = m_data.minefieldBoundary;
+      const Range& mb = m_data.settings->minefieldBoundary;
       const Vec2f& sz = mb.getSize();
 
-      int w = floor(sz.x / m_data.tileSize.x + 0.5);
-      int h = floor(sz.y / m_data.tileSize.y + 0.5);
+      int w = floor(sz.x / m_data.settings->tileSize.x + 0.5);
+      int h = floor(sz.y / m_data.settings->tileSize.y + 0.5);
 
       Vec2f pos = entity->getTranslation_abs();
-      int i = floor((pos.x - mb.getPosition().x) / m_data.tileSize.x + 0.5);
-      int j = floor((pos.y - mb.getPosition().y) / m_data.tileSize.y + 0.5);
+      int i = floor((pos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5);
+      int j = floor((pos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5);
 
       if (entity->getTypeName() == numericTileStr) {
          if (m_data.mineField[i][j] == entity) m_data.mineField[i][j].reset();
@@ -317,7 +228,7 @@ void Application::deleteAsset(pAsset_t asset) {
          }
 
          if (nMines > 0) {
-            pNumericTile_t tile(dynamic_cast<NumericTile*>(m_assetManager.cloneAsset(m_data.numericTileProtoId)));
+            pNumericTile_t tile(dynamic_cast<NumericTile*>(m_assetManager.cloneAsset(m_data.settings->numericTileProtoId)));
 
             if (!tile)
                throw Exception("Error replacing mine with numeric tile; Bad asset id for numeric tile prototype", __FILE__, __LINE__);
@@ -356,6 +267,11 @@ pAsset_t Application::constructAsset(const XmlNode data) {
    }
 
    XmlNode node = data.firstChild();
+
+
+   // Construct GameSettings object
+
+   if (node.name() == "GameSettings") return pAsset_t(new GameSettings(node));
 
 
    // Construct non-Item assets
@@ -424,15 +340,15 @@ void Application::populateMap(EEvent*) {
    static long numericTileStr = internString("numericTile");
    static long mineStr = internString("mine");
 
-   const Range& mb = m_data.minefieldBoundary;
+   const Range& mb = m_data.settings->minefieldBoundary;
    const Vec2f& pos = mb.getPosition();
    const Vec2f& sz = mb.getSize();
 
-   int w = floor(sz.x / m_data.tileSize.x);
-   int h = floor(sz.y / m_data.tileSize.y);
+   int w = floor(sz.x / m_data.settings->tileSize.x);
+   int h = floor(sz.y / m_data.settings->tileSize.y);
 
    m_data.player->setTranslation(pos);
-   m_data.exit->setTranslation(pos.x + (w - 1) * m_data.tileSize.x, pos.y + (h - 1) * m_data.tileSize.y);
+   m_data.exit->setTranslation(pos.x + (w - 1) * m_data.settings->tileSize.x, pos.y + (h - 1) * m_data.settings->tileSize.y);
 
    m_data.mineField.clear();
    for (int i = 0; i < w; ++i) {
@@ -441,12 +357,12 @@ void Application::populateMap(EEvent*) {
    }
 
    Vec2f plyrPos = m_data.player->getTranslation_abs();
-   int plyrI = floor((plyrPos.x - mb.getPosition().x) / m_data.tileSize.x + 0.5);
-   int plyrJ = floor((plyrPos.y - mb.getPosition().y) / m_data.tileSize.y + 0.5);
+   int plyrI = floor((plyrPos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5);
+   int plyrJ = floor((plyrPos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5);
 
    Vec2f exitPos = m_data.exit->getTranslation_abs();
-   int exitI = floor((exitPos.x - mb.getPosition().x) / m_data.tileSize.x + 0.5);
-   int exitJ = floor((exitPos.y - mb.getPosition().y) / m_data.tileSize.y + 0.5);
+   int exitI = floor((exitPos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5);
+   int exitJ = floor((exitPos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5);
 
    for (int m = 0; m < m_data.gameOpts.mines; ++m) {
       int i = rand() % w;
@@ -469,13 +385,13 @@ void Application::populateMap(EEvent*) {
          }
       }
 
-      pMine_t mine(dynamic_cast<Mine*>(m_assetManager.cloneAsset(m_data.mineProtoId)));
+      pMine_t mine(dynamic_cast<Mine*>(m_assetManager.cloneAsset(m_data.settings->mineProtoId)));
 
       if (!mine)
          throw Exception("Error populating map; Bad mine proto id", __FILE__, __LINE__);
 
-      float32_t x = pos.x + m_data.tileSize.x * static_cast<float32_t>(i);
-      float32_t y = pos.y + m_data.tileSize.y * static_cast<float32_t>(j);
+      float32_t x = pos.x + m_data.settings->tileSize.x * static_cast<float32_t>(i);
+      float32_t y = pos.y + m_data.settings->tileSize.y * static_cast<float32_t>(j);
 
       mine->setTranslation(x, y);
 
@@ -510,12 +426,12 @@ void Application::populateMap(EEvent*) {
             }
          }
          else {
-            pNumericTile_t tile(dynamic_cast<NumericTile*>(m_assetManager.cloneAsset(m_data.numericTileProtoId)));
+            pNumericTile_t tile(dynamic_cast<NumericTile*>(m_assetManager.cloneAsset(m_data.settings->numericTileProtoId)));
 
             if (!tile)
                throw Exception("Error populating map; Bad numeric tile proto id", __FILE__, __LINE__);
 
-            tile->setTranslation(pos.x + static_cast<float32_t>(k) * m_data.tileSize.x, pos.y + static_cast<float32_t>(l) * m_data.tileSize.y);
+            tile->setTranslation(pos.x + static_cast<float32_t>(k) * m_data.settings->tileSize.x, pos.y + static_cast<float32_t>(l) * m_data.settings->tileSize.y);
 
             tile->addToWorld();
             m_worldSpace.trackEntity(tile);
@@ -547,12 +463,12 @@ void Application::populateMap(EEvent*) {
          continue;
       }
 
-      pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_data.coinProtoId)));
+      pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_data.settings->coinProtoId)));
 
       if (!item)
          throw Exception("Error populating map; Bad coin proto id", __FILE__, __LINE__);
 
-      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_data.tileSize.x, pos.y + static_cast<float32_t>(j) * m_data.tileSize.y);
+      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_data.settings->tileSize.x, pos.y + static_cast<float32_t>(j) * m_data.settings->tileSize.y);
 
       item->addToWorld();
       m_worldSpace.trackEntity(item);
@@ -585,12 +501,12 @@ void Application::populateMap(EEvent*) {
          continue;
       }
 
-      pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_data.nuggetProtoId)));
+      pCollectable_t item(dynamic_cast<Collectable*>(m_assetManager.cloneAsset(m_data.settings->nuggetProtoId)));
 
       if (!item)
          throw Exception("Error populating map; Bad nugget proto id", __FILE__, __LINE__);
 
-      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_data.tileSize.x, pos.y + static_cast<float32_t>(j) * m_data.tileSize.y);
+      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_data.settings->tileSize.x, pos.y + static_cast<float32_t>(j) * m_data.settings->tileSize.y);
 
       item->addToWorld();
       m_worldSpace.trackEntity(item);
@@ -623,12 +539,12 @@ void Application::populateMap(EEvent*) {
          continue;
       }
 
-      pThrowable_t item(dynamic_cast<Throwable*>(m_assetManager.cloneAsset(m_data.throwableProtoId)));
+      pThrowable_t item(dynamic_cast<Throwable*>(m_assetManager.cloneAsset(m_data.settings->throwableProtoId)));
 
       if (!item)
          throw Exception("Error populating map; Bad throwable proto id", __FILE__, __LINE__);
 
-      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_data.tileSize.x, pos.y + static_cast<float32_t>(j) * m_data.tileSize.y);
+      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_data.settings->tileSize.x, pos.y + static_cast<float32_t>(j) * m_data.settings->tileSize.y);
 
       item->addToWorld();
       m_worldSpace.trackEntity(item);
@@ -661,12 +577,12 @@ void Application::populateMap(EEvent*) {
          continue;
       }
 
-      pZombie_t item(dynamic_cast<Zombie*>(m_assetManager.cloneAsset(m_data.zombieProtoId)));
+      pZombie_t item(dynamic_cast<Zombie*>(m_assetManager.cloneAsset(m_data.settings->zombieProtoId)));
 
       if (!item)
          throw Exception("Error populating map; Bad zombie proto id", __FILE__, __LINE__);
 
-      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_data.tileSize.x, pos.y + static_cast<float32_t>(j) * m_data.tileSize.y);
+      item->setTranslation(pos.x + static_cast<float32_t>(i) * m_data.settings->tileSize.x, pos.y + static_cast<float32_t>(j) * m_data.settings->tileSize.y);
 
       item->addToWorld();
       m_worldSpace.trackEntity(item);
@@ -678,10 +594,10 @@ void Application::populateMap(EEvent*) {
          if (isAdjacentTo(Vec2i(i, j), Vec2i(plyrI, plyrJ))) continue;
          if (isAdjacentTo(Vec2i(i, j), Vec2i(exitI, exitJ))) continue;
 
-         float32_t x = pos.x + m_data.tileSize.x * static_cast<float32_t>(i);
-         float32_t y = pos.y + m_data.tileSize.y * static_cast<float32_t>(j);
+         float32_t x = pos.x + m_data.settings->tileSize.x * static_cast<float32_t>(i);
+         float32_t y = pos.y + m_data.settings->tileSize.y * static_cast<float32_t>(j);
 
-         pSoil_t soil(dynamic_cast<Soil*>(m_assetManager.cloneAsset(m_data.soilProtoId)));
+         pSoil_t soil(dynamic_cast<Soil*>(m_assetManager.cloneAsset(m_data.settings->soilProtoId)));
 
          soil->setTranslation(x, y);
 
@@ -697,41 +613,46 @@ void Application::populateMap(EEvent*) {
 //===========================================
 void Application::loadAssets() {
    m_mapLoader.parseMapFile("data/xml/PersistentAssets.xml");
-
    m_mapLoader.update(m_renderer.getCamera().getTranslation());
 
-   m_data.player = boost::dynamic_pointer_cast<Player>(m_assetManager.getAssetPointer(m_data.playerId));
+   m_data.settings = boost::dynamic_pointer_cast<GameSettings>(m_assetManager.getAssetPointer(m_gameSettingsId));
+   if (!m_data.settings)
+      throw Exception("Error loading map; Bad game settings id", __FILE__, __LINE__);
+
+   m_data.player = boost::dynamic_pointer_cast<Player>(m_assetManager.getAssetPointer(m_data.settings->playerId));
    if (!m_data.player)
       throw Exception("Error loading map; Bad player proto id", __FILE__, __LINE__);
 
-   m_data.exit = boost::dynamic_pointer_cast<Exit>(m_assetManager.getAssetPointer(m_data.exitId));
+   m_data.exit = boost::dynamic_pointer_cast<Exit>(m_assetManager.getAssetPointer(m_data.settings->exitId));
    if (!m_data.exit)
       throw Exception("Error loading map; Bad exit proto id", __FILE__, __LINE__);
 
-   m_data.startMenu = boost::dynamic_pointer_cast<StartMenu>(m_assetManager.getAssetPointer(m_data.startMenuId));
+   m_data.startMenu = boost::dynamic_pointer_cast<StartMenu>(m_assetManager.getAssetPointer(m_data.settings->startMenuId));
    if (!m_data.startMenu)
       throw Exception("Error loading map; Bad start menu id", __FILE__, __LINE__);
 
-   m_data.pauseMenu = boost::dynamic_pointer_cast<PauseMenu>(m_assetManager.getAssetPointer(m_data.pauseMenuId));
+   m_data.pauseMenu = boost::dynamic_pointer_cast<PauseMenu>(m_assetManager.getAssetPointer(m_data.settings->pauseMenuId));
    if (!m_data.pauseMenu)
       throw Exception("Error loading map; Bad pause menu id", __FILE__, __LINE__);
 
-   m_data.gameOptionsMenu = boost::dynamic_pointer_cast<GameOptionsMenu>(m_assetManager.getAssetPointer(m_data.gameOptionsMenuId));
+   m_data.gameOptionsMenu = boost::dynamic_pointer_cast<GameOptionsMenu>(m_assetManager.getAssetPointer(m_data.settings->gameOptionsMenuId));
    if (!m_data.gameOptionsMenu)
       throw Exception("Error loading map; Bad game options menu id", __FILE__, __LINE__);
 
-   m_data.scoreCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_data.scoreCounterId));
+   m_data.scoreCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_data.settings->scoreCounterId));
    if (!m_data.scoreCounter)
       throw Exception("Error loading map; Bad score counter id", __FILE__, __LINE__);
 
-   m_data.timeCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_data.timeCounterId));
+   m_data.timeCounter = boost::dynamic_pointer_cast<Counter>(m_assetManager.getAssetPointer(m_data.settings->timeCounterId));
    if (!m_data.timeCounter)
       throw Exception("Error loading map; Bad time counter id", __FILE__, __LINE__);
    m_data.timeCounterColour = m_data.timeCounter->getFillColour();
 
-   m_data.txtRestart = boost::dynamic_pointer_cast<TextEntity>(m_assetManager.getAssetPointer(m_data.txtRestartId));
+   m_data.txtRestart = boost::dynamic_pointer_cast<TextEntity>(m_assetManager.getAssetPointer(m_data.settings->txtRestartId));
    if (!m_data.txtRestart)
       throw Exception("Error loading map; Bad txtRestart id", __FILE__, __LINE__);
+
+   m_data.music = pMusicTrack_t(new MusicTrack(m_data.settings->musicTrack));
 }
 
 //===========================================

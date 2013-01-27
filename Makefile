@@ -17,6 +17,7 @@ OBJS = $(SRC)/Application.o \
 	$(SRC)/GameLogic.o \
 	$(SRC)/GameOptions.o \
 	$(SRC)/GameOptionsMenu.o \
+	$(SRC)/GameSettings.o \
 	$(SRC)/Item.o \
 	$(SRC)/main.o \
 	$(SRC)/Menu.o \

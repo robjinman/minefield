@@ -117,13 +117,13 @@ void GameLogic::keyboard() {
       case ST_RUNNING:
          switch (m_data.player->getState()) {
             case Player::ALIVE: {
-               Vec2f mapPos = m_data.minefieldBoundary.getPosition();
-               Vec2f mapSz = m_data.minefieldBoundary.getSize();
+               Vec2f mapPos = m_data.settings->minefieldBoundary.getPosition();
+               Vec2f mapSz = m_data.settings->minefieldBoundary.getSize();
 
                Vec2f pos = m_data.player->getTranslation_abs();
 
-               float32_t w = m_data.tileSize.x;
-               float32_t h = m_data.tileSize.y;
+               float32_t w = m_data.settings->tileSize.x;
+               float32_t h = m_data.settings->tileSize.y;
 
                float32_t dx = w / 2.f;
                float32_t dy = h / 2.f;
@@ -286,9 +286,9 @@ void GameLogic::gameSuccess(const EEvent* event) {
 void GameLogic::reqToThrowThrowable(EEvent* event) {
    ERequestToThrowThrowable* e = static_cast<ERequestToThrowThrowable*>(event);
 
-   int toX = e->to.x / m_data.tileSize.x;
-   int toY = e->to.y / m_data.tileSize.y;
-   Vec2f dest(toX * m_data.tileSize.x, toY * m_data.tileSize.y);
+   int toX = e->to.x / m_data.settings->tileSize.x;
+   int toY = e->to.y / m_data.settings->tileSize.y;
+   Vec2f dest(toX * m_data.settings->tileSize.x, toY * m_data.settings->tileSize.y);
 
    e->item->throwTo(dest.x, dest.y);
 }
@@ -487,8 +487,8 @@ void GameLogic::start() {
    m_data.music->play(true);
    m_data.startMenu->addToWorld();
 
-   m_data.gameOptionsMenu->setDifficultyModes(m_data.difficultyModes);
-   m_data.gameOpts = m_data.difficultyModes.front();
+   m_data.gameOptionsMenu->setDifficultyModes(m_data.settings->difficultyModes);
+   m_data.gameOpts = m_data.settings->difficultyModes.front();
 
    m_gameState = ST_START_MENU;
 
@@ -504,7 +504,7 @@ void GameLogic::start() {
             keyboard();
             update();
             draw();
-            m_renderer.tick(m_data.bgColour);
+            m_renderer.tick(m_data.settings->bgColour);
             m_win.swapBuffers();
          break;
          case ST_RUNNING:
@@ -515,7 +515,7 @@ void GameLogic::start() {
             update();
             updateTimer();
             draw();
-            m_renderer.tick(m_data.bgColour);
+            m_renderer.tick(m_data.settings->bgColour);
             m_win.swapBuffers();
          break;
       }

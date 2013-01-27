@@ -8,7 +8,6 @@
 
 
 #include <map>
-#include <vector>
 #include <dodge/dodge.hpp>
 #include "Player.hpp"
 #include "Exit.hpp"
@@ -17,36 +16,16 @@
 #include "Counter.hpp"
 #include "SoundFx.hpp"
 #include "GameOptionsMenu.hpp"
+#include "GameSettings.hpp"
 
 
 struct GameData {
+   pGameSettings_t settings;
+
    std::map<long, pItem_t>       persistentItems;
    std::map<long, pItem_t>       expendableItems;
 
-   Dodge::Colour                 bgColour;
-
    std::vector<std::vector<pItem_t> > mineField;
-
-   Dodge::Range                  minefieldBoundary;
-   Dodge::Vec2f                  tileSize;
-
-   long                          startMenuId;
-   long                          pauseMenuId;
-   long                          gameOptionsMenuId;
-   long                          playerId;
-   long                          exitId;
-   long                          numericTileProtoId;
-   long                          mineProtoId;
-   long                          soilProtoId;
-   long                          coinProtoId;
-   long                          nuggetProtoId;
-   long                          throwableProtoId;
-   long                          zombieProtoId;
-   long                          scoreCounterId;
-   long                          timeCounterId;
-   long                          txtRestartId;
-
-   std::vector<GameOptions>      difficultyModes;
 
    pPlayer_t                     player;
    pExit_t                       exit;

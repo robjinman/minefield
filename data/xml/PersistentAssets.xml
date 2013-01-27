@@ -13,87 +13,10 @@
    </settings>
    <customSettings>
       <windowSize><Vec2i x="630" y="480"/></windowSize>
-      <soundTrack>
-         <MusicTrack path="data/sounds/Halothane.ogg"/>
-      </soundTrack>
-      <bgColour><Colour r="0.075" g="0.05" b="0.025" a="1.0"/></bgColour>
-      <minefieldBoundary>
-         <Range>
-            <pos><Vec2f x="0.0" y="0.0"/></pos>
-            <size><Vec2f x="1.3125" y="0.6875"/></size>
-         </Range>
-      </minefieldBoundary>
-      <tileSize><Vec2f x="0.0625" y="0.0625"/></tileSize>
-      <startMenuId>601</startMenuId>
-      <pauseMenuId>1201</pauseMenuId>
-      <gameOptionsMenuId>1301</gameOptionsMenuId>
-      <playerId>201</playerId>
-      <exitId>501</exitId>
-      <numericTileProtoId>101</numericTileProtoId>
-      <mineProtoId>301</mineProtoId>
-      <soilProtoId>401</soilProtoId>
-      <coinProtoId>801</coinProtoId>
-      <nuggetProtoId>802</nuggetProtoId>
-      <throwableProtoId>1001</throwableProtoId>
-      <zombieProtoId>1101</zombieProtoId>
-      <timeCounterId>56</timeCounterId>
-      <scoreCounterId>57</scoreCounterId>
-      <txtRestartId>59</txtRestartId>
-      <gameModes>
-         <!-- FINAL CONFIGURATION -->
-         <GameOptions>
-            <mines>30</mines>
-            <coins>10</coins>
-            <nuggets>0</nuggets>
-            <totalGold>10</totalGold>
-            <throwables>2</throwables>
-            <zombies>3</zombies>
-            <requiredGold>8</requiredGold>
-            <timeLimit>240</timeLimit>
-         </GameOptions>
-         <GameOptions>
-            <mines>45</mines>
-            <coins>10</coins>
-            <nuggets>3</nuggets>
-            <totalGold>25</totalGold>
-            <throwables>3</throwables>
-            <zombies>3</zombies>
-            <requiredGold>18</requiredGold>
-            <timeLimit>300</timeLimit>
-         </GameOptions>
-         <GameOptions>
-            <mines>55</mines>
-            <coins>5</coins>
-            <nuggets>3</nuggets>
-            <totalGold>20</totalGold>
-            <throwables>2</throwables>
-            <zombies>4</zombies>
-            <requiredGold>15</requiredGold>
-            <timeLimit>240</timeLimit>
-         </GameOptions>
-         <GameOptions>
-            <mines>65</mines>
-            <coins>5</coins>
-            <nuggets>2</nuggets>
-            <totalGold>15</totalGold>
-            <throwables>2</throwables>
-            <zombies>8</zombies>
-            <requiredGold>11</requiredGold>
-            <timeLimit>300</timeLimit>
-         </GameOptions>
-         <GameOptions>
-            <mines>70</mines>
-            <coins>5</coins>
-            <nuggets>3</nuggets>
-            <totalGold>20</totalGold>
-            <throwables>3</throwables>
-            <zombies>2</zombies>
-            <requiredGold>15</requiredGold>
-            <timeLimit>300</timeLimit>
-         </GameOptions>
-      </gameModes>
+      <gameSettingsId>999</gameSettingsId>
    </customSettings>
    <using>
+      <file>data/xml/settings.xml</file>
       <file>data/xml/fonts.xml</file>
       <file>data/xml/numericTile.xml</file>
       <file>data/xml/mine.xml</file>

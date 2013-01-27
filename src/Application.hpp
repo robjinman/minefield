@@ -19,7 +19,7 @@ class Application {
 
       void onExit(Functor<void, TYPELIST_0()> callBack);
       void launch(int argc, char** argv);
-      void quit();
+      void quit() throw();
 
    private:
       void quitReqHandler(Dodge::EEvent* event);
@@ -48,6 +48,8 @@ class Application {
       Dodge::Audio                  m_audio;
       Dodge::WinIO                  m_win;
       Dodge::EventManager           m_eventManager;
+
+      long                          m_gameSettingsId;
 
       GameData                      m_data;
       GameLogic                     m_logic;

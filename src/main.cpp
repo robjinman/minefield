@@ -26,12 +26,12 @@ int main(int argc, char** argv) {
       app.launch(argc, argv);
    }
    catch (Dodge::Exception& e) {
+      std::cerr << "An error occured; " << e.what() << "\n" << std::flush;
       app.quit();
-      std::cerr << "An error occured; " << e.what() << "\n";
    }
    catch (...) {
+      std::cerr << "An unknown error occured\n" << std::flush;
       app.quit();
-      std::cerr << "An unknown error occured\n";
    }
 
    return EXIT_FAILURE;
