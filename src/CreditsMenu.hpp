@@ -3,6 +3,7 @@
 
 
 #include <vector>
+#include <string>
 #include "Menu.hpp"
 
 
@@ -28,6 +29,7 @@ class CreditsMenu : public Menu {
 
    private:
       void init();
+      std::string getVersionNumber() const;
       virtual void onMenuItemActivate(pMenuItem_t item);
 
       Dodge::pFont_t m_font;

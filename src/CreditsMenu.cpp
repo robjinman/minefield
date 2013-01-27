@@ -1,3 +1,4 @@
+#include <fstream>
 #include <dodge/StringId.hpp>
 #include <dodge/EAnimFinished.hpp>
 #include <dodge/EventManager.hpp>
@@ -65,20 +66,44 @@ CreditsMenu::CreditsMenu(const CreditsMenu& copy, long name)
      Menu(copy, name) { init(); }
 
 //===========================================
+// CreditsMenu::getVersionNumber
+//===========================================
+string CreditsMenu::getVersionNumber() const {
+   ifstream fin("data/VERSION");
+
+   if (!fin.good()) {
+      fin.close();
+      return "";
+   }
+
+   string version;
+   fin >> version;
+
+   fin.close();
+
+   return version;
+}
+
+//===========================================
 // CreditsMenu::init
 //===========================================
 void CreditsMenu::init() {
+   string version = getVersionNumber();
+
    pTextEntity_t txt1(new TextEntity(internString("text"), m_font, "Design & Programming: Rob Jinman", Vec2f(0.022, 0.044)));
    pTextEntity_t txt2(new TextEntity(internString("text"), m_font, "Music:                Jack Normal", Vec2f(0.022, 0.044)));
    pTextEntity_t txt3(new TextEntity(internString("text"), m_font, "(Sprites: http://untamed.wild-refuge.net)", Vec2f(0.02, 0.04)));
+   pTextEntity_t txt4(new TextEntity(internString("text"), m_font, version, Vec2f(0.0175, 0.035)));
 
    m_textEntities.push_back(txt1);
    m_textEntities.push_back(txt2);
    m_textEntities.push_back(txt3);
+   m_textEntities.push_back(txt4);
 
    addChild(txt1);
    addChild(txt2);
    addChild(txt3);
+   addChild(txt4);
 
    txt1->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
    txt1->setTranslation(0.54, 0.7);
@@ -91,6 +116,10 @@ void CreditsMenu::init() {
    txt3->setFillColour(Colour(0.5f, 0.5f, 0.5f, 0.f));
    txt3->setTranslation(0.48, 0.02);
    txt3->setZ(9);
+
+   txt4->setFillColour(Colour(0.7f, 0.7f, 0.7f, 0.f));
+   txt4->setTranslation(0.01, 0.96);
+   txt4->setZ(9);
 }
 
 //===========================================
