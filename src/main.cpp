@@ -12,7 +12,7 @@
 // programExit
 //===========================================
 void programExit() {
-   exit(0);
+   exit(EXIT_SUCCESS);
 }
 
 //===========================================
@@ -26,9 +26,11 @@ int main(int argc, char** argv) {
       app.launch(argc, argv);
    }
    catch (Dodge::Exception& e) {
+      app.quit();
       std::cerr << "An error occured; " << e.what() << "\n";
    }
    catch (...) {
+      app.quit();
       std::cerr << "An unknown error occured\n";
    }
 

@@ -14,6 +14,7 @@ OBJS = $(SRC)/Application.o \
 	$(SRC)/CSprite.o \
 	$(SRC)/CTextEntity.o \
 	$(SRC)/Exit.o \
+	$(SRC)/GameLogic.o \
 	$(SRC)/GameOptions.o \
 	$(SRC)/GameOptionsMenu.o \
 	$(SRC)/Item.o \

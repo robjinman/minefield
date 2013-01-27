@@ -40,17 +40,6 @@
       <scoreCounterId>57</scoreCounterId>
       <txtRestartId>59</txtRestartId>
       <gameModes>
-         <GameOptions>
-            <mines>10</mines>
-            <coins>10</coins>
-            <nuggets>0</nuggets>
-            <totalGold>10</totalGold>
-            <throwables>2</throwables>
-            <zombies>2</zombies>
-            <requiredGold>1</requiredGold>
-            <timeLimit>20</timeLimit>
-         </GameOptions>
-
          <!-- FINAL CONFIGURATION -->
          <GameOptions>
             <mines>30</mines>
