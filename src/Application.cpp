@@ -142,6 +142,8 @@ void Application::setMapSettings(const XmlNode data) {
       e.prepend("Error loading map settings; ");
       throw;
    }
+
+   m_init = true;
 }
 
 //===========================================
@@ -269,13 +271,9 @@ pAsset_t Application::constructAsset(const XmlNode data) {
    XmlNode node = data.firstChild();
 
 
-   // Construct GameSettings object
-
-   if (node.name() == "GameSettings") return pAsset_t(new GameSettings(node));
-
-
    // Construct non-Item assets
 
+   if (node.name() == "GameSettings") return pAsset_t(new GameSettings(node));
    if (node.name() == "Texture") return pAsset_t(new Texture(node));
    if (node.name() == "Font") return pAsset_t(new Dodge::Font(node));
    if (node.name() == "TextEntity") return pAsset_t(new TextEntity(node));

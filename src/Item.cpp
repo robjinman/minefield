@@ -100,6 +100,6 @@ void Item::dbg_print(ostream& out, int tab) const {
 //===========================================
 Item::~Item() {
 #ifdef DEBUG
-   cout << "Item::~Item(), type = \"" << getInternedString(getTypeName()) << "\", name = \"" << getInternedString(getName()) << "\"\n";
+//   cout << "Item::~Item(), type = \"" << getInternedString(getTypeName()) << "\", name = \"" << getInternedString(getName()) << "\"\n";
 #endif
 }
