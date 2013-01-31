@@ -37,9 +37,9 @@
                   </onScreenSize>
                   <animation>
                      <Animation name="explode" duration="0.5">
-                        <AnimFrame><!--
+                        <AnimFrame>
                            <worldOffset><Vec2f x="-0.03125" y="-0.03125"/></worldOffset>
-                           <size><Vec2f x="0.125" y="0.125"/></size>-->
+                           <size><Vec2f x="0.125" y="0.125"/></size>
                            <pos><Vec2i x="448" y="0"/></pos>
                            <dim><Vec2i x="64" y="64"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
