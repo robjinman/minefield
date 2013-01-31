@@ -16,6 +16,7 @@
       <gameSettingsId>999</gameSettingsId>
    </customSettings>
    <using>
+      <file>data/xml/common.xml</file>
       <file>data/xml/settings.xml</file>
       <file>data/xml/fonts.xml</file>
       <file>data/xml/numericTile.xml</file>
@@ -33,11 +34,6 @@
       <file>data/xml/startMenu.xml</file>
    </using>
    <assets>
-      <asset id="0"><Texture path="data/textures/gradient.png"/></asset>
-      <asset id="1"><Texture path="data/textures/sky.png"/></asset>
-      <asset id="2"><Texture path="data/textures/labels.png"/></asset>
-      <asset id="5"><Texture path="data/textures/trees.png"/></asset>
-      <asset id="6"><Texture path="data/textures/clouds.png"/></asset>
       <asset id="82" addToWorld="true">
          <Clouds>
             <Item>
@@ -54,10 +50,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="6"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="256" y="0"/></pos>
                         <size><Vec2f x="128" y="32"/></size>
                      </Range>
                   </textureSection>
@@ -105,10 +101,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="6"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="32"/></pos>
+                        <pos><Vec2f x="256" y="32"/></pos>
                         <size><Vec2f x="128" y="32"/></size>
                      </Range>
                   </textureSection>
@@ -154,7 +150,7 @@
                   <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="512" y="256"/></pos>
                         <size><Vec2f x="128" y="128"/></size>
                      </Range>
                   </textureSection>
@@ -182,10 +178,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="1"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="0" y="416"/></pos>
                         <size><Vec2f x="128" y="32"/></size>
                      </Range>
                   </textureSection>
@@ -213,10 +209,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="2"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="24" y="0"/></pos>
+                        <pos><Vec2f x="984" y="128"/></pos>
                         <size><Vec2f x="24" y="32"/></size>
                      </Range>
                   </textureSection>
@@ -244,10 +240,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="2"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="960" y="128"/></pos>
                         <size><Vec2f x="24" y="32"/></size>
                      </Range>
                   </textureSection>
@@ -323,10 +319,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="5"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="0" y="352"/></pos>
                         <size><Vec2f x="256" y="40"/></size>
                      </Range>
                   </textureSection>
@@ -378,10 +374,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="400"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="976" y="160"/></pos>
                         <size><Vec2f x="16" y="16"/></size>
                      </Range>
                   </textureSection>

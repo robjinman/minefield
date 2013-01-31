@@ -168,8 +168,10 @@ void Zombie::onEvent(const EEvent* event) {
 
       if (anim->getName() == explodeStr)
          setPendingDeletion();
-      else if (anim->getName() == ariseStr)
-         m_state = ALIVE;
+      else if (anim->getName() == ariseStr) {
+         if (m_state == EMERGING)
+            m_state = ALIVE;
+      }
    }
    else if (event->getType() == entityTranslationStr) {
       checkForCollisions();
@@ -240,7 +242,7 @@ void Zombie::update() {
 // Zombie::playerDeathHandler
 //===========================================
 void Zombie::playerDeathHandler(EEvent* event) {
-   if (m_state == ALIVE) m_state = IDLE;
+   if (m_state != DEAD) m_state = IDLE;
 }
 
 //===========================================

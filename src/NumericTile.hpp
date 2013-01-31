@@ -28,6 +28,7 @@ class NumericTile : public Item, public Dodge::Sprite {
 
    private:
       unsigned int m_value;
+      Dodge::Vec2i m_tex;
 };
 
 typedef boost::shared_ptr<NumericTile> pNumericTile_t;

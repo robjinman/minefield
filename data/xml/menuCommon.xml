@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ASSETFILE>
    <assets>
-      <asset id="603"><Texture path="data/textures/menuWidgets.png"/></asset>
-      <asset id="600"><Texture path="data/textures/startMenu.png"/></asset>
-      <asset id="610"><Texture path="data/textures/flare.png"/></asset>
       <asset id="611" addToWorld="false">
          <CSprite>
             <Item>
@@ -20,10 +17,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="610"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="704" y="256"/></pos>
                         <size><Vec2f x="256" y="256"/></size>
                      </Range>
                   </textureSection>

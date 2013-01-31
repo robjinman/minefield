@@ -22,6 +22,8 @@ NumericTile::NumericTile(const Dodge::XmlNode data)
       e.prepend("Error parsing XML for instance of class NumericTile; ");
       throw;
    }
+
+   m_tex = getTextureSection().getPosition();
 }
 
 //===========================================
@@ -34,6 +36,7 @@ NumericTile::NumericTile(const NumericTile& copy)
      Sprite(copy) {
 
    m_value = copy.m_value;
+   m_tex = copy.m_tex;
 }
 
 //===========================================
@@ -46,6 +49,7 @@ NumericTile::NumericTile(const NumericTile& copy, long name)
      Sprite(copy, name) {
 
    m_value = copy.m_value;
+   m_tex = copy.m_tex;
 }
 
 //===========================================
@@ -100,7 +104,7 @@ void NumericTile::setValue(unsigned int value) {
 
    assert(value >= 1 && value <= 8);
 
-   setTextureSection((m_value - 1) * w, 0, w, h);
+   setTextureSection(m_tex.x + (m_value - 1) * w, m_tex.y, w, h);
 }
 
 //===========================================
@@ -118,4 +122,6 @@ void NumericTile::assignData(const Dodge::XmlNode data) {
    if (!node.isNull() && node.name() == "Sprite") {
       Sprite::assignData(node);
    }
+
+   m_tex = getTextureSection().getPosition();
 }

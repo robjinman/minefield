@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ASSETFILE>
    <assets>
-      <asset id="100">
-         <Texture path="data/textures/numericTile.png"/>
-      </asset>
       <asset id="101">
          <NumericTile addToWorld="false">
             <Item>
@@ -28,10 +25,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="100"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="0" y="400"/></pos>
                         <size><Vec2f x="16" y="16"/></size>
                      </Range>
                   </textureSection>

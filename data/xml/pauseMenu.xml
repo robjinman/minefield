@@ -26,7 +26,7 @@
                <Sprite>
                   <Entity/>
                   <EntityAnimations>
-                     <texture ptr="603"/>
+                     <texture ptr="0"/>
                      <textureSection>
                         <Range>
                            <pos><Vec2f x="0" y="256"/></pos>
@@ -211,7 +211,7 @@
                <Sprite>
                   <Entity/>
                   <EntityAnimations>
-                     <texture ptr="603"/>
+                     <texture ptr="0"/>
                      <textureSection>
                         <Range>
                            <pos><Vec2f x="0" y="32"/></pos>
@@ -396,7 +396,7 @@
                <Sprite>
                   <Entity/>
                   <EntityAnimations>
-                     <texture ptr="603"/>
+                     <texture ptr="0"/>
                      <textureSection>
                         <Range>
                            <pos><Vec2f x="0" y="224"/></pos>
@@ -577,10 +577,10 @@
                <Sprite>
                   <Entity/>
                   <EntityAnimations>
-                     <texture ptr="600"/>
+                     <texture ptr="0"/>
                      <textureSection>
                         <Range>
-                           <pos><Vec2f x="0" y="0"/></pos>
+                           <pos><Vec2f x="704" y="0"/></pos>
                            <size><Vec2f x="256" y="256"/></size>
                         </Range>
                      </textureSection>

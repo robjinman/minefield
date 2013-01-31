@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ASSETFILE>
    <assets>
-      <asset id="400"><Texture path="data/textures/soil.png"/></asset>
       <asset id="401" addToWorld="false">
          <Soil>
             <Item>
@@ -26,10 +25,10 @@
             <Sprite>
                <Entity/>
                <EntityAnimations>
-                  <texture ptr="400"/>
+                  <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="0" y="0"/></pos>
+                        <pos><Vec2f x="384" y="0"/></pos>
                         <size><Vec2f x="16" y="16"/></size>
                      </Range>
                   </textureSection>
@@ -39,42 +38,42 @@
                   <animation>
                      <Animation name="dissolve" duration="0.25">
                         <AnimFrame>
-                           <pos><Vec2i x="0" y="0"/></pos>
+                           <pos><Vec2i x="384" y="0"/></pos>
                            <dim><Vec2i x="16" y="16"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></col>
                         </AnimFrame>
                         <AnimFrame>
-                           <pos><Vec2i x="0" y="0"/></pos>
+                           <pos><Vec2i x="384" y="0"/></pos>
                            <dim><Vec2i x="16" y="16"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.875"/></col>
                         </AnimFrame>
                         <AnimFrame>
-                           <pos><Vec2i x="0" y="0"/></pos>
+                           <pos><Vec2i x="384" y="0"/></pos>
                            <dim><Vec2i x="16" y="16"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.75"/></col>
                         </AnimFrame>
                         <AnimFrame>
-                           <pos><Vec2i x="0" y="0"/></pos>
+                           <pos><Vec2i x="384" y="0"/></pos>
                            <dim><Vec2i x="16" y="16"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.625"/></col>
                         </AnimFrame>
                         <AnimFrame>
-                           <pos><Vec2i x="0" y="0"/></pos>
+                           <pos><Vec2i x="384" y="0"/></pos>
                            <dim><Vec2i x="16" y="16"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.5"/></col>
                         </AnimFrame>
                         <AnimFrame>
-                           <pos><Vec2i x="0" y="0"/></pos>
+                           <pos><Vec2i x="384" y="0"/></pos>
                            <dim><Vec2i x="16" y="16"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.375"/></col>
                         </AnimFrame>
                         <AnimFrame>
-                           <pos><Vec2i x="0" y="0"/></pos>
+                           <pos><Vec2i x="384" y="0"/></pos>
                            <dim><Vec2i x="16" y="16"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.25"/></col>
                         </AnimFrame>
                         <AnimFrame>
-                           <pos><Vec2i x="0" y="0"/></pos>
+                           <pos><Vec2i x="384" y="0"/></pos>
                            <dim><Vec2i x="16" y="16"/></dim>
                            <col><Colour r="1.0" g="1.0" b="1.0" a="0.125"/></col>
                         </AnimFrame>
