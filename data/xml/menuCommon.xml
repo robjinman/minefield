@@ -7,11 +7,11 @@
       <asset id="611" addToWorld="false">
          <CSprite>
             <Item>
-               <Entity type="flare" name="flare" x="0.145" y="-0.05" z="9" rot="0.0">
+               <Entity type="flare" name="flare" x="0.145" y="-0.05" z="7" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
-                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="0.92"/></fillColour>
+                  <fillColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></fillColour>
                   <lineColour><Colour r="1.0" g="1.0" b="1.0" a="1.0"/></lineColour>
                   <lineWidth>0</lineWidth>
                   <children/>

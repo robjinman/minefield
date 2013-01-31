@@ -5,7 +5,7 @@
       <asset id="712" addToWorld="false">
          <CSprite>
             <Item>
-               <Entity type="icon" name="mnuSettingsMusicIcon" x="0.75" y="0.55" z="10" rot="0.0">
+               <Entity type="icon" name="mnuSettingsMusicIcon" x="0.75" y="0.55" z="9" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
@@ -36,7 +36,7 @@
       <asset id="711" addToWorld="false">
          <CSprite>
             <Item>
-               <Entity type="icon" name="mnuSettingsSfxIcon" x="0.975" y="0.55" z="10" rot="0.0">
+               <Entity type="icon" name="mnuSettingsSfxIcon" x="0.975" y="0.55" z="9" rot="0.0">
                   <scale>
                      <Vec2f x="1.0" y="1.0"/>
                   </scale>
