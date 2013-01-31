@@ -99,8 +99,10 @@ void Exit::onEvent(const EEvent* event) {
    Sprite::onEvent(event);
 
    if (event->getType() == hitFromAboveStr) {
-      EventManager eventManager;
-      eventManager.queueEvent(new EEvent(successStr));
+      if (m_state == IS_OPEN) {
+         EventManager eventManager;
+         eventManager.queueEvent(new EEvent(successStr));
+      }
    }
 }
 
