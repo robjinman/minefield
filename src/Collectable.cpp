@@ -65,7 +65,7 @@ size_t Collectable::getSize() const {
 //===========================================
 // Collectable::clone
 //===========================================
-Collectable* Collectable::clone() const {
+Asset* Collectable::clone() const {
    return new Collectable(*this);
 }
 

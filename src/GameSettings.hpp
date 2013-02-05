@@ -15,7 +15,7 @@ class GameSettings : virtual public Dodge::Asset {
    public:
       GameSettings(const Dodge::XmlNode data);
 
-      virtual GameSettings* clone() const;
+      virtual Asset* clone() const;
       virtual size_t getSize() const;
 
       Dodge::Colour                 bgColour;

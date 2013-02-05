@@ -23,6 +23,9 @@ class Player : public Item, public Dodge::Sprite {
       inline void moveUp();
       inline void moveDown();
 
+      virtual void addToWorld() { Sprite::addToWorld(); }
+      virtual void removeFromWorld() { Sprite::removeFromWorld(); }
+
       void revive();
       void die();
 
@@ -32,7 +35,7 @@ class Player : public Item, public Dodge::Sprite {
       virtual void update();
       virtual void onEvent(const Dodge::EEvent* event);
       virtual size_t getSize() const;
-      virtual Player* clone() const;
+      virtual Asset* clone() const;
 #ifdef DEBUG
       virtual void dbg_print(std::ostream& out, int tab = 0) const;
 #endif

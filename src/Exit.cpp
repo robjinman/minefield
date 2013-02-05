@@ -70,7 +70,7 @@ size_t Exit::getSize() const {
 //===========================================
 // Exit::clone
 //===========================================
-Exit* Exit::clone() const {
+Asset* Exit::clone() const {
    return new Exit(*this);
 }
 

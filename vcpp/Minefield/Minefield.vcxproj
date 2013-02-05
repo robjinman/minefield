@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2289CD57-E275-4419-8D92-8FB8926E3D13}</ProjectGuid>
+    <RootNamespace>Minefield</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>D:\Code\projects\Dodge\Dodge\include\SDL;D:\Code\projects\Dodge\Dodge\include\dodge;D:\Code\projects\Dodge\Dodge\include;C:\Program Files\boost\boost_1_51;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Box2D.lib;Dodge.lib;glew32.lib;glew32mx.lib;Opengl32.lib;SDL.lib;SDL_mixer.lib;SDLmain.lib;pnglite.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Code\projects\Dodge\Dodge\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>D:\Code\projects\Dodge\Dodge\include\SDL;D:\Code\projects\Dodge\Dodge\include\dodge;D:\Code\projects\Dodge\Dodge\include;C:\Program Files\boost\boost_1_51;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Box2D.lib;Dodge.lib;glew32.lib;glew32mx.lib;Opengl32.lib;SDL.lib;SDL_mixer.lib;SDLmain.lib;pnglite.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Code\projects\Dodge\Dodge\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Application.hpp" />
+    <ClInclude Include="..\..\src\Clouds.hpp" />
+    <ClInclude Include="..\..\src\Collectable.hpp" />
+    <ClInclude Include="..\..\src\Counter.hpp" />
+    <ClInclude Include="..\..\src\CreditsMenu.hpp" />
+    <ClInclude Include="..\..\src\CSprite.hpp" />
+    <ClInclude Include="..\..\src\CTextEntity.hpp" />
+    <ClInclude Include="..\..\src\EBlast.hpp" />
+    <ClInclude Include="..\..\src\EExplosion.hpp" />
+    <ClInclude Include="..\..\src\EPendingDeletion.hpp" />
+    <ClInclude Include="..\..\src\ERequestGameOptsChange.hpp" />
+    <ClInclude Include="..\..\src\ERequestGameStateChange.hpp" />
+    <ClInclude Include="..\..\src\ERequestMusicVolumeChange.hpp" />
+    <ClInclude Include="..\..\src\ERequestSfxVolumeChange.hpp" />
+    <ClInclude Include="..\..\src\ERequestToThrowThrowable.hpp" />
+    <ClInclude Include="..\..\src\EUpdateScore.hpp" />
+    <ClInclude Include="..\..\src\Exit.hpp" />
+    <ClInclude Include="..\..\src\GameData.hpp" />
+    <ClInclude Include="..\..\src\GameLogic.hpp" />
+    <ClInclude Include="..\..\src\GameOptions.hpp" />
+    <ClInclude Include="..\..\src\GameOptionsMenu.hpp" />
+    <ClInclude Include="..\..\src\GameSettings.hpp" />
+    <ClInclude Include="..\..\src\gameState.hpp" />
+    <ClInclude Include="..\..\src\Item.hpp" />
+    <ClInclude Include="..\..\src\Menu.hpp" />
+    <ClInclude Include="..\..\src\MenuItem.hpp" />
+    <ClInclude Include="..\..\src\Mine.hpp" />
+    <ClInclude Include="..\..\src\NumericTile.hpp" />
+    <ClInclude Include="..\..\src\PauseMenu.hpp" />
+    <ClInclude Include="..\..\src\Player.hpp" />
+    <ClInclude Include="..\..\src\ProgressBar.hpp" />
+    <ClInclude Include="..\..\src\SettingsMenu.hpp" />
+    <ClInclude Include="..\..\src\Soil.hpp" />
+    <ClInclude Include="..\..\src\SoundFx.hpp" />
+    <ClInclude Include="..\..\src\StartMenu.hpp" />
+    <ClInclude Include="..\..\src\Throwable.hpp" />
+    <ClInclude Include="..\..\src\Zombie.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Application.cpp" />
+    <ClCompile Include="..\..\src\Clouds.cpp" />
+    <ClCompile Include="..\..\src\Collectable.cpp" />
+    <ClCompile Include="..\..\src\Counter.cpp" />
+    <ClCompile Include="..\..\src\CreditsMenu.cpp" />
+    <ClCompile Include="..\..\src\CSprite.cpp" />
+    <ClCompile Include="..\..\src\CTextEntity.cpp" />
+    <ClCompile Include="..\..\src\Exit.cpp" />
+    <ClCompile Include="..\..\src\GameLogic.cpp" />
+    <ClCompile Include="..\..\src\GameOptions.cpp" />
+    <ClCompile Include="..\..\src\GameOptionsMenu.cpp" />
+    <ClCompile Include="..\..\src\GameSettings.cpp" />
+    <ClCompile Include="..\..\src\Item.cpp" />
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\Menu.cpp" />
+    <ClCompile Include="..\..\src\MenuItem.cpp" />
+    <ClCompile Include="..\..\src\Mine.cpp" />
+    <ClCompile Include="..\..\src\NumericTile.cpp" />
+    <ClCompile Include="..\..\src\PauseMenu.cpp" />
+    <ClCompile Include="..\..\src\Player.cpp" />
+    <ClCompile Include="..\..\src\ProgressBar.cpp" />
+    <ClCompile Include="..\..\src\SettingsMenu.cpp" />
+    <ClCompile Include="..\..\src\Soil.cpp" />
+    <ClCompile Include="..\..\src\SoundFx.cpp" />
+    <ClCompile Include="..\..\src\StartMenu.cpp" />
+    <ClCompile Include="..\..\src\Throwable.cpp" />
+    <ClCompile Include="..\..\src\Zombie.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

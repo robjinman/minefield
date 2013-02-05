@@ -103,7 +103,7 @@ size_t StartMenu::getSize() const {
 //===========================================
 // StartMenu::clone
 //===========================================
-StartMenu* StartMenu::clone() const {
+Asset* StartMenu::clone() const {
    return new StartMenu(*this);
 }
 

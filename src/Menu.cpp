@@ -234,7 +234,7 @@ void Menu::menuItemKeyDown(pEntity_t entity, int key) {
    pMenuItem_t item = boost::dynamic_pointer_cast<MenuItem>(entity);
 
    assert(item);
-   assert(m_menuItems[m_hasFocus] == item);
+//   assert(m_menuItems[m_hasFocus] == item);
    assert(item->hasFocus());
 
    int idx = -1;

@@ -116,8 +116,8 @@ void SettingsMenu::init() {
    m_sfxVolUpBtn->removeActivationKey(WinIO::KEY_ENTER);
    m_sfxVolUpBtn->addActivationKey(WinIO::KEY_RIGHT);
 
-   m_musicProgBar = unique_ptr<ProgressBar>(new ProgressBar(Colour(0, 0, 0, 0.7), Vec2f(0.85, 0.55), Vec2f(0.03, 0.3)));
-   m_sfxProgBar = unique_ptr<ProgressBar>(new ProgressBar(Colour(0, 0, 0, 0.7), Vec2f(0.91, 0.55), Vec2f(0.03, 0.3)));
+   m_musicProgBar = unique_ptr<ProgressBar>(new ProgressBar(Colour(0.f, 0.f, 0.f, 0.7f), Vec2f(0.85f, 0.55f), Vec2f(0.03f, 0.3f)));
+   m_sfxProgBar = unique_ptr<ProgressBar>(new ProgressBar(Colour(0.f, 0.f, 0.f, 0.7f), Vec2f(0.91f, 0.55f), Vec2f(0.03f, 0.3f)));
 }
 
 //===========================================
@@ -176,7 +176,7 @@ size_t SettingsMenu::getSize() const {
 //===========================================
 // SettingsMenu::clone
 //===========================================
-SettingsMenu* SettingsMenu::clone() const {
+Asset* SettingsMenu::clone() const {
    return new SettingsMenu(*this);
 }
 
@@ -226,9 +226,9 @@ void SettingsMenu::increaseMusicVolume() {
    static float32_t fr = gGetTargetFrameRate();
 
    EventManager eventManager;
-   eventManager.immediateDispatch(new ERequestMusicVolumeChange(1.0 / (duration * fr)));
+   eventManager.immediateDispatch(new ERequestMusicVolumeChange(1.f / (duration * fr)));
 
-   m_musicProgBar->increaseValue(1.0 / (duration * fr));
+   m_musicProgBar->increaseValue(1.f / (duration * fr));
 }
 
 //===========================================
@@ -239,9 +239,9 @@ void SettingsMenu::decreaseMusicVolume() {
    static float32_t fr = gGetTargetFrameRate();
 
    EventManager eventManager;
-   eventManager.immediateDispatch(new ERequestMusicVolumeChange(-1.0 / (duration * fr)));
+   eventManager.immediateDispatch(new ERequestMusicVolumeChange(-1.f / (duration * fr)));
 
-   m_musicProgBar->increaseValue(-1.0 / (duration * fr));
+   m_musicProgBar->increaseValue(-1.f / (duration * fr));
 }
 
 //===========================================
@@ -252,9 +252,9 @@ void SettingsMenu::increaseSfxVolume() {
    static float32_t fr = gGetTargetFrameRate();
 
    EventManager eventManager;
-   eventManager.immediateDispatch(new ERequestSfxVolumeChange(1.0 / (duration * fr)));
+   eventManager.immediateDispatch(new ERequestSfxVolumeChange(1.f / (duration * fr)));
 
-   m_sfxProgBar->increaseValue(1.0 / (duration * fr));
+   m_sfxProgBar->increaseValue(1.f / (duration * fr));
 }
 
 //===========================================
@@ -265,9 +265,9 @@ void SettingsMenu::decreaseSfxVolume() {
    static float32_t fr = gGetTargetFrameRate();
 
    EventManager eventManager;
-   eventManager.immediateDispatch(new ERequestSfxVolumeChange(-1.0 / (duration * fr)));
+   eventManager.immediateDispatch(new ERequestSfxVolumeChange(-1.f / (duration * fr)));
 
-   m_sfxProgBar->increaseValue(-1.0 / (duration * fr));
+   m_sfxProgBar->increaseValue(-1.f / (duration * fr));
 }
 
 //===========================================

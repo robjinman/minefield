@@ -19,6 +19,8 @@ void programExit() {
 // main
 //===========================================
 int main(int argc, char** argv) {
+   Dodge::gInitialise();
+
    Application app;
 
    try {

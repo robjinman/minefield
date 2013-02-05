@@ -21,12 +21,12 @@ class MenuItem : public Item, public Dodge::UiButton {
       virtual void update();
 
       virtual size_t getSize() const;
-      virtual MenuItem* clone() const;
+      virtual Asset* clone() const;
       virtual void addToWorld();
       virtual void removeFromWorld();
 
       virtual void onEvent(const Dodge::EEvent* event);
-      virtual void assignData(Dodge::XmlNode data);
+      virtual void assignData(const Dodge::XmlNode data);
 #ifdef DEBUG
       virtual void dbg_print(std::ostream& out, int tab = 0) const;
 #endif

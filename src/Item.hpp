@@ -19,7 +19,7 @@ class Item : virtual public Dodge::Entity {
       Item(const Item& item, long name);
 
       virtual size_t getSize() const;
-      virtual Item* clone() const;
+      virtual Asset* clone() const;
       virtual void assignData(const Dodge::XmlNode data);
 
       void setPendingDeletion();

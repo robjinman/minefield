@@ -28,12 +28,12 @@ class Menu : public Item, public Dodge::Sprite {
       virtual void update();
 
       virtual size_t getSize() const;
-      virtual Menu* clone() const = 0;
+      virtual Asset* clone() const = 0;
       virtual void addToWorld();
       virtual void removeFromWorld();
 
       virtual void onEvent(const Dodge::EEvent* event);
-      virtual void assignData(Dodge::XmlNode data);
+      virtual void assignData(const Dodge::XmlNode data);
 #ifdef DEBUG
       virtual void dbg_print(std::ostream& out, int tab = 0) const;
 #endif

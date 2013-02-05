@@ -1,4 +1,5 @@
 #include "GameSettings.hpp"
+#include <dodge/StringId.hpp>
 
 
 using namespace std;
@@ -115,7 +116,7 @@ void GameSettings::parseGameModes(XmlNode data) {
 //===========================================
 // GameSettings::clone
 //===========================================
-GameSettings* GameSettings::clone() const {
+Asset* GameSettings::clone() const {
    return new GameSettings(*this);
 }
 

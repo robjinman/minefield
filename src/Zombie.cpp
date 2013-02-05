@@ -268,7 +268,7 @@ void Zombie::explosionHandler(EEvent* event) {
 //===========================================
 // Zombie::clone
 //===========================================
-Zombie* Zombie::clone() const {
+Asset* Zombie::clone() const {
    return new Zombie(*this);
 }
 

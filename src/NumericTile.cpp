@@ -74,7 +74,7 @@ size_t NumericTile::getSize() const {
 //===========================================
 // NumericTile::clone
 //===========================================
-NumericTile* NumericTile::clone() const {
+Asset* NumericTile::clone() const {
    return new NumericTile(*this);
 }
 
@@ -99,12 +99,12 @@ void NumericTile::setValue(unsigned int value) {
    m_value = value;
 
    const Range& r = getTextureSection();
-   int w = r.getSize().x;
-   int h = r.getSize().y;
+   float32_t w = r.getSize().x;
+   float32_t h = r.getSize().y;
 
    assert(value >= 1 && value <= 8);
 
-   setTextureSection(m_tex.x + (m_value - 1) * w, m_tex.y, w, h);
+   setTextureSection(static_cast<float32_t>(m_tex.x + (m_value - 1) * w), static_cast<float32_t>(m_tex.y), w, h);
 }
 
 //===========================================

@@ -43,7 +43,7 @@ Item::Item(const Item& item, long name)
 //===========================================
 // Item::clone
 //===========================================
-Item* Item::clone() const {
+Asset* Item::clone() const {
    return new Item(*this);
 }
 

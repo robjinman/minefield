@@ -9,23 +9,23 @@ using namespace Dodge;
 // ProgressBar::ProgressBar
 //===========================================
 ProgressBar::ProgressBar(const Colour& col, const Vec2f& pos, const Vec2f& size) {
-   m_gap = 0.005;
-   m_value = 1.0;
+   m_gap = 0.005f;
+   m_value = 1.f;
 
    m_size = size;
 
-   m_shell = unique_ptr<Quad>(new Quad(Vec2f(0.0, 0.0), Vec2f(m_size.x, 0.0), Vec2f(m_size.x, m_size.y), Vec2f(0.0, m_size.y)));
+   m_shell = unique_ptr<Quad>(new Quad(Vec2f(0.f, 0.f), Vec2f(m_size.x, 0.f), Vec2f(m_size.x, m_size.y), Vec2f(0.f, m_size.y)));
 
    m_shell->setLineWidth(2);
    m_shell->setLineColour(col);
-   m_shell->setFillColour(Colour(0, 0, 0, 0));
-   m_shell->setRenderTransform(pos.x, pos.y, 8);
+   m_shell->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
+   m_shell->setRenderTransform(pos.x, pos.y, 8.f);
 
    m_bar = unique_ptr<Quad>(new Quad(Vec2f(m_gap, m_gap), Vec2f(m_size.x - m_gap, m_gap), Vec2f(m_size.x - m_gap, m_size.y - m_gap), Vec2f(m_gap, m_size.y - m_gap)));
 
    m_bar->setLineWidth(0);
    m_bar->setFillColour(col);
-   m_bar->setRenderTransform(pos.x, pos.y, 9);
+   m_bar->setRenderTransform(pos.x, pos.y, 9.f);
 }
 
 //===========================================
@@ -46,8 +46,8 @@ void ProgressBar::increaseValue(Dodge::float32_t val) {
 // ProgressBar::setValue
 //===========================================
 void ProgressBar::setValue(Dodge::float32_t val) {
-   if (val < 0.0) val = 0.0;
-   if (val > 1.0) val = 1.0;
+   if (val < 0.f) val = 0.f;
+   if (val > 1.f) val = 1.f;
 
    const Vec2f& A = m_bar->getVertex(0);
    const Vec2f& B = m_bar->getVertex(1);

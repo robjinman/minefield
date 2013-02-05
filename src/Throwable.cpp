@@ -135,7 +135,7 @@ void Throwable::onEvent(const Dodge::EEvent* event) {
 //===========================================
 // Throwable::clone
 //===========================================
-Throwable* Throwable::clone() const {
+Asset* Throwable::clone() const {
    return new Throwable(*this);
 }
 

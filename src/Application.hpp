@@ -32,9 +32,7 @@ class Application {
       bool isAdjacentTo(const Dodge::Vec2i& a, const Dodge::Vec2i& b) const;
       void loadAssets();
       void parseGameModes(Dodge::XmlNode data);
-#ifdef DEBUG
       void keyDown(int key);
-#endif
 
       void exitDefault();
 
@@ -43,7 +41,7 @@ class Application {
       Functor<void, TYPELIST_0()>   m_onExit;
       Dodge::AssetManager           m_assetManager;
       Dodge::WorldSpace             m_worldSpace;
-      Dodge::MapLoader              m_mapLoader;
+      Dodge::MapLoader&             m_mapLoader;
       Dodge::Renderer&              m_renderer;
       Dodge::Audio                  m_audio;
       Dodge::WinIO                  m_win;

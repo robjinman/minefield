@@ -22,7 +22,7 @@ class Zombie : public Item, public Dodge::Sprite {
       virtual void update();
 
       virtual size_t getSize() const;
-      virtual Zombie* clone() const;
+      virtual Asset* clone() const;
       virtual void addToWorld();
       virtual void removeFromWorld();
 

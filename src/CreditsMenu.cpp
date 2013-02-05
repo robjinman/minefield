@@ -90,10 +90,10 @@ string CreditsMenu::getVersionNumber() const {
 void CreditsMenu::init() {
    string version = getVersionNumber();
 
-   pTextEntity_t txt1(new TextEntity(internString("text"), m_font, "Design & Programming: Rob Jinman", Vec2f(0.022, 0.044)));
-   pTextEntity_t txt2(new TextEntity(internString("text"), m_font, "Music:                Jack Normal", Vec2f(0.022, 0.044)));
-   pTextEntity_t txt3(new TextEntity(internString("text"), m_font, "(Sprites: http://untamed.wild-refuge.net)", Vec2f(0.02, 0.04)));
-   pTextEntity_t txt4(new TextEntity(internString("text"), m_font, version, Vec2f(0.0175, 0.035)));
+   pTextEntity_t txt1(new TextEntity(internString("text"), m_font, "Design & Programming: Rob Jinman", Vec2f(0.022f, 0.044f)));
+   pTextEntity_t txt2(new TextEntity(internString("text"), m_font, "Music:                Jack Normal", Vec2f(0.022f, 0.044f)));
+   pTextEntity_t txt3(new TextEntity(internString("text"), m_font, "(Sprites: http://untamed.wild-refuge.net)", Vec2f(0.02f, 0.04f)));
+   pTextEntity_t txt4(new TextEntity(internString("text"), m_font, version, Vec2f(0.0175f, 0.035f)));
 
    m_textEntities.push_back(txt1);
    m_textEntities.push_back(txt2);
@@ -106,20 +106,20 @@ void CreditsMenu::init() {
    addChild(txt4);
 
    txt1->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
-   txt1->setTranslation(0.54, 0.7);
-   txt1->setZ(9);
+   txt1->setTranslation(0.54f, 0.7f);
+   txt1->setZ(9.f);
 
    txt2->setFillColour(Colour(0.f, 0.f, 0.f, 0.f));
-   txt2->setTranslation(0.54, 0.65);
-   txt2->setZ(9);
+   txt2->setTranslation(0.54f, 0.65f);
+   txt2->setZ(9.f);
 
    txt3->setFillColour(Colour(0.5f, 0.5f, 0.5f, 0.f));
-   txt3->setTranslation(0.48, 0.02);
-   txt3->setZ(9);
+   txt3->setTranslation(0.48f, 0.02f);
+   txt3->setZ(9.f);
 
    txt4->setFillColour(Colour(0.7f, 0.7f, 0.7f, 0.f));
-   txt4->setTranslation(0.01, 0.96);
-   txt4->setZ(9);
+   txt4->setTranslation(0.01f, 0.96f);
+   txt4->setZ(9.f);
 }
 
 //===========================================
@@ -144,7 +144,7 @@ size_t CreditsMenu::getSize() const {
 //===========================================
 // CreditsMenu::clone
 //===========================================
-CreditsMenu* CreditsMenu::clone() const {
+Asset* CreditsMenu::clone() const {
    return new CreditsMenu(*this);
 }
 

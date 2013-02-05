@@ -20,8 +20,11 @@ class Counter : public CTextEntity {
 
       virtual void addToWorld();
 
+      virtual void setZ(Dodge::float32_t z) { CTextEntity::setZ(z); }
+      virtual void setFillColour(const Dodge::Colour& col) { CTextEntity::setFillColour(col); }
+
       virtual size_t getSize() const;
-      virtual Counter* clone() const;
+      virtual Asset* clone() const;
 
       virtual void assignData(const Dodge::XmlNode data);
 #ifdef DEBUG

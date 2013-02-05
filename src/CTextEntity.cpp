@@ -70,7 +70,7 @@ void CTextEntity::update() {
 //===========================================
 // CTextEntity::clone
 //===========================================
-CTextEntity* CTextEntity::clone() const {
+Asset* CTextEntity::clone() const {
    return new CTextEntity(*this);
 }
 

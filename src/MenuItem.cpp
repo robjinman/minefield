@@ -65,7 +65,7 @@ size_t MenuItem::getSize() const {
 //===========================================
 // MenuItem::clone
 //===========================================
-MenuItem* MenuItem::clone() const {
+Asset* MenuItem::clone() const {
    return new MenuItem(*this);
 }
 

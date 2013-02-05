@@ -70,7 +70,7 @@ void CSprite::update() {
 //===========================================
 // CSprite::clone
 //===========================================
-CSprite* CSprite::clone() const {
+Asset* CSprite::clone() const {
    return new CSprite(*this);
 }
 

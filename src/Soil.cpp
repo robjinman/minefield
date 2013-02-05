@@ -75,7 +75,7 @@ size_t Soil::getSize() const {
 //===========================================
 // Soil::clone
 //===========================================
-Soil* Soil::clone() const {
+Asset* Soil::clone() const {
    return new Soil(*this);
 }
 

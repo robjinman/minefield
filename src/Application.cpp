@@ -41,7 +41,8 @@ using namespace Dodge;
 Application::Application()
    : m_init(false),
      m_onExit(Functor<void, TYPELIST_0()>(this, &Application::exitDefault)),
-     m_renderer(Dodge::Renderer::getInstance()),
+     m_mapLoader(MapLoader::getInstance()),
+     m_renderer(Renderer::getInstance()),
      m_logic(m_data) {}
 
 //===========================================
@@ -98,18 +99,18 @@ void Application::freeAllAssets() {
    m_data.scoreCounter.reset();
 }
 
-#ifdef DEBUG
 //===========================================
 // Application::keyDown
 //===========================================
 void Application::keyDown(int key) {
+#ifdef DEBUG
    switch (key) {
       case WinIO::KEY_M:
          cout << "Memory usage: " << static_cast<float32_t>(m_mapLoader.dbg_getMemoryUsage()) / 1000.0 << "KB\n";
       break;
    }
-}
 #endif
+}
 
 //===========================================
 // Application::setMapSettings
@@ -135,7 +136,7 @@ void Application::setMapSettings(const XmlNode data) {
       m_renderer.attachCamera(camera);
 
       const Range& mb = m_mapLoader.getMapBoundary();
-      Range boundary(mb.getPosition() - Vec2f(0.1, 0.1), mb.getSize() + Vec2f(0.2, 0.2));
+      Range boundary(mb.getPosition() - Vec2f(0.1f, 0.1f), mb.getSize() + Vec2f(0.2f, 0.2f));
       m_worldSpace.init(unique_ptr<Quadtree<pEntity_t> >(new Quadtree<pEntity_t>(1, boundary)));
    }
    catch (XmlException& e) {
@@ -177,12 +178,12 @@ void Application::deleteAsset(pAsset_t asset) {
       const Range& mb = m_data.settings->minefieldBoundary;
       const Vec2f& sz = mb.getSize();
 
-      int w = floor(sz.x / m_data.settings->tileSize.x + 0.5);
-      int h = floor(sz.y / m_data.settings->tileSize.y + 0.5);
+      int w = static_cast<int>(floor(sz.x / m_data.settings->tileSize.x + 0.5));
+      int h = static_cast<int>(floor(sz.y / m_data.settings->tileSize.y + 0.5));
 
       Vec2f pos = entity->getTranslation_abs();
-      int i = floor((pos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5);
-      int j = floor((pos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5);
+      int i = static_cast<int>(floor((pos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5));
+      int j = static_cast<int>(floor((pos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5));
 
       if (entity->getTypeName() == numericTileStr) {
          if (m_data.mineField[i][j] == entity) m_data.mineField[i][j].reset();
@@ -342,8 +343,8 @@ void Application::populateMap(EEvent*) {
    const Vec2f& pos = mb.getPosition();
    const Vec2f& sz = mb.getSize();
 
-   int w = floor(sz.x / m_data.settings->tileSize.x);
-   int h = floor(sz.y / m_data.settings->tileSize.y);
+   int w = static_cast<int>(floor(sz.x / m_data.settings->tileSize.x));
+   int h = static_cast<int>(floor(sz.y / m_data.settings->tileSize.y));
 
    m_data.player->setTranslation(pos);
    m_data.exit->setTranslation(pos.x + (w - 1) * m_data.settings->tileSize.x, pos.y + (h - 1) * m_data.settings->tileSize.y);
@@ -355,12 +356,12 @@ void Application::populateMap(EEvent*) {
    }
 
    Vec2f plyrPos = m_data.player->getTranslation_abs();
-   int plyrI = floor((plyrPos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5);
-   int plyrJ = floor((plyrPos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5);
+   int plyrI = static_cast<int>(floor((plyrPos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5));
+   int plyrJ = static_cast<int>(floor((plyrPos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5));
 
    Vec2f exitPos = m_data.exit->getTranslation_abs();
-   int exitI = floor((exitPos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5);
-   int exitJ = floor((exitPos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5);
+   int exitI = static_cast<int>(floor((exitPos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5));
+   int exitJ = static_cast<int>(floor((exitPos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5));
 
    for (int m = 0; m < m_data.gameOpts.mines; ++m) {
       int i = rand() % w;
@@ -667,8 +668,6 @@ void Application::launch(int argc, char** argv) {
       }
    }
 #endif
-   gInitialise();
-
    m_mapLoader.initialise(Functor<void, TYPELIST_1(const Dodge::XmlNode)>(this, &Application::setMapSettings),
       Functor<Dodge::pAsset_t, TYPELIST_1(const Dodge::XmlNode)>(this, &Application::constructAsset),
       Functor<void, TYPELIST_1(Dodge::pAsset_t)>(this, &Application::deleteAsset),

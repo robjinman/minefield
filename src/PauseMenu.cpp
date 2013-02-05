@@ -95,7 +95,7 @@ size_t PauseMenu::getSize() const {
 //===========================================
 // PauseMenu::clone
 //===========================================
-PauseMenu* PauseMenu::clone() const {
+Asset* PauseMenu::clone() const {
    return new PauseMenu(*this);
 }
 

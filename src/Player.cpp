@@ -157,7 +157,7 @@ size_t Player::getSize() const {
 //===========================================
 // Player::clone
 //===========================================
-Player* Player::clone() const {
+Asset* Player::clone() const {
    return new Player(*this);
 }
 

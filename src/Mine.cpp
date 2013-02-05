@@ -82,7 +82,7 @@ size_t Mine::getSize() const {
 //===========================================
 // Mine::clone
 //===========================================
-Mine* Mine::clone() const {
+Asset* Mine::clone() const {
    return new Mine(*this);
 }
 

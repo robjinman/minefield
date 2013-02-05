@@ -75,7 +75,7 @@ void Clouds::update() {
 //===========================================
 // Clouds::clone
 //===========================================
-Clouds* Clouds::clone() const {
+Asset* Clouds::clone() const {
    return new Clouds(*this);
 }
 

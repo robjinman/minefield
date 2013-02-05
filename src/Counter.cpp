@@ -78,7 +78,7 @@ void Counter::setValue(int value) {
 //===========================================
 // Counter::clone
 //===========================================
-Counter* Counter::clone() const {
+Asset* Counter::clone() const {
    return new Counter(*this);
 }
 

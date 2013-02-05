@@ -43,9 +43,6 @@ void GameLogic::keyDown(int key) {
          cout << "Frame rate (main thread): " << m_frameRate << "fps\n";
          cout << "Frame rate (renderer): " << m_renderer.getFrameRate() << "fps\n";
       break;
-      case WinIO::KEY_M:
-//         cout << "Memory usage: " << static_cast<float32_t>(m_mapLoader.dbg_getMemoryUsage()) / 1000.0 << "KB\n";
-      break;
 #endif
    }
 
@@ -286,8 +283,8 @@ void GameLogic::gameSuccess(const EEvent* event) {
 void GameLogic::reqToThrowThrowable(EEvent* event) {
    ERequestToThrowThrowable* e = static_cast<ERequestToThrowThrowable*>(event);
 
-   int toX = e->to.x / m_data.settings->tileSize.x;
-   int toY = e->to.y / m_data.settings->tileSize.y;
+   int toX = static_cast<int>(e->to.x / m_data.settings->tileSize.x);
+   int toY = static_cast<int>(e->to.y / m_data.settings->tileSize.y);
    Vec2f dest(toX * m_data.settings->tileSize.x, toY * m_data.settings->tileSize.y);
 
    e->item->throwTo(dest.x, dest.y);

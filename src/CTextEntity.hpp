@@ -21,9 +21,12 @@ class CTextEntity : public Item, public Dodge::TextEntity {
       virtual void update();
 
       virtual size_t getSize() const;
-      virtual CTextEntity* clone() const;
+      virtual Asset* clone() const;
       virtual void addToWorld();
       virtual void removeFromWorld();
+
+      virtual void setZ(Dodge::float32_t z) { TextEntity::setZ(z); }
+      virtual void setFillColour(const Dodge::Colour& col) { TextEntity::setFillColour(col); }
 
       virtual void assignData(const Dodge::XmlNode data);
 #ifdef DEBUG

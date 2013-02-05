@@ -14,10 +14,14 @@ class Mine : public Item, public Dodge::Sprite {
       Mine(const Mine& copy);
       Mine(const Mine& copy, long name);
 
+      virtual void addToWorld() { Sprite::addToWorld(); }
+      virtual void removeFromWorld() { Sprite::removeFromWorld(); }
+
       virtual void update();
+      virtual void draw() const { Sprite::draw(); }
       virtual void onEvent(const Dodge::EEvent* event);
       virtual size_t getSize() const;
-      virtual Mine* clone() const;
+      virtual Asset* clone() const;
 #ifdef DEBUG
       virtual void dbg_print(std::ostream& out, int tab = 0) const;
 #endif

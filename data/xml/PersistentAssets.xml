@@ -377,7 +377,7 @@
                   <texture ptr="0"/>
                   <textureSection>
                      <Range>
-                        <pos><Vec2f x="976" y="160"/></pos>
+                        <pos><Vec2f x="384" y="0"/></pos>
                         <size><Vec2f x="16" y="16"/></size>
                      </Range>
                   </textureSection>

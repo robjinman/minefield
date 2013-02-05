@@ -15,9 +15,14 @@ class NumericTile : public Item, public Dodge::Sprite {
       NumericTile(const NumericTile& copy, long name);
 
       virtual void update();
+      virtual void draw() const { Sprite::draw(); }
+
+      virtual void addToWorld() { Sprite::addToWorld(); }
+      virtual void removeFromWorld() { Sprite::removeFromWorld(); }
+      virtual void onEvent(const Dodge::EEvent* event) { Sprite::onEvent(event); }
 
       virtual size_t getSize() const;
-      virtual NumericTile* clone() const;
+      virtual Asset* clone() const;
 #ifdef DEBUG
       virtual void dbg_print(std::ostream& out, int tab = 0) const;
 #endif

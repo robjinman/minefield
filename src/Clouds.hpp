@@ -18,9 +18,10 @@ class Clouds : public Item, public Dodge::Sprite {
       virtual void draw() const;
 
       virtual void update();
+      virtual void onEvent(const Dodge::EEvent* event) { Sprite::onEvent(event); }
 
       virtual size_t getSize() const;
-      virtual Clouds* clone() const;
+      virtual Asset* clone() const;
       virtual void addToWorld();
       virtual void removeFromWorld();
 
