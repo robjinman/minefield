@@ -275,6 +275,12 @@ void GameLogic::gameSuccess(const EEvent* event) {
    m_data.player->stopAnimation();
    m_data.player->stopTransformations();
    m_data.player->playAnimation(internString("enterPortal"));
+
+   int secs = m_data.gameOpts->timeLimit - m_data.timeCounter->getValue();
+   int& best = m_data.gameOpts->bestTime;
+
+   if (best == -1 || secs < best)
+      best = secs;
 }
 
 //===========================================
@@ -302,8 +308,8 @@ void GameLogic::startGame() {
 
    m_eventManager.immediateDispatch(new EEvent(internString("repopulateMap")));
 
-   m_data.scoreCounter->setValue(m_data.gameOpts.requiredGold);
-   m_data.timeCounter->setValue(m_data.gameOpts.timeLimit);
+   m_data.scoreCounter->setValue(m_data.gameOpts->requiredGold);
+   m_data.timeCounter->setValue(m_data.gameOpts->timeLimit);
    m_gameState = ST_RUNNING;
 }
 

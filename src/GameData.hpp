@@ -20,7 +20,7 @@
 
 
 struct GameData {
-   pGameSettings_t settings;
+   pGameSettings_t               settings;
 
    std::map<long, pItem_t>       persistentItems;
    std::map<long, pItem_t>       expendableItems;
@@ -35,7 +35,7 @@ struct GameData {
    Dodge::Colour                 timeCounterColour;
    Dodge::pTextEntity_t          txtRestart;
 
-   GameOptions                   gameOpts;
+   pGameOptions_t                gameOpts;
 
    pStartMenu_t                  startMenu;
    pPauseMenu_t                  pauseMenu;

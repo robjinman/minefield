@@ -64,6 +64,8 @@ void Application::exitDefault() {
 //===========================================
 void Application::quit() throw() {
    try {
+      updateBestTimesFile();
+
       m_eventManager.clear();
       freeAllAssets();
       m_renderer.stop();
@@ -363,7 +365,7 @@ void Application::populateMap(EEvent*) {
    int exitI = static_cast<int>(floor((exitPos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5));
    int exitJ = static_cast<int>(floor((exitPos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5));
 
-   for (int m = 0; m < m_data.gameOpts.mines; ++m) {
+   for (int m = 0; m < m_data.gameOpts->mines; ++m) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -443,7 +445,7 @@ void Application::populateMap(EEvent*) {
    vector<vector<bool> > coinsAndThrowables;
    for (int i = 0; i < w; ++i) coinsAndThrowables.push_back(vector<bool>(h, false));
 
-   for (int c = 0; c < m_data.gameOpts.coins; ++c) {
+   for (int c = 0; c < m_data.gameOpts->coins; ++c) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -476,7 +478,7 @@ void Application::populateMap(EEvent*) {
       coinsAndThrowables[i][j] = true;
    }
 
-   for (int c = 0; c < m_data.gameOpts.nuggets; ++c) {
+   for (int c = 0; c < m_data.gameOpts->nuggets; ++c) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -514,7 +516,7 @@ void Application::populateMap(EEvent*) {
       coinsAndThrowables[i][j] = true;
    }
 
-   for (int c = 0; c < m_data.gameOpts.throwables; ++c) {
+   for (int c = 0; c < m_data.gameOpts->throwables; ++c) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -552,7 +554,7 @@ void Application::populateMap(EEvent*) {
       coinsAndThrowables[i][j] = true;
    }
 
-   for (int c = 0; c < m_data.gameOpts.zombies; ++c) {
+   for (int c = 0; c < m_data.gameOpts->zombies; ++c) {
       int i = rand() % w;
       int j = rand() % h;
 
@@ -655,6 +657,85 @@ void Application::loadAssets() {
 }
 
 //===========================================
+// Application::loadBestTimes
+//===========================================
+void Application::loadBestTimes() {
+#ifdef LINUX
+   const char* home = getenv("HOME");
+   if (home) {
+      string path = string(home) + "/.local/share/minefield.dat";
+
+      KvpParser parser;
+      parser.parseFile(path);
+
+      vector<pGameOptions_t>& modes = m_data.settings->difficultyModes;
+      for (uint_t i = 0; i < modes.size(); ++i) {
+         stringstream mode;
+         mode << modes[i]->mines
+            << modes[i]->coins
+            << modes[i]->nuggets
+            << modes[i]->totalGold
+            << modes[i]->throwables
+            << modes[i]->zombies
+            << modes[i]->requiredGold
+            << modes[i]->timeLimit;
+
+         stringstream strBest;
+         strBest << parser.getValue(mode.str());
+
+         int best = -1;
+         if (!strBest.str().empty()) strBest >> best;
+
+         modes[i]->bestTime = best;
+      }
+   }
+#endif
+#ifdef WIN32
+
+#endif
+}
+
+//===========================================
+// Application::updateBestTimesFile
+//===========================================
+void Application::updateBestTimesFile() {
+#ifdef LINUX
+   const char* home = getenv("HOME");
+   if (home) {
+      string path = string(home) + "/.local/share/minefield.dat";
+
+      KvpParser parser;
+      parser.parseFile(path);
+
+      const vector<pGameOptions_t>& modes = m_data.settings->difficultyModes;
+      for (uint_t i = 0; i < modes.size(); ++i) {
+         stringstream mode;
+         mode << modes[i]->mines
+            << modes[i]->coins
+            << modes[i]->nuggets
+            << modes[i]->totalGold
+            << modes[i]->throwables
+            << modes[i]->zombies
+            << modes[i]->requiredGold
+            << modes[i]->timeLimit;
+
+         if (modes[i]->bestTime != -1) {
+            stringstream strBest;
+            strBest << modes[i]->bestTime;
+
+            parser.insertPair(mode.str(), strBest.str());
+         }
+      }
+
+      parser.writeToFile(path);
+   }
+#endif
+#ifdef WIN32
+
+#endif
+}
+
+//===========================================
 // Application::launch
 //===========================================
 void Application::launch(int argc, char** argv) {
@@ -689,6 +770,7 @@ void Application::launch(int argc, char** argv) {
    m_data.soundFx.initialise();
 
    loadAssets();
+   loadBestTimes();
 
    m_logic.start();
 }

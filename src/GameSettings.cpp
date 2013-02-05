@@ -108,7 +108,7 @@ void GameSettings::parseGameModes(XmlNode data) {
    XmlNode node = data.firstChild();
 
    while (!node.isNull() && node.name() == "GameOptions") {
-      difficultyModes.push_back(GameOptions(node));
+      difficultyModes.push_back(pGameOptions_t(new GameOptions(node)));
       node = node.nextSibling();
    }
 }

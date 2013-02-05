@@ -15,7 +15,7 @@ class GameOptionsMenu : public Menu {
       GameOptionsMenu(const GameOptionsMenu& copy);
       GameOptionsMenu(const GameOptionsMenu& copy, long name);
 
-      void setDifficultyModes(const std::vector<GameOptions>& modes);
+      void setDifficultyModes(const std::vector<pGameOptions_t>& modes);
 
       virtual void draw() const;
       virtual void update();
@@ -45,7 +45,7 @@ class GameOptionsMenu : public Menu {
       Dodge::pUiButton_t m_difficultyDownBtn;
       Dodge::pUiButton_t m_difficultyUpBtn;
 
-      std::vector<GameOptions> m_difficultyModes;
+      std::vector<pGameOptions_t> m_difficultyModes;
       unsigned int m_currentMode;
 
       std::unique_ptr<ProgressBar> m_slider;
@@ -58,6 +58,7 @@ class GameOptionsMenu : public Menu {
       Dodge::pTextEntity_t m_txtZombies;
       Dodge::pTextEntity_t m_txtReqScore;
       Dodge::pTextEntity_t m_txtTime;
+      Dodge::pTextEntity_t m_txtBestTime;
 };
 
 typedef boost::shared_ptr<GameOptionsMenu> pGameOptionsMenu_t;

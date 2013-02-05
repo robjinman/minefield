@@ -31,8 +31,9 @@ class Application {
       void freeAllAssets();
       bool isAdjacentTo(const Dodge::Vec2i& a, const Dodge::Vec2i& b) const;
       void loadAssets();
-      void parseGameModes(Dodge::XmlNode data);
       void keyDown(int key);
+      void loadBestTimes();
+      void updateBestTimesFile();
 
       void exitDefault();
 

@@ -92,7 +92,7 @@ void CreditsMenu::init() {
 
    pTextEntity_t txt1(new TextEntity(internString("text"), m_font, "Design & Programming: Rob Jinman", Vec2f(0.022f, 0.044f)));
    pTextEntity_t txt2(new TextEntity(internString("text"), m_font, "Music:                Jack Normal", Vec2f(0.022f, 0.044f)));
-   pTextEntity_t txt3(new TextEntity(internString("text"), m_font, "(Sprites: http://untamed.wild-refuge.net)", Vec2f(0.02f, 0.04f)));
+   pTextEntity_t txt3(new TextEntity(internString("text"), m_font, "Sprites: http://untamed.wild-refuge.net", Vec2f(0.02f, 0.04f)));
    pTextEntity_t txt4(new TextEntity(internString("text"), m_font, version, Vec2f(0.0175f, 0.035f)));
 
    m_textEntities.push_back(txt1);
@@ -114,7 +114,7 @@ void CreditsMenu::init() {
    txt2->setZ(9.f);
 
    txt3->setFillColour(Colour(0.5f, 0.5f, 0.5f, 0.f));
-   txt3->setTranslation(0.48f, 0.02f);
+   txt3->setTranslation(0.5f, 0.02f);
    txt3->setZ(9.f);
 
    txt4->setFillColour(Colour(0.7f, 0.7f, 0.7f, 0.f));

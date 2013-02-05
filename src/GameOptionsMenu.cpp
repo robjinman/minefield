@@ -107,33 +107,38 @@ void GameOptionsMenu::init() {
 
    pTextEntity_t lblMines(new TextEntity(internString("text"), m_font, "Land mines: ", Vec2f(0.022f, 0.044f)));
    lblMines->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   lblMines->setTranslation(0.75f, 0.8f);
+   lblMines->setTranslation(0.75f, 0.85f);
    lblMines->setZ(9.f);
 
    pTextEntity_t lblGold(new TextEntity(internString("text"), m_font, "Total gold: ", Vec2f(0.022f, 0.044f)));
    lblGold->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   lblGold->setTranslation(0.75f, 0.75f);
+   lblGold->setTranslation(0.75f, 0.8f);
    lblGold->setZ(9.f);
 
    pTextEntity_t lblThrowables(new TextEntity(internString("text"), m_font, "Sticks: ", Vec2f(0.022f, 0.044f)));
    lblThrowables->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   lblThrowables->setTranslation(0.75f, 0.7f);
+   lblThrowables->setTranslation(0.75f, 0.75f);
    lblThrowables->setZ(9.f);
 
    pTextEntity_t lblZombies(new TextEntity(internString("text"), m_font, "Wanderers: ", Vec2f(0.022f, 0.044f)));
    lblZombies->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   lblZombies->setTranslation(0.75f, 0.65f);
+   lblZombies->setTranslation(0.75f, 0.7f);
    lblZombies->setZ(9.f);
 
    pTextEntity_t lblReqScore(new TextEntity(internString("text"), m_font, "Gold required: ", Vec2f(0.022f, 0.044f)));
    lblReqScore->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   lblReqScore->setTranslation(0.75f, 0.6f);
+   lblReqScore->setTranslation(0.75f, 0.65f);
    lblReqScore->setZ(9.f);
 
    pTextEntity_t lblTime(new TextEntity(internString("text"), m_font, "Time available: ", Vec2f(0.022f, 0.044f)));
    lblTime->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   lblTime->setTranslation(0.75f, 0.55f);
+   lblTime->setTranslation(0.75f, 0.6f);
    lblTime->setZ(9.f);
+
+   pTextEntity_t lblBestTime(new TextEntity(internString("text"), m_font, "Best time: ", Vec2f(0.022f, 0.044f)));
+   lblBestTime->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
+   lblBestTime->setTranslation(0.75f, 0.5f);
+   lblBestTime->setZ(9.f);
 
    addChild(lblMines);
    addChild(lblGold);
@@ -141,36 +146,42 @@ void GameOptionsMenu::init() {
    addChild(lblZombies);
    addChild(lblReqScore);
    addChild(lblTime);
+   addChild(lblBestTime);
 
    m_txtMines = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022f, 0.044f)));
    m_txtMines->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   m_txtMines->setTranslation(1.1f, 0.8f);
+   m_txtMines->setTranslation(1.1f, 0.85f);
    m_txtMines->setZ(9.f);
 
    m_txtGold = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022f, 0.044f)));
    m_txtGold->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   m_txtGold->setTranslation(1.1f, 0.75f);
+   m_txtGold->setTranslation(1.1f, 0.8f);
    m_txtGold->setZ(9.f);
 
    m_txtThrowables = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022f, 0.044f)));
    m_txtThrowables->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   m_txtThrowables->setTranslation(1.1f, 0.7f);
+   m_txtThrowables->setTranslation(1.1f, 0.75f);
    m_txtThrowables->setZ(9.f);
 
    m_txtZombies = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022f, 0.044f)));
    m_txtZombies->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   m_txtZombies->setTranslation(1.1f, 0.65f);
+   m_txtZombies->setTranslation(1.1f, 0.7f);
    m_txtZombies->setZ(9.f);
 
    m_txtReqScore = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022f, 0.044f)));
    m_txtReqScore->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   m_txtReqScore->setTranslation(1.1f, 0.6f);
+   m_txtReqScore->setTranslation(1.1f, 0.65f);
    m_txtReqScore->setZ(9.f);
 
    m_txtTime = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022f, 0.044f)));
    m_txtTime->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
-   m_txtTime->setTranslation(1.1f, 0.55f);
+   m_txtTime->setTranslation(1.1f, 0.6f);
    m_txtTime->setZ(9.f);
+
+   m_txtBestTime = pTextEntity_t(new TextEntity(internString("text"), m_font, "", Vec2f(0.022f, 0.044f)));
+   m_txtBestTime->setFillColour(Colour(0.f, 0.f, 0.f, 1.f));
+   m_txtBestTime->setTranslation(1.1f, 0.5f);
+   m_txtBestTime->setZ(9.f);
 
    addChild(m_txtMines);
    addChild(m_txtGold);
@@ -178,6 +189,7 @@ void GameOptionsMenu::init() {
    addChild(m_txtZombies);
    addChild(m_txtReqScore);
    addChild(m_txtTime);
+   addChild(m_txtBestTime);
 }
 
 //===========================================
@@ -187,34 +199,44 @@ void GameOptionsMenu::updateText() {
    stringstream str;
 
    str.str("");
-   str << m_difficultyModes[m_currentMode].mines;
+   str << m_difficultyModes[m_currentMode]->mines;
    m_txtMines->setText(str.str());
 
    str.str("");
-   str << m_difficultyModes[m_currentMode].totalGold;
+   str << m_difficultyModes[m_currentMode]->totalGold;
    m_txtGold->setText(str.str());
 
    str.str("");
-   str << m_difficultyModes[m_currentMode].throwables;
+   str << m_difficultyModes[m_currentMode]->throwables;
    m_txtThrowables->setText(str.str());
 
    str.str("");
-   str << m_difficultyModes[m_currentMode].zombies;
+   str << m_difficultyModes[m_currentMode]->zombies;
    m_txtZombies->setText(str.str());
 
    str.str("");
-   str << m_difficultyModes[m_currentMode].requiredGold;
+   str << m_difficultyModes[m_currentMode]->requiredGold;
    m_txtReqScore->setText(str.str());
 
    str.str("");
-   str << m_difficultyModes[m_currentMode].timeLimit;
+   str << m_difficultyModes[m_currentMode]->timeLimit;
    m_txtTime->setText(str.str());
+
+   int best = m_difficultyModes[m_currentMode]->bestTime;
+
+   if (best != -1) {
+      str.str("");
+      str << best;
+      m_txtBestTime->setText(str.str());
+   }
+   else
+      m_txtBestTime->setText("n/a");
 }
 
 //===========================================
 // GameOptionsMenu::setDifficultyModes
 //===========================================
-void GameOptionsMenu::setDifficultyModes(const std::vector<GameOptions>& modes) {
+void GameOptionsMenu::setDifficultyModes(const std::vector<pGameOptions_t>& modes) {
    m_difficultyModes = modes;
    updateText();
 }
@@ -315,6 +337,8 @@ void GameOptionsMenu::addToWorld() {
 
    m_difficultyDownBtn->addToWorld();
    m_difficultyUpBtn->addToWorld();
+
+   updateText();
 }
 
 //===========================================

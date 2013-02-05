@@ -40,7 +40,7 @@ class GameSettings : virtual public Dodge::Asset {
       Dodge::Range                  minefieldBoundary;
       Dodge::Vec2f                  tileSize;
 
-      std::vector<GameOptions>      difficultyModes;
+      std::vector<pGameOptions_t>   difficultyModes;
 
    private:
       void parseGameModes(Dodge::XmlNode data);

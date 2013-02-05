@@ -4,7 +4,9 @@
 using namespace Dodge;
 
 
-GameOptions::GameOptions(const XmlNode data) {
+GameOptions::GameOptions(const XmlNode data)
+   : bestTime(-1) {
+
    try {
       XML_NODE_CHECK(data, GameOptions);
 

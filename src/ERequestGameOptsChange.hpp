@@ -13,10 +13,10 @@
 
 class ERequestGameOptsChange : public Dodge::EEvent {
    public:
-      ERequestGameOptsChange(const GameOptions& options_)
+      ERequestGameOptsChange(pGameOptions_t options_)
          : EEvent(Dodge::internString("requestGameOptsChange")), options(options_) {}
 
-      GameOptions options;
+      pGameOptions_t options;
 };
 
 
