@@ -1,5 +1,6 @@
 #include "GameSettings.hpp"
 #include <dodge/StringId.hpp>
+#include <dodge/globals.hpp>
 
 
 using namespace std;
@@ -17,7 +18,7 @@ GameSettings::GameSettings(const XmlNode data)
 
       XmlNode node = data.firstChild();
       XML_NODE_CHECK(node, soundTrack);
-      musicTrack = node.getString();
+      musicTrack = gGetWorkingDir() + "/" + node.getString();
 
       node = node.nextSibling();
       XML_NODE_CHECK(node, bgColour);

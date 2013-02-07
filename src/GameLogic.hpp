@@ -62,6 +62,8 @@ class GameLogic {
       Dodge::Renderer&              m_renderer;
       Dodge::Audio                  m_audio;
       std::map<int, bool>           m_keyState;
+      std::vector<int>              m_dirKeyStack;
+      int                           m_missedKeypress;
       bool                          m_mouseState[NUM_MOUSE_BUTTONS];
       Dodge::WinIO                  m_win;
       Dodge::EventManager           m_eventManager;

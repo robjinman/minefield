@@ -13,15 +13,20 @@
 class Player : public Item, public Dodge::Sprite {
    public:
       enum state_t { ALIVE, DEAD };
+      enum dir_t { LEFT, RIGHT, UP, DOWN };
 
       explicit Player(const Dodge::XmlNode data);
       Player(const Player& copy);
       Player(const Player& copy, long name);
 
-      inline void moveLeft();
-      inline void moveRight();
-      inline void moveUp();
-      inline void moveDown();
+      inline void confineToRegion(const Dodge::Range& region);
+
+      bool moveLeft();
+      bool moveRight();
+      bool moveUp();
+      bool moveDown();
+
+      inline dir_t facingDir() const;
 
       virtual void addToWorld() { Sprite::addToWorld(); }
       virtual void removeFromWorld() { Sprite::removeFromWorld(); }
@@ -44,8 +49,9 @@ class Player : public Item, public Dodge::Sprite {
       virtual ~Player();
 
    private:
-      enum dir_t { MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN };
       enum mode_t { NORMAL_MODE, THROWING_MODE };
+
+      Dodge::Range m_region;
 
       Dodge::WorldSpace m_worldSpace;
       Dodge::Quad m_footSensor;
@@ -58,10 +64,11 @@ class Player : public Item, public Dodge::Sprite {
 
       Dodge::Range m_originalTexSection;
 
+      dir_t m_facing;
       state_t m_state;
       mode_t m_mode;
 
-      void move(dir_t direction);
+      bool move(dir_t direction);
       void deepCopy(const Player& copy);
       void init();
       void checkForCollisions();
@@ -77,18 +84,24 @@ class Player : public Item, public Dodge::Sprite {
 typedef boost::shared_ptr<Player> pPlayer_t;
 
 //===========================================
-// Player::move*
-//===========================================
-void Player::moveLeft() { move(MOVE_LEFT); }
-void Player::moveRight() { move(MOVE_RIGHT); }
-void Player::moveUp() { move(MOVE_UP); }
-void Player::moveDown() { move(MOVE_DOWN); }
-
-//===========================================
 // Player::getState
 //===========================================
 Player::state_t Player::getState() const {
    return m_state;
+}
+
+//===========================================
+// Player::confineToRegion
+//===========================================
+void Player::confineToRegion(const Dodge::Range& region) {
+   m_region = region;
+}
+
+//===========================================
+// Player::facingDir
+//===========================================
+inline Player::dir_t Player::facingDir() const {
+   return m_facing;
 }
 
 

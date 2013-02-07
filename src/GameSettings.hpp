@@ -41,7 +41,6 @@ class GameSettings : virtual public Dodge::Asset {
       Dodge::Vec2f                  tileSize;
 
       std::vector<pGameOptions_t>   difficultyModes;
-
    private:
       void parseGameModes(Dodge::XmlNode data);
 };

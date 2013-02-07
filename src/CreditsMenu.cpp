@@ -69,7 +69,7 @@ CreditsMenu::CreditsMenu(const CreditsMenu& copy, long name)
 // CreditsMenu::getVersionNumber
 //===========================================
 string CreditsMenu::getVersionNumber() const {
-   ifstream fin("data/VERSION");
+   ifstream fin(gGetWorkingDir() + "/data/VERSION");
 
    if (!fin.good()) {
       fin.close();

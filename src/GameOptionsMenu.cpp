@@ -230,7 +230,7 @@ void GameOptionsMenu::updateText() {
       m_txtBestTime->setText(str.str());
    }
    else
-      m_txtBestTime->setText("n/a");
+      m_txtBestTime->setText("---");
 }
 
 //===========================================

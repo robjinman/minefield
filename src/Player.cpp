@@ -22,6 +22,7 @@ Player::Player(const Dodge::XmlNode data)
      Entity(data.firstChild().firstChild()),
      Item(data.firstChild()),
      Sprite(data.nthChild(1)),
+     m_facing(UP),
      m_state(ALIVE),
      m_mode(NORMAL_MODE) {
 
@@ -439,9 +440,75 @@ void Player::checkForCollisionWithThrowable() {
 }
 
 //===========================================
+// Player::moveLeft
+//===========================================
+bool Player::moveLeft() {
+   Vec2f pos = getTranslation_abs();
+   Vec2f sz = getBoundary().getSize();
+
+   float32_t dx = sz.x / 2.f;
+
+   float32_t rx = m_region.getPosition().x;
+
+   if (pos.x > rx + dx) return move(LEFT);
+
+   return true;
+}
+
+//===========================================
+// Player::moveRight
+//===========================================
+bool Player::moveRight() {
+   Vec2f pos = getTranslation_abs();
+   Vec2f sz = getBoundary().getSize();
+
+   float32_t dx = sz.x / 2.f;
+
+   float32_t rx = m_region.getPosition().x;
+   float32_t rw = m_region.getSize().x;
+
+   if (pos.x + sz.x < rx + rw - dx) return move(RIGHT);
+
+   return true;
+}
+
+//===========================================
+// Player::moveUp
+//===========================================
+bool Player::moveUp() {
+   Vec2f pos = getTranslation_abs();
+   Vec2f sz = getBoundary().getSize();
+
+   float32_t dy = sz.y / 2.f;
+
+   float32_t ry = m_region.getPosition().y;
+   float32_t rh = m_region.getSize().y;
+
+   if (pos.y + sz.y < ry + rh - dy) return move(UP);
+
+   return true;
+}
+
+//===========================================
+// Player::moveDown
+//===========================================
+bool Player::moveDown() {
+   Vec2f pos = getTranslation_abs();
+   Vec2f sz = getBoundary().getSize();
+
+   float32_t dy = sz.y / 2.f;
+
+   float32_t ry = m_region.getPosition().y;
+
+   if (pos.y > ry + dy) return move(DOWN);
+
+   return true;
+}
+
+//===========================================
 // Player::move
 //===========================================
-void Player::move(dir_t dir) {
+bool Player::move(dir_t dir) {
    static long moveLeftStr = internString("moveLeft");
    static long moveRightStr = internString("moveRight");
    static long moveUpStr = internString("moveUp");
@@ -450,10 +517,10 @@ void Player::move(dir_t dir) {
    long anim = 0;
 
    switch (dir) {
-      case MOVE_LEFT:   anim = moveLeftStr;  break;
-      case MOVE_RIGHT:  anim = moveRightStr; break;
-      case MOVE_DOWN:   anim = moveDownStr;  break;
-      case MOVE_UP:     anim = moveUpStr;    break;
+      case LEFT:   anim = moveLeftStr;  break;
+      case RIGHT:  anim = moveRightStr; break;
+      case DOWN:   anim = moveDownStr;  break;
+      case UP:     anim = moveUpStr;    break;
    }
 
    playAnimation(anim, true);
@@ -463,7 +530,12 @@ void Player::move(dir_t dir) {
       if (m_mode == THROWING_MODE) enterNormalMode();
 
       playTransformation(anim);
+      m_facing = dir;
+
+      return true;
    }
+
+   return false;
 }
 
 //===========================================

@@ -1,10 +1,12 @@
-﻿Build started 04/02/2013 23:42:16.
+﻿Build started 07/02/2013 12:28:41.
      1>Project "D:\Code\projects\minefield\vcpp\Minefield\Minefield.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\Code\projects\Dodge\Dodge\include\SDL /ID:\Code\projects\Dodge\Dodge\include\dodge /ID:\Code\projects\Dodge\Dodge\include /I"C:\Program Files\boost\boost_1_51" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D DEBUG /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\NumericTile.cpp
-         NumericTile.cpp
+         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\Code\projects\Dodge\Dodge\include\SDL /ID:\Code\projects\Dodge\Dodge\include\dodge /ID:\Code\projects\Dodge\Dodge\include /I"C:\Program Files\boost\boost_1_51" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\Application.cpp ..\..\src\GameLogic.cpp ..\..\src\main.cpp
+         Application.cpp
+         GameLogic.cpp
+         main.cpp
        Link:
-         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\Minefield.exe" /NOLOGO /LIBPATH:D:\Code\projects\Dodge\Dodge\lib Box2D.lib Dodge.lib glew32.lib glew32mx.lib Opengl32.lib SDL.lib SDL_mixer.lib SDLmain.lib pnglite.lib zlib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\Minefield.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\Minefield.lib" /MACHINE:X86 /SAFESEH Release\Application.obj
+         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\Minefield.exe" /NOLOGO /LIBPATH:D:\Code\projects\Dodge\Dodge\lib Box2D.lib Dodge.lib glew32.lib glew32mx.lib Opengl32.lib SDL.lib SDL_mixer.lib SDLmain.lib pnglite.lib zlib.lib comsuppw.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\Minefield.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\Minefield.lib" /MACHINE:X86 /SAFESEH Release\Application.obj
          Release\Clouds.obj
          Release\Collectable.obj
          Release\Counter.obj
@@ -38,4 +40,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:23.33
+Time Elapsed 00:00:36.52

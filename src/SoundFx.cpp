@@ -1,5 +1,6 @@
 #include <dodge/EventManager.hpp>
 #include <dodge/StringId.hpp>
+#include <dodge/globals.hpp>
 #include "SoundFx.hpp"
 
 
@@ -41,12 +42,12 @@ void SoundFx::initialise() {
    eventManager.registerCallback(internString("gameOver"),
       Functor<void, TYPELIST_1(EEvent*)>(this, &SoundFx::processMessages));
 
-   m_bang = pSound_t(new Sound("data/sounds/bang.wav"));
-   m_pickUpCoin = pSound_t(new Sound("data/sounds/pickUpCoin.wav"));
-   m_throw = pSound_t(new Sound("data/sounds/throw.wav"));
-   m_enterPortal = pSound_t(new Sound("data/sounds/enterPortal.wav"));
-   m_scream = pSound_t(new Sound("data/sounds/scream.wav"));
-   m_tickTock = pSound_t(new Sound("data/sounds/tick.wav"));
+   m_bang = pSound_t(new Sound(gGetWorkingDir() + "/data/sounds/bang.wav"));
+   m_pickUpCoin = pSound_t(new Sound(gGetWorkingDir() + "/data/sounds/pickUpCoin.wav"));
+   m_throw = pSound_t(new Sound(gGetWorkingDir() + "/data/sounds/throw.wav"));
+   m_enterPortal = pSound_t(new Sound(gGetWorkingDir() + "/data/sounds/enterPortal.wav"));
+   m_scream = pSound_t(new Sound(gGetWorkingDir() + "/data/sounds/scream.wav"));
+   m_tickTock = pSound_t(new Sound(gGetWorkingDir() + "/data/sounds/tick.wav"));
 }
 
 //===========================================

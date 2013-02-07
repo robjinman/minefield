@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+
+  <Product Name='Minefield' Id='3e359061-d322-4103-96ed-998fb1b3e798' UpgradeCode='1fa8ed27-b1bd-42d2-b99d-abf524f2effd'
+    Language='1033' Codepage='1252' Version='1.0.0' Manufacturer='Rob Jinman'>
+
+    <Package Id='*' Keywords='Installer' Description="Minefield installer"
+      Comments='Minefield is created and maintained by Rob Jinman who owns exclusive copyrights.' Manufacturer='Rob Jinman'
+      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1' />
+    <Property Id='DiskPrompt' Value="Minefield installation" />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='INSTALLDIR' Name='Minefield'>
+
+          <Component Id='MainExecutable' Guid='52313995-b66e-47b9-8b9e-49eb7ff5ebd4'>
+            <File Id='minefieldexe' Name='Minefield.exe' DiskId='1' Source='Minefield.exe' KeyPath='yes'>
+
+              <Shortcut Id="startMenuMinefield" Directory="ProgramMenuDir" Name="Minefield"
+                WorkingDirectory='INSTALLDIR' Icon="minefield.ico" IconIndex="0" Advertise="yes" />
+
+              <Shortcut Id="desktopMinefield" Directory="DesktopFolder" Name="Minefield"
+                WorkingDirectory='INSTALLDIR' Icon="minefield.ico" IconIndex="0" Advertise="yes" />
+
+            </File>
+          </Component>
+
+          <Component Id='glew32dll' Guid='e8013438-f838-4dd2-8a3c-c4adc312eefa'>
+            <File Id='glew32dll' Name='glew32.dll' DiskId='1' Source='glew32.dll' KeyPath='yes' />
+          </Component>
+          <Component Id='glew32mxdll' Guid='a42f2a66-6166-43c5-a80b-7fd6b0a18501'>
+            <File Id='glew32mxdll' Name='glew32mx.dll' DiskId='1' Source='glew32mx.dll' KeyPath='yes' />
+          </Component>
+          <Component Id='libogg0dll' Guid='9429044c-ed58-4108-b730-d18b18162d1b'>
+            <File Id='libogg0dll' Name='libogg-0.dll' DiskId='1' Source='libogg-0.dll' KeyPath='yes' />
+          </Component>
+          <Component Id='libvorbis0dll' Guid='54cd909d-11e7-43ca-ab91-7354d153a0fd'>
+            <File Id='libvorbis0dll' Name='libvorbis-0.dll' DiskId='1' Source='libvorbis-0.dll' KeyPath='yes' />
+          </Component>
+          <Component Id='libvorbisfile3dll' Guid='0aae80ca-ea6c-4ae5-a7b2-dfcf9ae1baa4'>
+            <File Id='libvorbisfile3dll' Name='libvorbisfile-3.dll' DiskId='1' Source='libvorbisfile-3.dll' KeyPath='yes' />
+          </Component>
+          <Component Id='sdldll' Guid='edf87a84-8eea-46f2-8763-2cba27c6d132'>
+            <File Id='sdldll' Name='SDL.dll' DiskId='1' Source='SDL.dll' KeyPath='yes' />
+          </Component>
+          <Component Id='sdl_mixerdll' Guid='3ef6e7a7-e264-43b3-b979-7e1f0607de07'>
+            <File Id='sdl_mixerdll' Name='SDL_mixer.dll' DiskId='1' Source='SDL_mixer.dll' KeyPath='yes' />
+          </Component>
+          <Component Id='zlib1dll' Guid='fab617f0-1f6c-4597-b74e-7410b2b03616'>
+            <File Id='zlib1dll' Name='zlib1.dll' DiskId='1' Source='zlib1.dll' KeyPath='yes' />
+          </Component>
+
+          <Directory Id='dataFolder' Name='data'>
+            <Directory Id='soundsFolder' Name='sounds'>
+              <Component Id='bangwav' Guid='17943a39-8abe-442a-b0b4-1d91d096a79d'>
+                <File Id='bangwav' Name='bang.wav' DiskId='1' Source='data\sounds\bang.wav' KeyPath='yes' />
+              </Component>
+              <Component Id='enterportalwav' Guid='aead85c7-d9b7-484c-9099-e66e439e2c7b'>
+                <File Id='enterportalwav' Name='enterPortal.wav' DiskId='1' Source='data\sounds\enterPortal.wav' KeyPath='yes' />
+              </Component>
+              <Component Id='pickupcoinwav' Guid='7deb9134-0bb0-4b3f-9e09-6f9f7d70a378'>
+                <File Id='pickupcoinwav' Name='pickUpCoin.wav' DiskId='1' Source='data\sounds\pickUpCoin.wav' KeyPath='yes' />
+              </Component>
+              <Component Id='screamwav' Guid='b1932480-7c27-46e1-909e-859b4e042b0d'>
+                <File Id='screamwav' Name='scream.wav' DiskId='1' Source='data\sounds\scream.wav' KeyPath='yes' />
+              </Component>
+              <Component Id='throwwav' Guid='31fdcefb-a465-4fde-9c7b-2edba27e338a'>
+                <File Id='throwwav' Name='throw.wav' DiskId='1' Source='data\sounds\throw.wav' KeyPath='yes' />
+              </Component>
+              <Component Id='tickwav' Guid='d46108ce-d5fa-42f6-942e-2cf6ec82915f'>
+                <File Id='tickwav' Name='tick.wav' DiskId='1' Source='data\sounds\tick.wav' KeyPath='yes' />
+              </Component>
+              <Component Id='halothaneogg' Guid='8a4e1adc-5259-4ae9-bb32-bdd1214a2759'>
+                <File Id='halothaneogg' Name='halothane.ogg' DiskId='1' Source='data\sounds\halothane.ogg' KeyPath='yes' />
+              </Component>
+
+            </Directory>
+            <Directory Id='texturesFolder' Name='textures'>
+
+              <Component Id='atlaspng' Guid='ada4c0af-c61c-494c-bdb1-d14074a47c44'>
+                <File Id='atlaspng' Name='atlas.png' DiskId='1' Source='data\textures\atlas.png' KeyPath='yes' />
+              </Component>
+
+            </Directory>
+            <Directory Id='xmlFolder' Name='xml'>
+              <Directory Id='a0folder' Name='0'>
+                <Component Id='a00xml' Guid='0aeed375-c3a5-4a18-b607-57009b7232d6'>
+                  <File Id='a00xml' Name='00.xml' DiskId='1' Source='data\xml\0\00.xml' KeyPath='yes' />
+                </Component>
+              </Directory>
+
+              <Component Id='collectablexml' Guid='a72d9233-8f8e-45b3-a0e1-50f38b75ae65'>
+                <File Id='collectablexml' Name='collectable.xml' DiskId='1' Source='data\xml\collectable.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='commonxml' Guid='0452cd6c-3d5f-4a88-9640-1ad399287846'>
+                <File Id='commonxml' Name='common.xml' DiskId='1' Source='data\xml\common.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='creditsmenuxml' Guid='cf21f80d-f61a-4857-b8de-f0bec41ca011'>
+                <File Id='creditsmenuxml' Name='creditsMenu.xml' DiskId='1' Source='data\xml\creditsMenu.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='exitxml' Guid='ca53694b-1b5c-41e3-9b3c-66d701587ec5'>
+                <File Id='exitxml' Name='exit.xml' DiskId='1' Source='data\xml\exit.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='fontsxml' Guid='6861badf-8818-4f48-91c3-ea61fdfcb0a9'>
+                <File Id='fontsxml' Name='fonts.xml' DiskId='1' Source='data\xml\fonts.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='gameoptionsmenuxml' Guid='bb899c60-5ec7-49b6-997e-23ba20742557'>
+                <File Id='gameoptionsmenuxml' Name='gameOptionsMenu.xml' DiskId='1' Source='data\xml\gameOptionsMenu.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='menucommonxml' Guid='9b86e75e-04ad-469b-b7dc-aeb1da0bc5ff'>
+                <File Id='menucommonxml' Name='menuCommon.xml' DiskId='1' Source='data\xml\menuCommon.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='minexml' Guid='2f93c06d-6b1e-466b-b57f-6f6d7d57ae7a'>
+                <File Id='minexml' Name='mine.xml' DiskId='1' Source='data\xml\mine.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='numerictilexml' Guid='f948d64f-accf-4d00-b8f3-888d93a3830e'>
+                <File Id='numerictilexml' Name='numericTile.xml' DiskId='1' Source='data\xml\numericTile.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='pausemenuxml' Guid='91d9a580-5cd3-4277-8ee5-7aaeb833f8a4'>
+                <File Id='pausemenuxml' Name='pauseMenu.xml' DiskId='1' Source='data\xml\pauseMenu.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='persistentassetsxml' Guid='f699418a-5d29-4335-9f56-44c4b788bf7a'>
+                <File Id='persistentassetsxml' Name='PersistentAssets.xml' DiskId='1' Source='data\xml\PersistentAssets.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='playerxml' Guid='16dfa25f-b131-44e8-9535-646c0477758d'>
+                <File Id='playerxml' Name='player.xml' DiskId='1' Source='data\xml\player.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='settingsxml' Guid='8a27506e-ed2f-4791-beb3-399c2fd38eb2'>
+                <File Id='settingsxml' Name='settings.xml' DiskId='1' Source='data\xml\settings.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='settingsmenuxml' Guid='053b4f03-fe32-4a06-8a25-2475da162fb7'>
+                <File Id='settingsmenuxml' Name='settingsMenu.xml' DiskId='1' Source='data\xml\settingsMenu.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='soilxml' Guid='785ea4bf-4393-4a04-a67b-8a3e791eac92'>
+                <File Id='soilxml' Name='soil.xml' DiskId='1' Source='data\xml\soil.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='startmenuxml' Guid='14912402-2778-4edf-a417-caec99657776'>
+                <File Id='startmenuxml' Name='startMenu.xml' DiskId='1' Source='data\xml\startMenu.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='throwablexml' Guid='bacc2a94-c2da-43e1-bc55-988ded503de5'>
+                <File Id='throwablexml' Name='throwable.xml' DiskId='1' Source='data\xml\throwable.xml' KeyPath='yes' />
+              </Component>
+
+              <Component Id='zombiexml' Guid='3e7df8d6-8698-48e1-8441-d68111bc8426'>
+                <File Id='zombiexml' Name='zombie.xml' DiskId='1' Source='data\xml\zombie.xml' KeyPath='yes' />
+              </Component>
+
+            </Directory>
+
+            <Component Id='version' Guid='a494daa9-e489-4b43-b8ed-bac116d6faa0'>
+              <File Id='version' Name='VERSION' DiskId='1' Source='data\VERSION' KeyPath='yes' />
+            </Component>
+          </Directory>
+
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="Games">
+          <Component Id="ProgramMenuDir" Guid="def45987-2391-4f47-8898-4dd59f46fded">
+            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\[ProductName]' Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
+      </Directory>
+
+      <Directory Id="LocalAppDataFolder" Name="Local">
+        <Component Id="LocalAppData" Guid="5a56cc36-0690-4efc-85dc-66c197d3a0ee">
+          <RemoveFile Id="PurgeAppFolder" Name="minefield.dat" On="uninstall" />
+          <RegistryValue Root='HKCU' Key='Software\[ProductName]' Type='string' Value='' KeyPath='yes' />
+        </Component>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <Feature Id='Complete' Level='1'>
+      <ComponentRef Id='MainExecutable' />
+      <ComponentRef Id='glew32dll' />
+      <ComponentRef Id='glew32mxdll' />
+      <ComponentRef Id='libogg0dll' />
+      <ComponentRef Id='libvorbis0dll' />
+      <ComponentRef Id='libvorbisfile3dll' />
+      <ComponentRef Id='sdldll' />
+      <ComponentRef Id='sdl_mixerdll' />
+      <ComponentRef Id='zlib1dll' />
+
+      <ComponentRef Id='bangwav' />
+      <ComponentRef Id='enterportalwav' />
+      <ComponentRef Id='pickupcoinwav' />
+      <ComponentRef Id='screamwav' />
+      <ComponentRef Id='throwwav' />
+      <ComponentRef Id='tickwav' />
+      <ComponentRef Id='halothaneogg' />
+
+      <ComponentRef Id='atlaspng' />
+
+      <ComponentRef Id='collectablexml' />
+      <ComponentRef Id='commonxml' />
+      <ComponentRef Id='creditsmenuxml' />
+      <ComponentRef Id='exitxml' />
+      <ComponentRef Id='fontsxml' />
+      <ComponentRef Id='gameoptionsmenuxml' />
+      <ComponentRef Id='menucommonxml' />
+      <ComponentRef Id='minexml' />
+      <ComponentRef Id='numerictilexml' />
+      <ComponentRef Id='pausemenuxml' />
+      <ComponentRef Id='persistentassetsxml' />
+      <ComponentRef Id='playerxml' />
+      <ComponentRef Id='settingsxml' />
+      <ComponentRef Id='settingsmenuxml' />
+      <ComponentRef Id='soilxml' />
+      <ComponentRef Id='startmenuxml' />
+      <ComponentRef Id='throwablexml' />
+      <ComponentRef Id='zombiexml' />
+
+      <ComponentRef Id='a00xml' />
+
+      <ComponentRef Id='version' />
+
+      <ComponentRef Id='ProgramMenuDir' />
+      <ComponentRef Id='LocalAppData' />
+    </Feature>
+
+    <Icon Id="minefield.ico" SourceFile="minefield.ico" />
+  </Product>
+</Wix>

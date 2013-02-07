@@ -1,3 +1,5 @@
 src/*.o
+vcpp/Minefield/Debug/*.obj
+vcpp/Minefield/Release/*.obj
 Dodge
 backups

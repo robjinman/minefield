@@ -26,6 +26,10 @@
 #include "Collectable.hpp"
 #include "CreditsMenu.hpp"
 #include "GameOptionsMenu.hpp"
+#ifdef WIN32
+#include <comutil.h>
+#include <shlobj.h>
+#endif
 
 
 #define TARGET_MEM_USAGE 9999999
@@ -624,6 +628,8 @@ void Application::loadAssets() {
    if (!m_data.player)
       throw Exception("Error loading map; Bad player proto id", __FILE__, __LINE__);
 
+   m_data.player->confineToRegion(m_data.settings->minefieldBoundary);
+
    m_data.exit = boost::dynamic_pointer_cast<Exit>(m_assetManager.getAssetPointer(m_data.settings->exitId));
    if (!m_data.exit)
       throw Exception("Error loading map; Bad exit proto id", __FILE__, __LINE__);
@@ -660,6 +666,8 @@ void Application::loadAssets() {
 // Application::loadBestTimes
 //===========================================
 void Application::loadBestTimes() {
+   if (!m_data.settings) return;
+
 #ifdef LINUX
    const char* home = getenv("HOME");
    if (home) {
@@ -691,7 +699,43 @@ void Application::loadBestTimes() {
    }
 #endif
 #ifdef WIN32
+   wchar_t* localAppData = new wchar_t[128];
+   if (SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, NULL, &localAppData) == S_OK) {
 
+      _bstr_t bstrPath(localAppData);
+      string str(static_cast<char*>(bstrPath)); 
+
+      stringstream ss;
+      ss << str << "\\minefield.dat";
+
+      string path = ss.str();
+
+      CoTaskMemFree(static_cast<void*>(localAppData));
+
+      KvpParser parser;
+      parser.parseFile(path);
+
+      vector<pGameOptions_t>& modes = m_data.settings->difficultyModes;
+      for (uint_t i = 0; i < modes.size(); ++i) {
+         stringstream mode;
+         mode << modes[i]->mines
+            << modes[i]->coins
+            << modes[i]->nuggets
+            << modes[i]->totalGold
+            << modes[i]->throwables
+            << modes[i]->zombies
+            << modes[i]->requiredGold
+            << modes[i]->timeLimit;
+
+         stringstream strBest;
+         strBest << parser.getValue(mode.str());
+
+         int best = -1;
+         if (!strBest.str().empty()) strBest >> best;
+
+         modes[i]->bestTime = best;
+      }
+   }
 #endif
 }
 
@@ -699,6 +743,8 @@ void Application::loadBestTimes() {
 // Application::updateBestTimesFile
 //===========================================
 void Application::updateBestTimesFile() {
+   if (!m_data.settings) return;
+
 #ifdef LINUX
    const char* home = getenv("HOME");
    if (home) {
@@ -731,7 +777,44 @@ void Application::updateBestTimesFile() {
    }
 #endif
 #ifdef WIN32
+   wchar_t* localAppData = new wchar_t[128];
+   if (SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, NULL, &localAppData) == S_OK) {
 
+      _bstr_t bstrPath(localAppData);
+      string str(static_cast<char*>(bstrPath)); 
+
+      stringstream ss;
+      ss << str << "\\minefield.dat";
+
+      string path = ss.str();
+
+      CoTaskMemFree(static_cast<void*>(localAppData));
+
+      KvpParser parser;
+      parser.parseFile(path);
+
+      const vector<pGameOptions_t>& modes = m_data.settings->difficultyModes;
+      for (uint_t i = 0; i < modes.size(); ++i) {
+         stringstream mode;
+         mode << modes[i]->mines
+            << modes[i]->coins
+            << modes[i]->nuggets
+            << modes[i]->totalGold
+            << modes[i]->throwables
+            << modes[i]->zombies
+            << modes[i]->requiredGold
+            << modes[i]->timeLimit;
+
+         if (modes[i]->bestTime != -1) {
+            stringstream strBest;
+            strBest << modes[i]->bestTime;
+
+            parser.insertPair(mode.str(), strBest.str());
+         }
+      }
+
+      parser.writeToFile(path);
+   }
 #endif
 }
 

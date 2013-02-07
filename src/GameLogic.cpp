@@ -24,6 +24,7 @@ using namespace Dodge;
 //===========================================
 GameLogic::GameLogic(GameData& gameData)
    : m_renderer(Renderer::getInstance()),
+     m_missedKeypress(-1),
      m_frameRate(60.0),
      m_data(gameData) {
 
@@ -35,16 +36,22 @@ GameLogic::GameLogic(GameData& gameData)
 // GameLogic::keyDown
 //===========================================
 void GameLogic::keyDown(int key) {
+   if (key == WinIO::KEY_LEFT || key == WinIO::KEY_RIGHT
+      || key == WinIO::KEY_UP || key == WinIO::KEY_DOWN) {
 
-   switch (key) {
+      m_dirKeyStack.push_back(key);
+   }
+
 #ifdef DEBUG
+   switch (key) {
       case WinIO::KEY_1: m_data.dbg_worldSpaceVisible = !m_data.dbg_worldSpaceVisible; break;
       case WinIO::KEY_F:
          cout << "Frame rate (main thread): " << m_frameRate << "fps\n";
          cout << "Frame rate (renderer): " << m_renderer.getFrameRate() << "fps\n";
       break;
-#endif
+      default: break;
    }
+#endif
 
    switch (m_gameState) {
       case ST_RUNNING:
@@ -69,6 +76,15 @@ void GameLogic::keyDown(int key) {
 //===========================================
 void GameLogic::keyUp(int key) {
    m_keyState[key] = false;
+
+   // dirKeyStack is the list of currently depressed directional
+   // keys in the order they were pressed.
+   for (uint_t i = 0; i < m_dirKeyStack.size(); ++i) {
+      if (m_keyState[m_dirKeyStack[i]] == false) {
+         m_dirKeyStack.erase(m_dirKeyStack.begin() + i);
+         --i;
+      }
+   }
 }
 
 //===========================================
@@ -114,21 +130,46 @@ void GameLogic::keyboard() {
       case ST_RUNNING:
          switch (m_data.player->getState()) {
             case Player::ALIVE: {
-               Vec2f mapPos = m_data.settings->minefieldBoundary.getPosition();
-               Vec2f mapSz = m_data.settings->minefieldBoundary.getSize();
-
-               Vec2f pos = m_data.player->getTranslation_abs();
-
-               float32_t w = m_data.settings->tileSize.x;
-               float32_t h = m_data.settings->tileSize.y;
-
-               float32_t dx = w / 2.f;
-               float32_t dy = h / 2.f;
-
-               if (m_keyState[WinIO::KEY_LEFT])    if (pos.x > mapPos.x + dx)                m_data.player->moveLeft();
-               if (m_keyState[WinIO::KEY_RIGHT])   if (pos.x + w < mapPos.x + mapSz.x - dx)  m_data.player->moveRight();
-               if (m_keyState[WinIO::KEY_DOWN])    if (pos.y > mapPos.y + dy)                m_data.player->moveDown();
-               if (m_keyState[WinIO::KEY_UP])      if (pos.y + h < mapPos.y + mapSz.y - dy)  m_data.player->moveUp();
+               // Attempt to move in direction of missed keypress
+               if (m_missedKeypress != -1) {
+                  switch (m_missedKeypress) {
+                     case WinIO::KEY_RIGHT:  if (m_data.player->moveRight()) m_missedKeypress = -1; break;
+                     case WinIO::KEY_LEFT:   if (m_data.player->moveLeft())  m_missedKeypress = -1; break;
+                     case WinIO::KEY_UP:     if (m_data.player->moveUp())    m_missedKeypress = -1; break;
+                     case WinIO::KEY_DOWN:   if (m_data.player->moveDown())  m_missedKeypress = -1; break;
+                  }
+               }
+               else {
+                  // Move in the direction of most recently pressed key
+                  if (m_dirKeyStack.size() > 0) {
+                     switch (m_dirKeyStack.back()) {
+                        case WinIO::KEY_RIGHT:
+                           if (!m_data.player->moveRight()) {                       // If the player is already moving remember this keypress
+                              if (m_data.player->facingDir() != Player::RIGHT)
+                                 m_missedKeypress = WinIO::KEY_RIGHT;
+                           }
+                           break;
+                        case WinIO::KEY_LEFT:
+                           if (!m_data.player->moveLeft()) {
+                              if (m_data.player->facingDir() != Player::LEFT)
+                                 m_missedKeypress = WinIO::KEY_LEFT;
+                           }
+                           break;
+                        case WinIO::KEY_UP:
+                           if (!m_data.player->moveUp()) {
+                              if (m_data.player->facingDir() != Player::UP)
+                                 m_missedKeypress = WinIO::KEY_UP;
+                           }
+                           break;
+                        case WinIO::KEY_DOWN:
+                           if (!m_data.player->moveDown()) {
+                              if (m_data.player->facingDir() != Player::DOWN)
+                                 m_missedKeypress = WinIO::KEY_DOWN;
+                           }
+                           break;
+                     }
+                  }
+               }
             }
             break;
             case Player::DEAD: {
@@ -154,8 +195,6 @@ void GameLogic::resetGame() {
    m_data.txtRestart->removeFromWorld();
 
    m_eventManager.clear();
-//   freeAllAssets();
-//   loadAssets();
 
    m_data.mineField.clear();
    m_data.expendableItems.clear();
@@ -311,6 +350,9 @@ void GameLogic::startGame() {
    m_data.scoreCounter->setValue(m_data.gameOpts->requiredGold);
    m_data.timeCounter->setValue(m_data.gameOpts->timeLimit);
    m_gameState = ST_RUNNING;
+
+   m_dirKeyStack.clear();
+   m_missedKeypress = -1;
 }
 
 //===========================================
