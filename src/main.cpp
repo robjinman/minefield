@@ -4,6 +4,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <dodge/Exception.hpp>
 #include "Application.hpp"
 
@@ -70,11 +71,15 @@ MAIN {
       app.launch(argc, argv);
    }
    catch (Dodge::Exception& e) {
-      cerr << "An error occured; " << e.what() << "\n" << flush;
+      ofstream log(settings.workingDir + "/log.txt");
+      log << "An error occured; " << e.what() << "\n" << flush;
+      log.close();
       app.quit();
    }
    catch (...) {
-      cerr << "An unknown error occured\n" << flush;
+      ofstream log(settings.workingDir + "/log.txt");
+      log << "An unknown error occured\n" << flush;
+      log.close();
       app.quit();
    }
 
