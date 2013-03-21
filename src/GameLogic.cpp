@@ -12,9 +12,6 @@
 #include "ERequestGameOptsChange.hpp"
 
 
-#define TARGET_MEM_USAGE 9999999
-
-
 using namespace std;
 using namespace Dodge;
 

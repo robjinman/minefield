@@ -2,7 +2,7 @@ DODGE_LOCATION = ../Dodge
 
 NAME = minefield
 CC = g++
-CFLAGS = -std=c++0x -O3 -Wall `sdl-config --cflags` -DLINUX
+CFLAGS = -std=c++0x -O3 -Wall `sdl-config --cflags` -DLINUX -g -DDEBUG
 INCL = -I$(DODGE_LOCATION)/Dodge/include
 LIBS = -L$(DODGE_LOCATION)/Dodge/lib -L/usr/lib -lDodge -lX11 -lGLESv2 -lEGL -lpnglite -lz -lBox2D `sdl-config --libs` -lSDLmain -lSDL -lSDL_mixer
 SRC = src
