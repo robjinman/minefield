@@ -13,6 +13,7 @@
 class Player : public Item, public Dodge::Sprite {
    public:
       enum state_t { ALIVE, DEAD };
+      enum mode_t { NORMAL_MODE, THROWING_MODE };
       enum dir_t { LEFT, RIGHT, UP, DOWN };
 
       explicit Player(const Dodge::XmlNode data);
@@ -35,6 +36,7 @@ class Player : public Item, public Dodge::Sprite {
       void die();
 
       inline state_t getState() const;
+      inline mode_t getMode() const;
 
       virtual void draw() const;
       virtual void update();
@@ -49,8 +51,6 @@ class Player : public Item, public Dodge::Sprite {
       virtual ~Player();
 
    private:
-      enum mode_t { NORMAL_MODE, THROWING_MODE };
-
       Dodge::Range m_region;
 
       Dodge::WorldSpace m_worldSpace;
@@ -88,6 +88,13 @@ typedef boost::shared_ptr<Player> pPlayer_t;
 //===========================================
 Player::state_t Player::getState() const {
    return m_state;
+}
+
+//===========================================
+// Player::getMode
+//===========================================
+Player::mode_t Player::getMode() const {
+   return m_mode;
 }
 
 //===========================================

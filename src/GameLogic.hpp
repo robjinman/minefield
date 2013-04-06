@@ -28,6 +28,16 @@ class GameLogic {
          NUM_MOUSE_BUTTONS = 3
       } mouseBtn_t;
 
+      struct mouseState_t {
+         mouseState_t() {
+            for (int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
+               btnState[i] = false;
+         }
+
+         bool btnState[NUM_MOUSE_BUTTONS];
+         Dodge::Vec2i pos;
+      };
+
       void keyDown(int key);
       void keyUp(int key);
       void mouseLeftClick(int x, int y);
@@ -35,6 +45,7 @@ class GameLogic {
       void mouseLeftRelease(int x, int y);
       void mouseRightRelease(int x, int y);
       void mouseMove(int x, int y);
+      void mouse();
       void keyboard();
       void onWindowResize(int w, int h);
 
@@ -64,7 +75,7 @@ class GameLogic {
       std::map<int, bool>           m_keyState;
       std::vector<int>              m_dirKeyStack;
       int                           m_missedKeypress;
-      bool                          m_mouseState[NUM_MOUSE_BUTTONS];
+      mouseState_t                  m_mouseState;
       Dodge::WinIO                  m_win;
       Dodge::EventManager           m_eventManager;
       double                        m_frameRate;

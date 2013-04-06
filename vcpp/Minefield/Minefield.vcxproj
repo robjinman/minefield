@@ -39,7 +39,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..</OutDir>
+    <OutDir>..\..\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\</OutDir>
@@ -53,7 +53,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Box2D.lib;Dodge.lib;glew32.lib;glew32mx.lib;Opengl32.lib;SDL.lib;SDL_mixer.lib;SDLmain.lib;pnglite.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Box2D.lib;Dodge.lib;glew32.lib;glew32mx.lib;Opengl32.lib;SDL.lib;SDL_mixer.lib;SDLmain.lib;pnglite.lib;zlib.lib;comsuppw.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Code\projects\Dodge\Dodge\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

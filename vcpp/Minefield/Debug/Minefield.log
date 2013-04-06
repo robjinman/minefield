@@ -1,338 +1,39 @@
-﻿Build started 04/02/2013 17:10:19.
+﻿Build started 05/04/2013 23:59:17.
      1>Project "D:\Code\projects\minefield\vcpp\Minefield\Minefield.vcxproj" on node 2 (Rebuild target(s)).
-     1>C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(346,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
          C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\Code\projects\Dodge\Dodge\include\SDL /ID:\Code\projects\Dodge\Dodge\include\dodge /ID:\Code\projects\Dodge\Dodge\include /I"C:\Program Files\boost\boost_1_51" /ZI /nologo /W3 /WX- /Od /Oy- /D DEBUG /D WIN32 /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\Application.cpp ..\..\src\Clouds.cpp ..\..\src\Collectable.cpp ..\..\src\Counter.cpp ..\..\src\CreditsMenu.cpp ..\..\src\CSprite.cpp ..\..\src\CTextEntity.cpp ..\..\src\Exit.cpp ..\..\src\GameLogic.cpp ..\..\src\GameOptions.cpp ..\..\src\GameOptionsMenu.cpp ..\..\src\GameSettings.cpp ..\..\src\Item.cpp ..\..\src\main.cpp ..\..\src\Menu.cpp ..\..\src\MenuItem.cpp ..\..\src\Mine.cpp ..\..\src\NumericTile.cpp ..\..\src\PauseMenu.cpp ..\..\src\Player.cpp ..\..\src\ProgressBar.cpp ..\..\src\SettingsMenu.cpp ..\..\src\Soil.cpp ..\..\src\SoundFx.cpp ..\..\src\StartMenu.cpp ..\..\src\Throwable.cpp ..\..\src\Zombie.cpp
          Zombie.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          Throwable.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          StartMenu.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
          SoundFx.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          Soil.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\soil.hpp(27): warning C4373: 'Soil::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\soil.hpp(27): warning C4373: 'Soil::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
          SettingsMenu.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(119): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(119): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(120): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(120): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(229): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(231): warning C4244: 'argument' : conversion from 'double' to 'Dodge::float32_t', possible loss of data
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(242): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(244): warning C4244: 'argument' : conversion from 'double' to 'Dodge::float32_t', possible loss of data
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(255): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(257): warning C4244: 'argument' : conversion from 'double' to 'Dodge::float32_t', possible loss of data
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(268): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>d:\code\projects\minefield\src\settingsmenu.cpp(270): warning C4244: 'argument' : conversion from 'double' to 'Dodge::float32_t', possible loss of data
          ProgressBar.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\progressbar.cpp(12): warning C4305: '=' : truncation from 'double' to 'Dodge::float32_t'
          Player.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\player.hpp(72): warning C4250: 'Player' : inherits 'Dodge::Sprite::Dodge::Sprite::addToWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(41) : see declaration of 'Dodge::Sprite::addToWorld'
-     1>d:\code\projects\minefield\src\player.hpp(72): warning C4250: 'Player' : inherits 'Dodge::Sprite::Dodge::Sprite::removeFromWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(42) : see declaration of 'Dodge::Sprite::removeFromWorld'
          PauseMenu.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
          NumericTile.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\numerictile.hpp(32): warning C4250: 'NumericTile' : inherits 'Dodge::Sprite::Dodge::Sprite::addToWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(41) : see declaration of 'Dodge::Sprite::addToWorld'
-     1>d:\code\projects\minefield\src\numerictile.hpp(32): warning C4250: 'NumericTile' : inherits 'Dodge::Sprite::Dodge::Sprite::removeFromWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(42) : see declaration of 'Dodge::Sprite::removeFromWorld'
-     1>d:\code\projects\minefield\src\numerictile.hpp(32): warning C4250: 'NumericTile' : inherits 'Dodge::Sprite::Dodge::Sprite::onEvent' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(39) : see declaration of 'Dodge::Sprite::onEvent'
-     1>d:\code\projects\minefield\src\numerictile.hpp(32): warning C4250: 'NumericTile' : inherits 'Dodge::Sprite::Dodge::Sprite::draw' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(44) : see declaration of 'Dodge::Sprite::draw'
-     1>d:\code\projects\minefield\src\numerictile.cpp(102): warning C4244: 'initializing' : conversion from 'const Dodge::float32_t' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\numerictile.cpp(103): warning C4244: 'initializing' : conversion from 'const Dodge::float32_t' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\numerictile.cpp(107): warning C4244: 'argument' : conversion from 'int' to 'Dodge::float32_t', possible loss of data
-     1>d:\code\projects\minefield\src\numerictile.cpp(107): warning C4244: 'argument' : conversion from 'unsigned int' to 'Dodge::float32_t', possible loss of data
          Mine.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\mine.hpp(34): warning C4250: 'Mine' : inherits 'Dodge::Sprite::Dodge::Sprite::addToWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(41) : see declaration of 'Dodge::Sprite::addToWorld'
-     1>d:\code\projects\minefield\src\mine.hpp(34): warning C4250: 'Mine' : inherits 'Dodge::Sprite::Dodge::Sprite::removeFromWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(42) : see declaration of 'Dodge::Sprite::removeFromWorld'
-     1>d:\code\projects\minefield\src\mine.hpp(34): warning C4250: 'Mine' : inherits 'Dodge::Sprite::Dodge::Sprite::draw' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(44) : see declaration of 'Dodge::Sprite::draw'
          MenuItem.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
          Menu.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
          main.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\dodge\dodge\include\dodge\windows\utils.hpp(17): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
-     1>d:\code\projects\minefield\src\player.hpp(72): warning C4250: 'Player' : inherits 'Dodge::Sprite::Dodge::Sprite::addToWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(41) : see declaration of 'Dodge::Sprite::addToWorld'
-     1>d:\code\projects\minefield\src\player.hpp(72): warning C4250: 'Player' : inherits 'Dodge::Sprite::Dodge::Sprite::removeFromWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(42) : see declaration of 'Dodge::Sprite::removeFromWorld'
-     1>d:\code\projects\minefield\src\exit.hpp(30): warning C4373: 'Exit::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\exit.hpp(30): warning C4373: 'Exit::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\ctextentity.hpp(33): warning C4250: 'CTextEntity' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
-     1>d:\code\projects\minefield\src\counter.hpp(34): warning C4250: 'Counter' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
          Item.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          GameSettings.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          GameOptionsMenu.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(103): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(103): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(108): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(110): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(113): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(118): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(120): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(123): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(125): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(128): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(130): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(133): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(135): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(145): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(147): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(150): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(152): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(155): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(157): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(160): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(162): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(165): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(167): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(170): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(172): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(229): warning C4244: 'initializing' : conversion from 'unsigned int' to 'Dodge::float32_t', possible loss of data
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(230): warning C4244: 'initializing' : conversion from 'unsigned int' to 'Dodge::float32_t', possible loss of data
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(248): warning C4244: 'initializing' : conversion from 'unsigned int' to 'Dodge::float32_t', possible loss of data
-     1>d:\code\projects\minefield\src\gameoptionsmenu.cpp(249): warning C4244: 'initializing' : conversion from 'unsigned int' to 'Dodge::float32_t', possible loss of data
          GameOptions.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          GameLogic.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\dodge\dodge\include\dodge\windows\utils.hpp(17): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
-     1>d:\code\projects\minefield\src\player.hpp(72): warning C4250: 'Player' : inherits 'Dodge::Sprite::Dodge::Sprite::addToWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(41) : see declaration of 'Dodge::Sprite::addToWorld'
-     1>d:\code\projects\minefield\src\player.hpp(72): warning C4250: 'Player' : inherits 'Dodge::Sprite::Dodge::Sprite::removeFromWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(42) : see declaration of 'Dodge::Sprite::removeFromWorld'
-     1>d:\code\projects\minefield\src\exit.hpp(30): warning C4373: 'Exit::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\exit.hpp(30): warning C4373: 'Exit::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\ctextentity.hpp(33): warning C4250: 'CTextEntity' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
-     1>d:\code\projects\minefield\src\counter.hpp(34): warning C4250: 'Counter' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
-     1>d:\code\projects\minefield\src\gamelogic.cpp(289): warning C4244: 'initializing' : conversion from 'Dodge::float32_t' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\gamelogic.cpp(290): warning C4244: 'initializing' : conversion from 'Dodge::float32_t' to 'int', possible loss of data
          Exit.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\exit.hpp(30): warning C4373: 'Exit::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\exit.hpp(30): warning C4373: 'Exit::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
          Generating Code...
          Compiling...
          CTextEntity.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\ctextentity.hpp(33): warning C4250: 'CTextEntity' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
          CSprite.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          CreditsMenu.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\creditsmenu.cpp(93): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\creditsmenu.cpp(94): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\creditsmenu.cpp(95): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\creditsmenu.cpp(96): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\creditsmenu.cpp(109): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\creditsmenu.cpp(113): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\creditsmenu.cpp(117): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\creditsmenu.cpp(121): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
          Counter.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\ctextentity.hpp(33): warning C4250: 'CTextEntity' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
-     1>d:\code\projects\minefield\src\counter.hpp(34): warning C4250: 'Counter' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
          Collectable.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\collectable.hpp(27): warning C4373: 'Collectable::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\collectable.hpp(27): warning C4373: 'Collectable::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
          Clouds.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\minefield\src\clouds.hpp(32): warning C4250: 'Clouds' : inherits 'Dodge::Sprite::Dodge::Sprite::onEvent' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(39) : see declaration of 'Dodge::Sprite::onEvent'
          Application.cpp
-     1>d:\code\projects\dodge\dodge\include\dodge\definitions.hpp(28): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>d:\code\projects\dodge\dodge\include\dodge\windows\utils.hpp(17): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
-     1>d:\code\projects\minefield\src\player.hpp(72): warning C4250: 'Player' : inherits 'Dodge::Sprite::Dodge::Sprite::addToWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(41) : see declaration of 'Dodge::Sprite::addToWorld'
-     1>d:\code\projects\minefield\src\player.hpp(72): warning C4250: 'Player' : inherits 'Dodge::Sprite::Dodge::Sprite::removeFromWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(42) : see declaration of 'Dodge::Sprite::removeFromWorld'
-     1>d:\code\projects\minefield\src\exit.hpp(30): warning C4373: 'Exit::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\exit.hpp(30): warning C4373: 'Exit::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Dodge::UiButton::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\ui\uibutton.hpp(36) : see declaration of 'Dodge::UiButton::assignData'
-     1>d:\code\projects\minefield\src\menuitem.hpp(29): warning C4373: 'MenuItem::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\menu.hpp(36): warning C4373: 'Menu::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\ctextentity.hpp(33): warning C4250: 'CTextEntity' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
-     1>d:\code\projects\minefield\src\counter.hpp(34): warning C4250: 'Counter' : inherits 'Dodge::TextEntity::Dodge::TextEntity::setFillColour' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\textentity.hpp(27) : see declaration of 'Dodge::TextEntity::setFillColour'
-     1>d:\code\projects\minefield\src\numerictile.hpp(32): warning C4250: 'NumericTile' : inherits 'Dodge::Sprite::Dodge::Sprite::addToWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(41) : see declaration of 'Dodge::Sprite::addToWorld'
-     1>d:\code\projects\minefield\src\numerictile.hpp(32): warning C4250: 'NumericTile' : inherits 'Dodge::Sprite::Dodge::Sprite::removeFromWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(42) : see declaration of 'Dodge::Sprite::removeFromWorld'
-     1>d:\code\projects\minefield\src\numerictile.hpp(32): warning C4250: 'NumericTile' : inherits 'Dodge::Sprite::Dodge::Sprite::onEvent' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(39) : see declaration of 'Dodge::Sprite::onEvent'
-     1>d:\code\projects\minefield\src\numerictile.hpp(32): warning C4250: 'NumericTile' : inherits 'Dodge::Sprite::Dodge::Sprite::draw' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(44) : see declaration of 'Dodge::Sprite::draw'
-     1>d:\code\projects\minefield\src\mine.hpp(34): warning C4250: 'Mine' : inherits 'Dodge::Sprite::Dodge::Sprite::addToWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(41) : see declaration of 'Dodge::Sprite::addToWorld'
-     1>d:\code\projects\minefield\src\mine.hpp(34): warning C4250: 'Mine' : inherits 'Dodge::Sprite::Dodge::Sprite::removeFromWorld' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(42) : see declaration of 'Dodge::Sprite::removeFromWorld'
-     1>d:\code\projects\minefield\src\mine.hpp(34): warning C4250: 'Mine' : inherits 'Dodge::Sprite::Dodge::Sprite::draw' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(44) : see declaration of 'Dodge::Sprite::draw'
-     1>d:\code\projects\minefield\src\soil.hpp(27): warning C4373: 'Soil::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\soil.hpp(27): warning C4373: 'Soil::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\clouds.hpp(32): warning C4250: 'Clouds' : inherits 'Dodge::Sprite::Dodge::Sprite::onEvent' via dominance
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(39) : see declaration of 'Dodge::Sprite::onEvent'
-     1>d:\code\projects\minefield\src\collectable.hpp(27): warning C4373: 'Collectable::assignData': virtual function overrides 'Dodge::Sprite::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-                 d:\code\projects\dodge\dodge\include\dodge\sprite.hpp(37) : see declaration of 'Dodge::Sprite::assignData'
-     1>d:\code\projects\minefield\src\collectable.hpp(27): warning C4373: 'Collectable::assignData': virtual function overrides 'Item::assignData', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
-                 d:\code\projects\minefield\src\item.hpp(23) : see declaration of 'Item::assignData'
-     1>d:\code\projects\minefield\src\application.cpp(139): warning C4305: 'argument' : truncation from 'double' to 'Dodge::float32_t'
-     1>d:\code\projects\minefield\src\application.cpp(181): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(182): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(185): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(186): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(346): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(347): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(359): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(360): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(363): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>d:\code\projects\minefield\src\application.cpp(364): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
          Generating Code...
        Link:
-         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\Minefield.exe" /INCREMENTAL /NOLOGO /LIBPATH:D:\Code\projects\Dodge\Dodge\lib Box2D.lib Dodge.lib glew32.lib glew32mx.lib Opengl32.lib SDL.lib SDL_mixer.lib SDLmain.lib pnglite.lib zlib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\Minefield.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\Minefield.lib" /MACHINE:X86 Debug\Application.obj
+         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\Minefield.exe" /INCREMENTAL /NOLOGO /LIBPATH:D:\Code\projects\Dodge\Dodge\lib Box2D.lib Dodge.lib glew32.lib glew32mx.lib Opengl32.lib SDL.lib SDL_mixer.lib SDLmain.lib pnglite.lib zlib.lib comsuppw.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\Minefield.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\Minefield.lib" /MACHINE:X86 Debug\Application.obj
          Debug\Clouds.obj
          Debug\Collectable.obj
          Debug\Counter.obj
@@ -370,4 +71,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:02:55.00
+Time Elapsed 00:02:27.32

@@ -23,11 +23,7 @@ GameLogic::GameLogic(GameData& gameData)
    : m_renderer(Renderer::getInstance()),
      m_missedKeypress(-1),
      m_frameRate(60.0),
-     m_data(gameData) {
-
-   for (int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
-      m_mouseState[i] = false;
-}
+     m_data(gameData) {}
 
 //===========================================
 // GameLogic::keyDown
@@ -88,35 +84,99 @@ void GameLogic::keyUp(int key) {
 // GameLogic::mouseLeftClick
 //===========================================
 void GameLogic::mouseLeftClick(int x, int y) {
-   m_mouseState[MOUSE_LEFT_BUTTON] = true;
+   m_mouseState.btnState[MOUSE_LEFT_BUTTON] = true;
+   m_mouseState.pos = Vec2i(x, y);
+
+   if (m_gameState == ST_RUNNING) {
+      if (m_data.player->getState() == Player::DEAD) {
+         resetGame();
+         startGame();
+         m_mouseState.btnState[MOUSE_LEFT_BUTTON] = false;
+      }
+      else if (m_data.player->getState() == Player::ALIVE
+         && m_data.player->getMode() == Player::THROWING_MODE) {
+
+         m_mouseState.btnState[MOUSE_LEFT_BUTTON] = false;
+      }
+   }
 }
 
 //===========================================
 // GameLogic::mouseRightClick
 //===========================================
 void GameLogic::mouseRightClick(int x, int y) {
-   m_mouseState[MOUSE_RIGHT_BUTTON] = true;
+   m_mouseState.btnState[MOUSE_RIGHT_BUTTON] = true;
+   m_mouseState.pos = Vec2i(x, y);
 }
 
 //===========================================
 // GameLogic::mouseLeftRelease
 //===========================================
 void GameLogic::mouseLeftRelease(int x, int y) {
-   m_mouseState[MOUSE_LEFT_BUTTON] = false;
+   m_mouseState.btnState[MOUSE_LEFT_BUTTON] = false;
+   m_mouseState.pos = Vec2i(x, y);
 }
 
 //===========================================
 // GameLogic::mouseRightRelease
 //===========================================
 void GameLogic::mouseRightRelease(int x, int y) {
-   m_mouseState[MOUSE_RIGHT_BUTTON] = false;
+   m_mouseState.btnState[MOUSE_RIGHT_BUTTON] = false;
+   m_mouseState.pos = Vec2i(x, y);
 }
 
 //===========================================
 // GameLogic::mouseMove
 //===========================================
 void GameLogic::mouseMove(int x, int y) {
+   m_mouseState.pos = Vec2i(x, y);
+}
 
+//===========================================
+// GameLogic::mouse
+//===========================================
+void GameLogic::mouse() {
+   Vec2f viewPos = m_renderer.getCamera().getTranslation();
+
+   int x = m_mouseState.pos.x;
+   int y = m_win.getWindowHeight() - m_mouseState.pos.y;
+
+   float32_t wx = viewPos.x + static_cast<float32_t>(x) * gGetPixelSize().x;
+   float32_t wy = viewPos.y + static_cast<float32_t>(y) * gGetPixelSize().y;
+
+   switch (m_gameState) {
+      case ST_RUNNING:
+         if (m_mouseState.btnState[MOUSE_LEFT_BUTTON]
+            && m_data.player->getState() == Player::ALIVE
+            && m_data.player->getMode() == Player::NORMAL_MODE) {
+
+            Vec2f sz = m_data.player->getOnScreenSize();
+            Vec2f plyr = m_data.player->getTranslation_abs() + (sz / 2.0);
+
+            float32_t dx = wx - plyr.x;
+            float32_t dy = wy - plyr.y;
+
+            if (fabs(dx) > sz.x / 2.0 || fabs(dy) > sz.y / 2.0) {
+               if (fabs(dx) > fabs(dy)) {
+                  if (dx < 0.f)
+                     m_data.player->moveLeft();
+                  else
+                     m_data.player->moveRight();
+               }
+               else {
+                  if (dy < 0.f)
+                     m_data.player->moveDown();
+                  else
+                     m_data.player->moveUp();
+               }
+            }
+         }
+      break;
+      case ST_START_MENU:
+      break;
+      case ST_PAUSED:
+      break;
+   }
 }
 
 //===========================================
@@ -544,21 +604,21 @@ void GameLogic::start() {
             m_win.doEvents();
             m_eventManager.doEvents();
             keyboard();
+            mouse();
             update();
             draw();
             m_renderer.tick(m_data.settings->bgColour);
-            m_win.swapBuffers();
          break;
          case ST_RUNNING:
             computeFrameRate();
             m_win.doEvents();
             m_eventManager.doEvents();
             keyboard();
+            mouse();
             update();
             updateTimer();
             draw();
             m_renderer.tick(m_data.settings->bgColour);
-            m_win.swapBuffers();
          break;
       }
 

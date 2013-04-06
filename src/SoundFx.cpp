@@ -16,7 +16,7 @@ pSound_t SoundFx::m_tickTock;
 
 
 //===========================================
-// Application::initialise
+// SoundFx::initialise
 //===========================================
 void SoundFx::initialise() {
    EventManager eventManager;
@@ -51,7 +51,7 @@ void SoundFx::initialise() {
 }
 
 //===========================================
-// Application::processMessages
+// SoundFx::processMessages
 //===========================================
 void SoundFx::processMessages(Dodge::EEvent* event) {
    static long explosionStr = internString("explosion");
