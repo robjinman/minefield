@@ -1,39 +1,7 @@
-﻿Build started 05/04/2013 23:59:17.
-     1>Project "D:\Code\projects\minefield\vcpp\Minefield\Minefield.vcxproj" on node 2 (Rebuild target(s)).
-     1>ClCompile:
-         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\Code\projects\Dodge\Dodge\include\SDL /ID:\Code\projects\Dodge\Dodge\include\dodge /ID:\Code\projects\Dodge\Dodge\include /I"C:\Program Files\boost\boost_1_51" /ZI /nologo /W3 /WX- /Od /Oy- /D DEBUG /D WIN32 /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\Application.cpp ..\..\src\Clouds.cpp ..\..\src\Collectable.cpp ..\..\src\Counter.cpp ..\..\src\CreditsMenu.cpp ..\..\src\CSprite.cpp ..\..\src\CTextEntity.cpp ..\..\src\Exit.cpp ..\..\src\GameLogic.cpp ..\..\src\GameOptions.cpp ..\..\src\GameOptionsMenu.cpp ..\..\src\GameSettings.cpp ..\..\src\Item.cpp ..\..\src\main.cpp ..\..\src\Menu.cpp ..\..\src\MenuItem.cpp ..\..\src\Mine.cpp ..\..\src\NumericTile.cpp ..\..\src\PauseMenu.cpp ..\..\src\Player.cpp ..\..\src\ProgressBar.cpp ..\..\src\SettingsMenu.cpp ..\..\src\Soil.cpp ..\..\src\SoundFx.cpp ..\..\src\StartMenu.cpp ..\..\src\Throwable.cpp ..\..\src\Zombie.cpp
-         Zombie.cpp
-         Throwable.cpp
-         StartMenu.cpp
-         SoundFx.cpp
-         Soil.cpp
-         SettingsMenu.cpp
-         ProgressBar.cpp
-         Player.cpp
-         PauseMenu.cpp
-         NumericTile.cpp
-         Mine.cpp
-         MenuItem.cpp
-         Menu.cpp
-         main.cpp
-         Item.cpp
-         GameSettings.cpp
-         GameOptionsMenu.cpp
-         GameOptions.cpp
-         GameLogic.cpp
-         Exit.cpp
-         Generating Code...
-         Compiling...
-         CTextEntity.cpp
-         CSprite.cpp
-         CreditsMenu.cpp
-         Counter.cpp
-         Collectable.cpp
-         Clouds.cpp
-         Application.cpp
-         Generating Code...
-       Link:
-         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\Minefield.exe" /INCREMENTAL /NOLOGO /LIBPATH:D:\Code\projects\Dodge\Dodge\lib Box2D.lib Dodge.lib glew32.lib glew32mx.lib Opengl32.lib SDL.lib SDL_mixer.lib SDLmain.lib pnglite.lib zlib.lib comsuppw.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\Minefield.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\Minefield.lib" /MACHINE:X86 Debug\Application.obj
+﻿Build started 08/04/2013 23:08:02.
+     1>Project "D:\Code\projects\minefield\vcpp\Minefield\Minefield.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\Minefield.exe" /INCREMENTAL /NOLOGO /LIBPATH:D:\Code\projects\Dodge\Dodge\lib Box2D.lib Dodged.lib glew32.lib glew32mx.lib Opengl32.lib SDL.lib SDL_mixer.lib SDLmain.lib pnglite.lib zlib.lib comsuppw.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\Minefield.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\Minefield.lib" /MACHINE:X86 Debug\Application.obj
          Debug\Clouds.obj
          Debug\Collectable.obj
          Debug\Counter.obj
@@ -67,8 +35,8 @@
          Generating code
          Finished generating code
          Minefield.vcxproj -> D:\Code\projects\minefield\vcpp\Minefield\..\..\Minefield.exe
-     1>Done Building Project "D:\Code\projects\minefield\vcpp\Minefield\Minefield.vcxproj" (Rebuild target(s)).
+     1>Done Building Project "D:\Code\projects\minefield\vcpp\Minefield\Minefield.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:02:27.32
+Time Elapsed 00:00:11.27

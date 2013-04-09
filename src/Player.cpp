@@ -286,6 +286,7 @@ void Player::enterNormalMode() {
    WinIO win;
    win.unregisterCallback(WinIO::EVENT_MOUSEMOVE, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseMove));
    win.unregisterCallback(WinIO::EVENT_BTN1PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseLeftClick));
+   win.unregisterCallback(WinIO::EVENT_BTN3PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseRightClick));
 
    m_throwable.reset();
    m_crosshairs->removeFromWorld();
@@ -300,6 +301,7 @@ void Player::enterThrowingMode(pThrowable_t throwable) {
    WinIO win;
    win.registerCallback(WinIO::EVENT_MOUSEMOVE, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseMove));
    win.registerCallback(WinIO::EVENT_BTN1PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseLeftClick));
+   win.registerCallback(WinIO::EVENT_BTN3PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseRightClick));
 
    m_throwable = throwable;
    m_crosshairs->addToWorld();
@@ -344,6 +346,15 @@ void Player::mouseLeftClick(int x, int y) {
 }
 
 //===========================================
+// Player::mouseRightClick
+//===========================================
+void Player::mouseRightClick(int x, int y) {
+   assert(m_mode == THROWING_MODE);
+
+   enterNormalMode();
+}
+
+//===========================================
 // Player::checkForCollisions
 //===========================================
 void Player::checkForCollisions() {
@@ -352,6 +363,7 @@ void Player::checkForCollisions() {
    static long hitFromBottomStr = internString("hitFromBottom");
    static long hitFromTopStr = internString("hitFromTop");
    static long hitFromAboveStr = internString("hitFromAbove");
+   static long playerStandsOnStr = internString("playerStandsOn");
 
    vector<pEntity_t> vec;
    m_worldSpace.getEntities(getBoundary(), vec);
@@ -404,6 +416,10 @@ void Player::checkForCollisions() {
          EEvent* event = new EEvent(hitFromAboveStr);
          vec[i]->onEvent(event);
          delete event;
+
+         EEvent* event2 = new EEvent(playerStandsOnStr);
+         vec[i]->onEvent(event2);
+         delete event2;
       }
    }
 }
@@ -557,4 +573,5 @@ Player::~Player() {
    WinIO win;
    win.unregisterCallback(WinIO::EVENT_MOUSEMOVE, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseMove));
    win.unregisterCallback(WinIO::EVENT_BTN1PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseLeftClick));
+   win.unregisterCallback(WinIO::EVENT_BTN3PRESS, Functor<void, TYPELIST_2(int, int)>(this, &Player::mouseRightClick));
 }

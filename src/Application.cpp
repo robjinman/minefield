@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 #include "EPendingDeletion.hpp"
 #include "Application.hpp"
 #include "NumericTile.hpp"
@@ -136,6 +137,7 @@ void Application::setMapSettings(const XmlNode data) {
       m_gameSettingsId = node.getLong();
 
       m_win.init("Minefield", winSz.x, winSz.y, false);
+      m_renderer.loadSettingsFromFile(gGetWorkingDir() + "/data/renderer.conf");
       m_renderer.start();
 
       pCamera_t camera(new Camera(static_cast<float32_t>(winSz.x) / static_cast<float32_t>(winSz.y), 1.f));
@@ -368,6 +370,8 @@ void Application::populateMap(EEvent*) {
    Vec2f exitPos = m_data.exit->getTranslation_abs();
    int exitI = static_cast<int>(floor((exitPos.x - mb.getPosition().x) / m_data.settings->tileSize.x + 0.5));
    int exitJ = static_cast<int>(floor((exitPos.y - mb.getPosition().y) / m_data.settings->tileSize.y + 0.5));
+
+   srand(static_cast<int>(time(NULL)));
 
    for (int m = 0; m < m_data.gameOpts->mines; ++m) {
       int i = rand() % w;

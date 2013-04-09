@@ -79,6 +79,7 @@ class Player : public Item, public Dodge::Sprite {
 
       void mouseMove(int x, int y);
       void mouseLeftClick(int x, int y);
+      void mouseRightClick(int x, int y);
 };
 
 typedef boost::shared_ptr<Player> pPlayer_t;

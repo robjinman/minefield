@@ -93,12 +93,12 @@ void Exit::removeFromWorld() {
 // Exit::onEvent
 //===========================================
 void Exit::onEvent(const EEvent* event) {
-   static long hitFromAboveStr = internString("hitFromAbove");
+   static long playerStandsOnStr = internString("playerStandsOn");
    static long successStr = internString("success");
 
    Sprite::onEvent(event);
 
-   if (event->getType() == hitFromAboveStr) {
+   if (event->getType() == playerStandsOnStr) {
       if (m_state == IS_OPEN) {
          EventManager eventManager;
          eventManager.queueEvent(new EEvent(successStr));

@@ -1,1 +1,1 @@
-An error occured; Exception caught in render loop; Error constructing shader program; Unrecognised type (FILE: src/renderer/ogl/RenderMode.cpp, LINE: 32)
+An error occured; Exception caught in render loop; Could not process shader; Error in source: 0:1(1): error: syntax error, unexpected NEW_IDENTIFIER (FILE: src/renderer/ogl/RenderMode.cpp, LINE: 99)
