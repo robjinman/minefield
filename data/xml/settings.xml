@@ -3,7 +3,7 @@
    <assets>
       <asset id="999">
          <GameSettings>
-            <soundTrack>data/sounds/Halothane.ogg</soundTrack>
+            <soundTrack>data/sounds/halothane.ogg</soundTrack>
             <bgColour><Colour r="0.075" g="0.05" b="0.025" a="1.0"/></bgColour>
             <minefieldBoundary>
                <Range>

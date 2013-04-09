@@ -1,4 +1,4 @@
-﻿Build started 09/04/2013 02:43:24.
+﻿Build started 09/04/2013 17:30:00.
      1>Project "D:\Code\projects\minefield\vcpp\Minefield\Minefield.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\Code\projects\Dodge\Dodge\include\SDL /ID:\Code\projects\Dodge\Dodge\include\dodge /ID:\Code\projects\Dodge\Dodge\include /I"C:\Program Files\boost\boost_1_51" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D GLEW /D _MBCS /Gm /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\Application.cpp ..\..\src\Clouds.cpp ..\..\src\Collectable.cpp ..\..\src\Counter.cpp ..\..\src\CreditsMenu.cpp ..\..\src\CSprite.cpp ..\..\src\CTextEntity.cpp ..\..\src\Exit.cpp ..\..\src\GameLogic.cpp ..\..\src\GameOptions.cpp ..\..\src\GameOptionsMenu.cpp ..\..\src\GameSettings.cpp ..\..\src\Item.cpp ..\..\src\main.cpp ..\..\src\Menu.cpp ..\..\src\MenuItem.cpp ..\..\src\Mine.cpp ..\..\src\NumericTile.cpp ..\..\src\PauseMenu.cpp ..\..\src\Player.cpp ..\..\src\ProgressBar.cpp ..\..\src\SettingsMenu.cpp ..\..\src\Soil.cpp ..\..\src\SoundFx.cpp ..\..\src\StartMenu.cpp ..\..\src\Throwable.cpp ..\..\src\Zombie.cpp
@@ -59,14 +59,14 @@
          Release\Throwable.obj
          Release\Zombie.obj
          Generating code
-     1>d:\code\projects\dodge\dodge\include\dodge\renderer\ogl\oglwrapper.hpp(207): warning C4715: 'Dodge::OglWrapper::getUniformLocation' : not all control paths return a value
-     1>d:\code\projects\dodge\dodge\include\dodge\renderer\ogl\oglwrapper.hpp(315): warning C4715: 'Dodge::OglWrapper::createShader' : not all control paths return a value
-     1>d:\code\projects\dodge\dodge\include\dodge\renderer\ogl\oglwrapper.hpp(193): warning C4715: 'Dodge::OglWrapper::getAttribLocation' : not all control paths return a value
-     1>d:\code\projects\dodge\dodge\include\dodge\renderer\ogl\oglwrapper.hpp(151): warning C4715: 'Dodge::OglWrapper::createProgram' : not all control paths return a value
+     1>d:\code\projects\dodge\dodge\include\dodge\renderer\ogl\oglwrapper.hpp(169): warning C4715: 'Dodge::OglWrapper::createProgram' : not all control paths return a value
+     1>d:\code\projects\dodge\dodge\include\dodge\renderer\ogl\oglwrapper.hpp(217): warning C4715: 'Dodge::OglWrapper::getAttribLocation' : not all control paths return a value
+     1>d:\code\projects\dodge\dodge\include\dodge\renderer\ogl\oglwrapper.hpp(355): warning C4715: 'Dodge::OglWrapper::createShader' : not all control paths return a value
+     1>d:\code\projects\dodge\dodge\include\dodge\renderer\ogl\oglwrapper.hpp(233): warning C4715: 'Dodge::OglWrapper::getUniformLocation' : not all control paths return a value
          Finished generating code
          Minefield.vcxproj -> D:\Code\projects\minefield\vcpp\Minefield\..\..\Minefield.exe
      1>Done Building Project "D:\Code\projects\minefield\vcpp\Minefield\Minefield.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:02:48.50
+Time Elapsed 00:02:25.62

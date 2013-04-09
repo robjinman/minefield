@@ -27,11 +27,14 @@
             </File>
           </Component>
 
+          <Component Id='msvcr110dll' Guid='7f465edb-b1ee-4f03-ad28-8a43573b601f'>
+            <File Id='msvcr110dll' Name='msvcr110.dll' DiskId='1' Source='msvcr110.dll' KeyPath='yes' />
+          </Component>
+          <Component Id='msvcp110dll' Guid='472091b0-dcd3-42b1-bf8c-7e63dc0cae0a'>
+            <File Id='msvcp110dll' Name='msvcp110.dll' DiskId='1' Source='msvcp110.dll' KeyPath='yes' />
+          </Component>
           <Component Id='glew32dll' Guid='e8013438-f838-4dd2-8a3c-c4adc312eefa'>
             <File Id='glew32dll' Name='glew32.dll' DiskId='1' Source='glew32.dll' KeyPath='yes' />
-          </Component>
-          <Component Id='glew32mxdll' Guid='a42f2a66-6166-43c5-a80b-7fd6b0a18501'>
-            <File Id='glew32mxdll' Name='glew32mx.dll' DiskId='1' Source='glew32mx.dll' KeyPath='yes' />
           </Component>
           <Component Id='libogg0dll' Guid='9429044c-ed58-4108-b730-d18b18162d1b'>
             <File Id='libogg0dll' Name='libogg-0.dll' DiskId='1' Source='libogg-0.dll' KeyPath='yes' />
@@ -50,6 +53,10 @@
           </Component>
           <Component Id='zlib1dll' Guid='fab617f0-1f6c-4597-b74e-7410b2b03616'>
             <File Id='zlib1dll' Name='zlib1.dll' DiskId='1' Source='zlib1.dll' KeyPath='yes' />
+          </Component>
+
+          <Component Id='logtxt' Guid='90b7492e-ea65-4f5a-94f0-44ed4a1ad6e7'>
+            <File Id='logtxt' Name='log.txt' DiskId='1' Source='log.txt' KeyPath='yes' />
           </Component>
 
           <Directory Id='dataFolder' Name='data'>
@@ -168,6 +175,11 @@
             <Component Id='version' Guid='a494daa9-e489-4b43-b8ed-bac116d6faa0'>
               <File Id='version' Name='VERSION' DiskId='1' Source='data\VERSION' KeyPath='yes' />
             </Component>
+
+            <Component Id='rendererconf' Guid='1afb5ac0-943f-4442-99d9-e7acd56eddce'>
+              <File Id='rendererconf' Name='renderer.conf' DiskId='1' Source='data\renderer.conf' KeyPath='yes' />
+            </Component>
+
           </Directory>
 
         </Directory>
@@ -195,13 +207,16 @@
     <Feature Id='Complete' Level='1'>
       <ComponentRef Id='MainExecutable' />
       <ComponentRef Id='glew32dll' />
-      <ComponentRef Id='glew32mxdll' />
+      <ComponentRef Id='msvcp110dll' />
+      <ComponentRef Id='msvcr110dll' />
       <ComponentRef Id='libogg0dll' />
       <ComponentRef Id='libvorbis0dll' />
       <ComponentRef Id='libvorbisfile3dll' />
       <ComponentRef Id='sdldll' />
       <ComponentRef Id='sdl_mixerdll' />
       <ComponentRef Id='zlib1dll' />
+
+      <ComponentRef Id='logtxt' />
 
       <ComponentRef Id='bangwav' />
       <ComponentRef Id='enterportalwav' />
@@ -235,6 +250,7 @@
       <ComponentRef Id='a00xml' />
 
       <ComponentRef Id='version' />
+      <ComponentRef Id='rendererconf' />
 
       <ComponentRef Id='ProgramMenuDir' />
       <ComponentRef Id='LocalAppData' />
