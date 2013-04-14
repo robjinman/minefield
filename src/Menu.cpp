@@ -129,6 +129,11 @@ void Menu::activateSubmenu(long name) {
          removeFromWorld();
          m_submenus[i]->setParent(this);
          m_submenus[i]->addToWorld();
+
+         // Set focus to first item
+         if (m_submenus[i]->m_menuItems.size() > 0)
+            m_submenus[i]->setFocus(m_submenus[i]->m_menuItems.front()->getName());
+
          m_activeSubmenu = i;
          break;
       }

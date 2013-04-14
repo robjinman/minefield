@@ -481,6 +481,7 @@ void GameLogic::reqGameStateChangeHandler(EEvent* event) {
             case ST_RUNNING: break;
             case ST_PAUSED:
                m_data.pauseMenu->addToWorld();
+               m_data.pauseMenu->setFocus(internString("pauseMnuResume"));
                m_gameState = ST_PAUSED;
             break;
          }
