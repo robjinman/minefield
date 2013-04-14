@@ -163,7 +163,6 @@ void Application::deletePending(EEvent* event) {
 
    if (event->getType() == pendingDeletionStr) {
       EPendingDeletion* e = static_cast<EPendingDeletion*>(event);
-
       deleteAsset(e->item);
    }
 }
@@ -581,7 +580,7 @@ void Application::populateMap(EEvent*) {
          continue;
       }
 
-      if (abs(i - plyrI) < 4 || abs(j - plyrJ) < 4) {
+      if (abs(i - plyrI) < 5 && abs(j - plyrJ) < 5) {
          --c;
          continue;
       }

@@ -256,7 +256,7 @@ void Zombie::explosionHandler(EEvent* event) {
    Vec2f diff = pos - e->pos;
 
    if (diff.x * diff.x + diff.y * diff.y < e->radius * e->radius) {
-      if (m_state == ALIVE) {
+      if (m_state == ALIVE || m_state == IDLE) {
          stopAnimation();
          stopTransformations();
          playAnimation(explodeStr);

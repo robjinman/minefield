@@ -9,16 +9,15 @@
 #include "Application.hpp"
 
 #ifdef WIN32
-
-#include <comutil.h>
-#include <shlobj.h>
-
-#define MAIN int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-
+   #include <comutil.h>
+   #include <shlobj.h>
+   #define MAIN int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 #else
+   #define MAIN int main(int argc, char** argv)
+#endif
 
-#define MAIN int main(int argc, char** argv)
-
+#ifdef M_TRACE
+   #include <mcheck.h>
 #endif
 
 
@@ -36,6 +35,10 @@ void programExit() {
 // main
 //===========================================
 MAIN {
+#ifdef M_TRACE
+   mtrace();
+#endif
+
    Dodge::projectSettings_t settings;
 
 #ifdef LINUX
@@ -82,6 +85,10 @@ MAIN {
       log.close();
       app.quit();
    }
+
+#ifdef M_TRACE
+   muntrace();
+#endif
 
    return EXIT_FAILURE;
 }

@@ -1,0 +1,5 @@
+HOST                       VERSION           URL
+Developer Website          1.1.0             http://robjinman.com/article.jsp?id=43
+Game Jolt                  1.1.0             http://gamejolt.com/games/puzzle/minefield/12189/
+Indie City                 1.1.0             http://store.indiecity.com/projects/minefield
+Ubuntu Software Centre     1.1.0             n/a
